@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AnswerSubmit = ({number1, number2}) => {
+const AnswerSubmit = ({number1, number2, setNumber1, setNumber2}) => {
   const [formData, setFormData] = useState({
     ans: null,
     number1: number1,
@@ -38,10 +38,25 @@ const AnswerSubmit = ({number1, number2}) => {
       .then((data) => {
         // Process the response from the Flask backend
         console.log(data);
+
+        // clear form data
+        setFormData({
+            ans : '',
+            number1: formData.number1,
+            number2: formData.number2
+        })
+
         // if answer is correct we give them a new problem and tell them they are correct.
         setFeedbackVis(true);
         if(data.correct == "True"){
             setCorrect(true)
+            // new numbers in 1 second
+            setTimeout(()=>{
+                setNumber1(Math.floor(Math.random() * 12 + 1));
+                setNumber2(Math.floor(Math.random() * 12 + 1));
+                setFeedbackVis(false)
+            }, 1000)
+
         }
         else{
             setCorrect(false)

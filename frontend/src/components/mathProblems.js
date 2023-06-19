@@ -7,8 +7,8 @@ const MathProblems = () => {
 
     return (
         <div>
-           what is {number1} x {number2} 
-           <AnswerSubmit number1 = {number1} number2 = {number2}/>
+           what is {number1} x {number2} ?
+           <AnswerSubmit number1 = {number1} number2 = {number2} setNumber1={setNumber1} setNumber2={setNumber2}/>
         </div>
     )
 
