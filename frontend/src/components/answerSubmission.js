@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 
-const AnswerSubmit = () => {
+const AnswerSubmit = ({number1, number2}) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    ans: null,
+    number1: number1,
+    number2: number2
   });
 
+  //vis is true after one response
+  const [feedbackVis, setFeedbackVis] = useState(false);
+
+  //correct or not
+
+  const [correct, setCorrect] = useState(false); 
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ans: e.target.value,
+                number1: number1,
+                number2: number2
+                }
+    );
   };
 
   const handleSubmit = (e) => {
@@ -29,6 +38,14 @@ const AnswerSubmit = () => {
       .then((data) => {
         // Process the response from the Flask backend
         console.log(data);
+        // if answer is correct we give them a new problem and tell them they are correct.
+        setFeedbackVis(true);
+        if(data.correct == "True"){
+            setCorrect(true)
+        }
+        else{
+            setCorrect(false)
+        }
       })
       .catch((error) => {
         // Handle any errors
@@ -37,18 +54,21 @@ const AnswerSubmit = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Answer:</label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        value={formData.name}
-        onChange={handleChange}
-      />
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+        <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Answer:</label>
+        <input
+            type="ans"
+            name="ans"
+            id="ans"
+            value={formData.ans}
+            onChange={handleChange}
+        />
+        <br />
+        <button type="submit">Submit</button>
+        </form>
+        {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
+    </>
   );
 }
 

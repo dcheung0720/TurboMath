@@ -9,12 +9,15 @@ def submit():
     data = request.get_json()
 
     # Process the form data
-    name = data['name']
+    user_ans = data['ans']
     
-    # ...
+    print(data['ans'] == data['number1'] * data['number2'] )
+    print(data['number1'] * data['number2'])
 
     # Return a response as JSON
-    response = {'message': 'Form submitted successfully'}
+    response = {'message': 'Form submitted successfully',
+                'correct': '' + str(int(user_ans) == int(data['number1'] * data['number2']))}
+    
     return jsonify(response)
 
 if __name__ == '__main__':
