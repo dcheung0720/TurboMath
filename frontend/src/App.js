@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import Navigation from './components/navigation';
-import MathProblems from './components/mathProblems';
+import Navigation from './components/Navigation';
+import MathProblems from './components/MathProblems';
+import GameRoom from './components/GameRoom';
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 
@@ -13,6 +14,7 @@ function App() {
       <div className="App">
         <Navigation/>
         <MathProblems/>
+        <GameRoom/>
       </div>
     </QueryClientProvider>
   );

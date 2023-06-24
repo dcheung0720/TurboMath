@@ -1,8 +1,10 @@
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut} from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { getDatabase, onValue, ref, set, push } from 'firebase/database';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDatabaseValue } from "@react-query-firebase/database";
+import { useState,useEffect } from 'react';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyB9CxFVb8iKl04zDNPtngcmd4ygvok4YG8",
@@ -31,15 +33,25 @@ export { firebaseSignOut as signOut };
 export const useUserState = () => useAuthState(getAuth(firebase));
 
 // read data
-export const useData = (path, transform) => {
-    const { data, isLoading, error } = useDatabaseValue(path, ref(database, path), { subscribe: true });
-    const value = (!isLoading && !error && transform) ? transform(data) : data;
+export const useData = (path) => {
+    const [data, setData] = useState();
+    const [error, setError] = useState(null);
   
-    return [ value, isLoading, error ];
+    useEffect(() => (
+        onValue(ref(database, path), (snapshot) =>{
+            setData(snapshot.val());
+        }
+      , (error) => {
+        setError(error);
+      })
+    ), [ path ]);
+  
+    return [ data, error ];
   };
 
 
-// Store Data
+// Set Data
 export const setData = (path, value) =>{
     set(ref(database, path), value)
 } 
+
