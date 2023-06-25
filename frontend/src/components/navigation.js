@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { setData, signInWithGoogle, signOut, useData, useUserState} from '../utilities/firebase';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navigation = () =>{
 
@@ -45,11 +46,9 @@ const Navigation = () =>{
 
     );
 
-    console.log(user);
-
     return ( <Navbar bg="dark" data-bs-theme="dark">
       <Container style = {{justifyContent: 'center'}}>
-        <Navbar.Brand href="#home" style = {{color: 'white', fontSize: "30px"}}>Turbo Math</Navbar.Brand>
+        <Navbar.Brand href="/" style = {{color: 'white', fontSize: "30px"}}>Turbo Math</Navbar.Brand>
         { user ? <SignOutButton /> : <SignInButton /> }
       </Container>
     </Navbar>)

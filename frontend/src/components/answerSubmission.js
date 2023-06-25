@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setData } from '../utilities/firebase';
+import { setData, useData, useUserState } from '../utilities/firebase';
 
 const AnswerSubmit = ({number1, number2}) => {
 
@@ -10,6 +10,13 @@ const AnswerSubmit = ({number1, number2}) => {
 
   //correct or not
   const [correct, setCorrect] = useState(false); 
+
+  //get user
+  const [user] = useUserState();
+
+  const scorePath = `GameRooms/id/Players/${user.uid}/`
+  //get current score
+  const [score, error] = useData(scorePath)
 
   const handleChange = (e) => {
     setFormData(e.target.value);
@@ -23,6 +30,7 @@ const AnswerSubmit = ({number1, number2}) => {
     //if correct
     if(parseInt(formData) == number1 * number2 ){
       setCorrect(true);
+      setData(scorePath, score + 1);
 
       setTimeout(()=>{
         setData(`GameRooms/id/Problems/number1`, Math.floor(Math.random() * 12));

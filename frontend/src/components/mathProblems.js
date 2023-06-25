@@ -1,18 +1,19 @@
 import { useState } from "react";
 import AnswerSubmit from "./AnswerSubmission";
 import { useData } from '../utilities/firebase.js';
+import { useUserState } from "../utilities/firebase.js";
 
 const MathProblems = () => {
     //get game room data
-    const [ value, error ] = useData('/GameRooms/id');
-
-    console.log(value)
+    const [ room, error ] = useData('/GameRooms/id');
+    const [user] = useUserState();
 
     return (
-        value? 
+        room && user?
         <div>
-           what is {value.Problems.number1} x {value.Problems.number2} ?
-           <AnswerSubmit number1 = {value.Problems.number1} number2 = {value.Problems.number2}/>
+            <div>Score: {Object.entries(room.Players).filter(x => x[0] == user.uid)[0][1]}</div>
+            what is {room.Problems.number1} x {room.Problems.number2} ?
+            <AnswerSubmit number1 = {room.Problems.number1} number2 = {room.Problems.number2}/>
         </div> : <></>
     )
 
