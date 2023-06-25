@@ -22,7 +22,6 @@ const Navigation = () =>{
           SpeedMathHS: 10
         }
 
-
         setData(`/Users/${user.uid}`, userData )
       }
     }, [user])
@@ -56,10 +55,6 @@ const Navigation = () =>{
     </Navbar>)
 
 }
-
-
-
-
 
 
 

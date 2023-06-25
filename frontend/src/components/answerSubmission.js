@@ -1,71 +1,33 @@
 import React, { useState } from 'react';
+import { setData } from '../utilities/firebase';
 
-const AnswerSubmit = ({number1, number2, setNumber1, setNumber2}) => {
-  const [formData, setFormData] = useState({
-    ans: null,
-    number1: number1,
-    number2: number2
-  });
+const AnswerSubmit = ({number1, number2}) => {
+
+  const [formData, setFormData] = useState(null);
 
   //vis is true after one response
   const [feedbackVis, setFeedbackVis] = useState(false);
 
   //correct or not
-
   const [correct, setCorrect] = useState(false); 
 
   const handleChange = (e) => {
-    setFormData({ans: e.target.value,
-                number1: number1,
-                number2: number2
-                }
-    );
+    setFormData(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Send form data to the Flask backend
-    fetch('http://localhost:5000/submit', {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Origin": "*"
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Process the response from the Flask backend
-        console.log(data);
+    if(formData == number1 * number2 ){
+      setCorrect(true);
 
-        // clear form data
-        setFormData({
-            ans : '',
-            number1: formData.number1,
-            number2: formData.number2
-        })
+      setTimeout(()=>{
+        setData(`GameRooms/id/Problems/number1`, Math.floor(Math.random() * 12))
+        setData(`GameRooms/id/Problems/number2`, Math.floor(Math.random() * 12))
+      }, 1000)
+    }
 
-        // if answer is correct we give them a new problem and tell them they are correct.
-        setFeedbackVis(true);
-        if(data.correct == "True"){
-            setCorrect(true)
-            // new numbers in 1 second
-            setTimeout(()=>{
-                setNumber1(Math.floor(Math.random() * 12 + 1));
-                setNumber2(Math.floor(Math.random() * 12 + 1));
-                setFeedbackVis(false)
-            }, 1000)
 
-        }
-        else{
-            setCorrect(false)
-        }
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error(error);
-      });
   };
 
   return (
@@ -76,7 +38,7 @@ const AnswerSubmit = ({number1, number2, setNumber1, setNumber2}) => {
             type="ans"
             name="ans"
             id="ans"
-            value={formData.ans}
+            value={formData}
             onChange={handleChange}
         />
         <br />

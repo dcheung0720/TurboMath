@@ -3,19 +3,17 @@ import AnswerSubmit from "./AnswerSubmission";
 import { useData } from '../utilities/firebase.js';
 
 const MathProblems = () => {
-    const [number1, setNumber1] = useState(Math.floor(Math.random() * 12 + 1));
-    const [number2, setNumber2] = useState(Math.floor(Math.random() * 12 + 1));
-
-    const [ value, error ] = useData('/');
+    //get game room data
+    const [ value, error ] = useData('/GameRooms/id');
 
     console.log(value)
 
-
     return (
+        value? 
         <div>
-           what is {number1} x {number2} ?
-           <AnswerSubmit number1 = {number1} number2 = {number2} setNumber1={setNumber1} setNumber2={setNumber2}/>
-        </div>
+           what is {value.Problems.number1} x {value.Problems.number2} ?
+           <AnswerSubmit number1 = {value.Problems.number1} number2 = {value.Problems.number2}/>
+        </div> : <></>
     )
 
 }
