@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AnswerSubmit from "./AnswerSubmission";
 import { useData } from '../utilities/firebase.js';
 import { useUserState } from "../utilities/firebase.js";
+import { useParams } from "react-router-dom";
 
 const MathProblems = () => {
     //get game room data
-    const [ room, error ] = useData('/GameRooms/id');
+    const { id } = useParams();
+
+    const [ room, error ] = useData(`/GameRooms/${id}`);
     const [user] = useUserState();
+
 
     return (
         room && user?

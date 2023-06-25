@@ -18,7 +18,6 @@ const Navigation = () =>{
     useEffect(() =>{
       // if user does not exist, add it to the database
       if(data != null && user!= null && Object.keys(data).filter(x => x == user.uid).length == 0){
-
         const userData = {
           SpeedMathHS: 10
         }

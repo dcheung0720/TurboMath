@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { setData, useData, useUserState } from '../utilities/firebase';
+import { useParams } from 'react-router-dom';
 
 const AnswerSubmit = ({number1, number2}) => {
+  // get the current route id
+  const {id} = useParams();
 
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(" ");
 
   //vis is true after one response
   const [feedbackVis, setFeedbackVis] = useState(false);
@@ -14,7 +17,7 @@ const AnswerSubmit = ({number1, number2}) => {
   //get user
   const [user] = useUserState();
 
-  const scorePath = `GameRooms/id/Players/${user.uid}/`
+  const scorePath = `GameRooms/${id}/Players/${user.uid}/`
   //get current score
   const [score, error] = useData(scorePath)
 
@@ -33,8 +36,8 @@ const AnswerSubmit = ({number1, number2}) => {
       setData(scorePath, score + 1);
 
       setTimeout(()=>{
-        setData(`GameRooms/id/Problems/number1`, Math.floor(Math.random() * 12));
-        setData(`GameRooms/id/Problems/number2`, Math.floor(Math.random() * 12));
+        setData(`GameRooms/${id}/Problems/number1`, Math.floor(Math.random() * 12));
+        setData(`GameRooms/${id}/Problems/number2`, Math.floor(Math.random() * 12));
         setFeedbackVis(false);
       }, 1000)
     }
@@ -47,19 +50,19 @@ const AnswerSubmit = ({number1, number2}) => {
 
   return (
     <>
+      <div className="container">
         <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Answer:</label>
-        <input
-            type="ans"
-            name="ans"
-            id="ans"
-            value={formData}
-            onChange={handleChange}
-        />
-        <br />
-        <button type="submit">Submit</button>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text bg-primary text-white" id="inputGroup-sizing-default">Answer</span>
+            </div>
+            <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={formData}
+              onChange={handleChange} placeholder='Input Your Answer Here'/>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </div>
         </form>
-        {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
+      </div>
+      {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
     </>
   );
 }
