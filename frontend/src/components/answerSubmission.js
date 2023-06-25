@@ -17,14 +17,21 @@ const AnswerSubmit = ({number1, number2}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormData("");
+    setFeedbackVis(true);
 
-    if(formData == number1 * number2 ){
+    //if correct
+    if(parseInt(formData) == number1 * number2 ){
       setCorrect(true);
 
       setTimeout(()=>{
-        setData(`GameRooms/id/Problems/number1`, Math.floor(Math.random() * 12))
-        setData(`GameRooms/id/Problems/number2`, Math.floor(Math.random() * 12))
+        setData(`GameRooms/id/Problems/number1`, Math.floor(Math.random() * 12));
+        setData(`GameRooms/id/Problems/number2`, Math.floor(Math.random() * 12));
+        setFeedbackVis(false);
       }, 1000)
+    }
+    else{
+      setCorrect(false);
     }
 
 
