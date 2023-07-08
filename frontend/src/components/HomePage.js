@@ -1,6 +1,6 @@
 
 import { Routes,Route, Link } from "react-router-dom";
-import MathProblems from "./MathProblems";
+import MathProblems from "./GameRoom";
 import { useUserState } from "../utilities/firebase";
 
 const HomePage = () =>{

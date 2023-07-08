@@ -17,7 +17,7 @@ const AnswerSubmit = ({number1, number2}) => {
   //get user
   const [user] = useUserState();
 
-  const scorePath = `GameRooms/${id}/Players/${user.uid}/`
+  const scorePath = `GameRooms/${id}/Players/${user.uid}/score`
   //get current score
   const [score, error] = useData(scorePath)
 
