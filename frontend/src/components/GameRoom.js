@@ -3,6 +3,7 @@ import AnswerSubmit from "./AnswerSubmission";
 import { setData, useData } from '../utilities/firebase.js';
 import { useUserState } from "../utilities/firebase.js";
 import { useParams } from "react-router-dom";
+import LeaderBoard from "./LeaderBoard";
 
 const GameRoom = () => {
     //get game room data
@@ -10,7 +11,6 @@ const GameRoom = () => {
 
     const [ room, error ] = useData(`/GameRooms/${id}`);
     const [user] = useUserState();
-
 
     useEffect(() =>{
         // if both room and user exists
@@ -20,8 +20,9 @@ const GameRoom = () => {
                 score: 0
             }
 
+            // add it to firebase if the user is not already in the gameroom
             if (!Object.keys(room.Players).includes(user.uid)){
-                setData(`GameRooms/${id}/Players`,playerStats)
+                setData(`GameRooms/${id}/Players/${user.uid}`,playerStats)
             }
         }
 
@@ -36,27 +37,7 @@ const GameRoom = () => {
                 what is {room.Problems.number1} x {room.Problems.number2} ?
                 <AnswerSubmit number1 = {room.Problems.number1} number2 = {room.Problems.number2}/>
             </div>
-
-            <div className = "LeaderBoard">
-                    <table class="table table-hover table-dark">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Score</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {Object.entries(room.Players).map((player, index) => {
-                        return <tr>
-                            <th scope="row"> {index + 1} </th>
-                            <td>{player[1].name}</td>
-                            <td>{player[1].score}</td>
-                        </tr>
-                    })}
-                    </tbody>
-                  </table>
-            </div>
+            <LeaderBoard room = {room}></LeaderBoard>
         </div> : <></>
     )
 
