@@ -56,6 +56,7 @@ const AnswerSubmit = ({number1, number2}) => {
             <div className="input-group-prepend">
               <span className="input-group-text bg-primary text-white" id="inputGroup-sizing-default">Answer</span>
             </div>
+            {/* input group for answer submission */}
             <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={formData}
               onChange={handleChange} placeholder='Input Your Answer Here'/>
             <button type="submit" className="btn btn-primary">Submit</button>
