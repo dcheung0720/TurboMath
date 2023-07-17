@@ -35,6 +35,10 @@ const AnswerSubmit = ({number1, number2}) => {
 
     //if correct
     if(parseInt(formData) == number1 * number2 ){
+      //play correct sound 
+      playAudio("correct");
+      
+      //set correct to true
       setCorrect(true);
       setData(scorePath, score + 1);
 
@@ -45,15 +49,39 @@ const AnswerSubmit = ({number1, number2}) => {
       }, 1000)
     }
     else{
+      //play incorrect sound 
+      playAudio("incorrect");
+
+
       setCorrect(false);
     }
-
-
   };
+
+
+  //play audio
+  const playAudio = (id) =>{
+    //get correct audio element and play the sound
+    document.getElementById(id).play();
+  }
 
   return (
     <>
       <div className="container">
+        {/* audio player */}
+
+        {/* correct sound */}
+        <audio id = "correct" controls autoplay hidden>
+            <source src="../audio/correct.wav" type="audio/wav"></source>
+          Your browser does not support the audio element.
+        </audio>
+
+        {/* incorrect sound */}
+        <audio id = "incorrect" controls autoplay hidden>
+            <source src="../audio/wrong.wav" type="audio/wav"></source>
+          Your browser does not support the audio element.
+        </audio>
+
+        {/* form to handle submit */}
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
