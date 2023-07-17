@@ -4,6 +4,7 @@ import { setData, useData } from '../utilities/firebase.js';
 import { useUserState } from "../utilities/firebase.js";
 import { useParams } from "react-router-dom";
 import LeaderBoard from "./LeaderBoard";
+import MathProblem from "./MathProblem";
 
 const GameRoom = () => {
     //get game room data
@@ -11,6 +12,8 @@ const GameRoom = () => {
 
     const [ room, error ] = useData(`/GameRooms/${id}`);
     const [user] = useUserState();
+
+    console.log(room)
 
     useEffect(() =>{
         // if both room and user exists
@@ -34,7 +37,7 @@ const GameRoom = () => {
         <div className = "PageContainer" style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>           
             <div className = "MathProblem">
                 <div>Score: {room.Players[user.uid].score}</div>
-                what is {room.Problems.number1} x {room.Problems.number2} ?
+                <MathProblem room = {room}></MathProblem>
                 <AnswerSubmit number1 = {room.Problems.number1} number2 = {room.Problems.number2}/>
             </div>
             <LeaderBoard room = {room}></LeaderBoard>
