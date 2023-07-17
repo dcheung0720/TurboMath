@@ -51,8 +51,6 @@ const AnswerSubmit = ({number1, number2}) => {
     else{
       //play incorrect sound 
       playAudio("incorrect");
-
-
       setCorrect(false);
     }
   };

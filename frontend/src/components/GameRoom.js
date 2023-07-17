@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AnswerSubmit from "./AnswerSubmission";
 import { setData, useData } from '../utilities/firebase.js';
-import { useUserState } from "../utilities/firebase.js";
+import { useUserState, removeData } from "../utilities/firebase.js";
 import { useParams } from "react-router-dom";
 import LeaderBoard from "./LeaderBoard";
 import MathProblem from "./MathProblem";
@@ -10,10 +10,37 @@ const GameRoom = () => {
     //get game room data
     const { id } = useParams();
 
-    const [ room, error ] = useData(`/GameRooms/${id}`);
+    //gameRoomPath
+    const gameRoomPath = `/GameRooms/${id}`;
+
+    const [ room, error ] = useData(gameRoomPath);
     const [user] = useUserState();
 
     console.log(room)
+
+    // handle user leaving
+    const handleUserLeave = () => {
+        //if user exsits, remove the user from firebase
+        if(user){
+            removeData(gameRoomPath.concat(`/Players/${user.uid}`))
+        }
+        console.log('User is leaving or closing the window.');
+    };
+    
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            handleUserLeave();
+            // Note: Returning a string will prompt a confirmation dialog in some older browsers.
+            event.returnValue = '';
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
 
     useEffect(() =>{
         // if both room and user exists
