@@ -62,10 +62,9 @@ const GameRoom = () => {
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
         <div className = "PageContainer" style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>           
-            <div className = "MathProblem">
+            <div className = "MathProblem" style={{fontSize: "150px"}}>
                 <div>Score: {room.Players[user.uid].score}</div>
                 <MathProblem room = {room}></MathProblem>
-                <AnswerSubmit number1 = {room.Problems.number1} number2 = {room.Problems.number2}/>
             </div>
             <LeaderBoard room = {room}></LeaderBoard>
         </div> : <></>

@@ -5,7 +5,7 @@ import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 const LeaderBoard = ({ room }) => {
   return (
     <div className="LeaderBoard">
-        <table className="table table-hover table-dark">
+        <table className="table table-hover table-dark" style = {{fontSize: "4em", right: "0"}}>
           <thead>
             <tr>
               <th scope="col">#</th>
