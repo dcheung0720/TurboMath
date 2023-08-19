@@ -5,14 +5,22 @@ import Button from 'react-bootstrap/Button';
 import GameRoom from './GameRoom';
 import CreateModal from "./CreateModal";
 import { Routes,Route, Link } from "react-router-dom";
+import { useState } from 'react';
 
 function GameRoomsSelections() {
 
   const gameRoomNames = ["Addition", "Subtraction", "Multiplication", "Division", "Are You Faster Than A Fifth Grader"];
   const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png", "./images/all.png"];
 
-  return (
-    gameRoomNames.map((Title, idx) =>{
+  const [openModal, setOpenModal] = useState(false);
+
+  const ChangeModal = () =>{
+    setOpenModal(!openModal);
+  }  
+
+
+  return (<>
+    {gameRoomNames.map((Title, idx) =>{
         return(
             <Card border="primary"  className='mt-3 ml-3' style={{ width: '30rem', marginLeft: "10px" }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -33,15 +41,18 @@ function GameRoomsSelections() {
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button variant="danger"> Create </Button>               
+                            <Button onClick = {() => ChangeModal()} variant="danger"> Create </Button>               
                         </Link>
-                </Card.Body>
-                <CreateModal/>
+                </Card.Body>                           
             </Card>
         )
-    } )
-  );
+    })}
+    {/* open modal if the modal is true */}
+    {openModal === true? <CreateModal ChangeModal = {ChangeModal}/> : <></>}  
+  </>);
+
 }
+
 
 export default GameRoomsSelections;
 

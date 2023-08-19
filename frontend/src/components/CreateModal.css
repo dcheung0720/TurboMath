@@ -1,0 +1,8 @@
+.modalBackground{
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(50,50,50,.5);
+    position: absolute;
+    justify-content: center;
+}
