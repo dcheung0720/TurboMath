@@ -60,6 +60,7 @@ const AnswerSubmit = ({number1, number2}) => {
   const playAudio = (id) =>{
     //get correct audio element and play the sound
     document.getElementById(id).play();
+    console.log(document.getElementById(id))
   }
 
   return (

@@ -1,7 +1,9 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
+
 import GameRoom from './GameRoom';
+import CreateModal from "./CreateModal";
 import { Routes,Route, Link } from "react-router-dom";
 
 function GameRoomsSelections() {
@@ -31,9 +33,10 @@ function GameRoomsSelections() {
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button variant="danger"> Create </Button>
+                            <Button variant="danger"> Create </Button>               
                         </Link>
                 </Card.Body>
+                <CreateModal/>
             </Card>
         )
     } )
