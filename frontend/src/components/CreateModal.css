@@ -6,3 +6,18 @@
     position: absolute;
     justify-content: center;
 }
+
+.buttonSubmit{
+    display: flex;
+    justify-content: center;
+}
+
+.modalContent{
+    text-align: center;
+}
+
+.modalHeaderCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

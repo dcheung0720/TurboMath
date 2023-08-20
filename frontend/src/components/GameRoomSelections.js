@@ -14,7 +14,7 @@ function GameRoomsSelections() {
 
   const [openModal, setOpenModal] = useState(false);
 
-  const ChangeModal = () =>{
+  const ChangeModal = (e) =>{
     setOpenModal(!openModal);
   }  
 
