@@ -34,7 +34,10 @@ const GameSettingsForm = ({GameMode}) =>{
                 "number2": GenerateNumbers(number2)
             } 
         }
-        console.log(object);
+
+        //upload to firebase
+        setData(`GameRooms/${id}`,object);
+        
     }
 
     const GenerateNumbers = (numDigits) =>{
