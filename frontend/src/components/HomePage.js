@@ -1,7 +1,6 @@
-
-import { Routes,Route, Link } from "react-router-dom";
 import MathProblems from "./GameRoom";
 import { useUserState } from "../utilities/firebase";
+import GameRoomsSelections from "./GameRoomSelections";
 
 const HomePage = () =>{
     const [user] = useUserState();
@@ -10,12 +9,14 @@ const HomePage = () =>{
         user?
         <>
             <h1>Welcome, {user.displayName} !</h1>
-            <Link to= '/MathProblems/1'> Multiplication Room </Link>
+            <div style={{display: "flex", justifyContent: "center", flexWrap : "wrap"}}>
+                <div className = "SelectionContainer" style = {{width: "70%", display: "flex", flexWrap : "wrap", justifyContent: "center"}}>
+                    <GameRoomsSelections/>
+                </div>
+            </div>
         </>:
         <></>
     )
-
-
 }
 
 

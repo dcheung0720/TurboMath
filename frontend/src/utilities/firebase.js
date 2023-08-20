@@ -1,6 +1,6 @@
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut} from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, onValue, ref, set, push } from 'firebase/database';
+import { getDatabase, onValue, ref, set, push, remove } from 'firebase/database';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDatabaseValue } from "@react-query-firebase/database";
 import { useState,useEffect } from 'react';
@@ -54,4 +54,9 @@ export const useData = (path) => {
 export const setData = (path, value) =>{
     set(ref(database, path), value)
 } 
+
+//removeData
+export const removeData = (path) =>{
+    remove(ref(database, path));
+}
 

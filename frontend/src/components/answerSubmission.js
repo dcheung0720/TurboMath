@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { setData, useData, useUserState } from '../utilities/firebase';
 import { useParams } from 'react-router-dom';
 
+// Sound
+// https://mixkit.co/free-sound-effects/game-show/
+
 const AnswerSubmit = ({number1, number2}) => {
   // get the current route id
   const {id} = useParams();
@@ -32,6 +35,10 @@ const AnswerSubmit = ({number1, number2}) => {
 
     //if correct
     if(parseInt(formData) == number1 * number2 ){
+      //play correct sound 
+      playAudio("correct");
+      
+      //set correct to true
       setCorrect(true);
       setData(scorePath, score + 1);
 
@@ -42,20 +49,44 @@ const AnswerSubmit = ({number1, number2}) => {
       }, 1000)
     }
     else{
+      //play incorrect sound 
+      playAudio("incorrect");
       setCorrect(false);
     }
-
-
   };
+
+
+  //play audio
+  const playAudio = (id) =>{
+    //get correct audio element and play the sound
+    document.getElementById(id).play();
+    console.log(document.getElementById(id))
+  }
 
   return (
     <>
       <div className="container">
+        {/* audio player */}
+
+        {/* correct sound */}
+        <audio id = "correct" controls autoplay hidden>
+            <source src="../audio/correct.wav" type="audio/wav"></source>
+          Your browser does not support the audio element.
+        </audio>
+
+        {/* incorrect sound */}
+        <audio id = "incorrect" controls autoplay hidden>
+            <source src="../audio/wrong.wav" type="audio/wav"></source>
+          Your browser does not support the audio element.
+        </audio>
+
+        {/* form to handle submit */}
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text bg-primary text-white" id="inputGroup-sizing-default">Answer</span>
             </div>
+            {/* input group for answer submission */}
             <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={formData}
               onChange={handleChange} placeholder='Input Your Answer Here'/>
             <button type="submit" className="btn btn-primary">Submit</button>
