@@ -13,8 +13,11 @@ function GameRoomsSelections() {
   const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png", "./images/all.png"];
 
   const [openModal, setOpenModal] = useState(false);
+  const [gameMode, setGameMode] = useState("Addition"); 
 
-  const ChangeModal = (e) =>{
+  const ChangeModal = (e, gameMode) =>{
+    console.log(gameMode)
+    setGameMode(gameMode);
     setOpenModal(!openModal);
   }  
 
@@ -41,14 +44,14 @@ function GameRoomsSelections() {
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button onClick = {() => ChangeModal()} variant="danger"> Create </Button>               
+                            <Button onClick = {(e) => ChangeModal(e, Title)} variant="danger"> Create </Button>               
                         </Link>
                 </Card.Body>                           
             </Card>
         )
     })}
     {/* open modal if the modal is true */}
-    {openModal === true? <CreateModal ChangeModal = {ChangeModal}/> : <></>}  
+    {openModal === true? <CreateModal GameMode = {gameMode} ChangeModal = {ChangeModal}/> : <></>}  
   </>);
 
 }

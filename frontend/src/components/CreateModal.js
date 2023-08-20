@@ -6,7 +6,7 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 
 import GameSettingsForm from "./GameSettingsForm";
 
-const CreateModal = ({ChangeModal}) =>{
+const CreateModal = ({GameMode, ChangeModal}) =>{
 
     const ContentClick = (e) =>{
         e.stopPropagation();
@@ -29,12 +29,8 @@ const CreateModal = ({ChangeModal}) =>{
             </Modal.Header>
     
             <Modal.Body>
-              <GameSettingsForm/>
+              <GameSettingsForm GameMode = {GameMode}/>
             </Modal.Body>
-    
-            <Modal.Footer className = "buttonSubmit">
-              <Button variant="primary">Submit</Button>
-            </Modal.Footer>
           </Modal.Dialog>
         </div>
       );  
