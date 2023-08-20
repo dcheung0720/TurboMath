@@ -3,14 +3,22 @@ import "./GameSettingsForm.css"
 import { Button } from "react-bootstrap";
 import { useState } from 'react';
 import { setData, useData, useUserState } from '../utilities/firebase';
+import { Redirect } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 
 const GameSettingsForm = ({GameMode}) =>{
 
+    //navigator
+    let navigate = useNavigate();
+
+    //redirect id
+    const [redirectId, setRedirectId] = useState(null);
+
     // set of states for forms
     const [mode, setMode] = useState("Solo");
-    const [number1, setNumber1] = useState(1);
-    const [number2, setNumber2] = useState(1);
+    const [number1, setNumber1] = useState("1");
+    const [number2, setNumber2] = useState("1");
 
     // gameroomData
     const [data, error] = useData('GameRooms');
@@ -34,10 +42,16 @@ const GameSettingsForm = ({GameMode}) =>{
                 "number2": GenerateNumbers(number2)
             } 
         }
-
+        console.log(object);
+        
         //upload to firebase
         setData(`GameRooms/${id}`,object);
-        
+        setRedirectId(id);
+    }
+
+    // redirect me
+    if(redirectId){
+        navigate(`/MathProblems/${redirectId}`)
     }
 
     const GenerateNumbers = (numDigits) =>{
