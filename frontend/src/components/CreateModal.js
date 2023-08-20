@@ -4,6 +4,8 @@ import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX } from '@fortawesome/free-solid-svg-icons';
 
+import GameSettingsForm from "./GameSettingsForm";
+
 const CreateModal = ({ChangeModal}) =>{
 
     const ContentClick = (e) =>{
@@ -27,7 +29,7 @@ const CreateModal = ({ChangeModal}) =>{
             </Modal.Header>
     
             <Modal.Body>
-              <p>Modal body text goes here.</p>
+              <GameSettingsForm/>
             </Modal.Body>
     
             <Modal.Footer className = "buttonSubmit">
