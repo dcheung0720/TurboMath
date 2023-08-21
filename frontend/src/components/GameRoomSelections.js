@@ -16,7 +16,6 @@ function GameRoomsSelections() {
   const [gameMode, setGameMode] = useState("Addition"); 
 
   const ChangeModal = (e, gameMode) =>{
-    console.log(gameMode)
     setGameMode(gameMode);
     setOpenModal(!openModal);
   }  

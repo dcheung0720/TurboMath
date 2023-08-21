@@ -50,7 +50,7 @@ const GameSettingsForm = ({GameMode}) =>{
         setRedirectId(id);
     }
 
-    // redirect me
+    // redirect me once the user clicks create
     if(redirectId){
         navigate(`/MathProblems/${redirectId}`)
     }
