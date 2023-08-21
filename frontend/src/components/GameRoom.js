@@ -16,6 +16,8 @@ const GameRoom = () => {
     const [ room, error ] = useData(gameRoomPath);
     const [user] = useUserState();
 
+    console.log(room)
+
     // handle user leaving
     const handleUserLeave = () => {
         //if user exsits, remove the user from firebase
@@ -35,7 +37,7 @@ const GameRoom = () => {
         const handleBeforeUnload = (event) => {
             handleUserLeave();
             // Note: Returning a string will prompt a confirmation dialog in some older browsers.
-            event.returnValue = '';
+            event.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
         };
 
         window.addEventListener('beforeunload', handleBeforeUnload);
@@ -43,7 +45,7 @@ const GameRoom = () => {
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, []);
+    }, [room, user]);
 
 
     useEffect(() =>{
