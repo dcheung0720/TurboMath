@@ -40,7 +40,8 @@ const GameSettingsForm = ({GameMode}) =>{
             "Problems" : {
                 "number1": GenerateNumbers(number1),
                 "number2": GenerateNumbers(number2)
-            } 
+            }, 
+            "Type": GameMode
         }
         console.log(object);
         
