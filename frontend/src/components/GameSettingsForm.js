@@ -41,9 +41,9 @@ const GameSettingsForm = ({GameMode}) =>{
                 "number1": GenerateNumbers(number1),
                 "number2": GenerateNumbers(number2)
             }, 
-            "Type": GameMode
+            "Type": GameMode,
+            "Started": false
         }
-        console.log(object);
         
         //upload to firebase
         setData(`GameRooms/${id}`,object);

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AnswerSubmit from "./AnswerSubmission";
 import { setData, useData } from '../utilities/firebase.js';
 import { useUserState, removeData } from "../utilities/firebase.js";
+import WaitingRoom from "./WaitingRoom";
 import { useParams } from "react-router-dom";
 import LeaderBoard from "./LeaderBoard";
 import MathProblem from "./MathProblem";
@@ -67,13 +68,17 @@ const GameRoom = () => {
     return (
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
-        <div className = "PageContainer" style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>           
-            <div className = "MathProblem" style={{fontSize: "150px"}}>
-                <div>Score: {room.Players[user.uid].score}</div>
-                <MathProblem room = {room}></MathProblem>
-            </div>
-            <LeaderBoard room = {room}></LeaderBoard>
-        </div> : <></>
+            room.Started?
+            <div className = "PageContainer" style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>           
+                <div className = "MathProblem" style={{fontSize: "150px"}}>
+                    <div>Score: {room.Players[user.uid].score}</div>
+                    <MathProblem room = {room}></MathProblem>
+                </div>
+                {/* only have the leader for multiplayer */}
+                {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
+            </div> 
+            : <WaitingRoom id = {id}></WaitingRoom> 
+        : <></>
     )
 
 }
