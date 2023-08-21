@@ -16,8 +16,6 @@ const GameRoom = () => {
     const [ room, error ] = useData(gameRoomPath);
     const [user] = useUserState();
 
-    console.log(room.Players)
-
     // handle user leaving
     const handleUserLeave = () => {
         //if user exsits, remove the user from firebase
