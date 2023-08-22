@@ -78,7 +78,8 @@ const GameRoom = () => {
                 {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
             </div> 
             : 
-            <div style = {{display: "flex", justifyContent: "center", alignItems: "center", height: "85vh"}}>
+            <div style = {{display: "flex", justifyContent: "center", alignItems: "center",
+             height: "85vh", fontSize: "70px"  }}>
                 <WaitingRoom  id = {id}></WaitingRoom> 
             </div>
         : <></>

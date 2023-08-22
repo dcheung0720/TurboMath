@@ -16,19 +16,26 @@ const WaitingRoom = ({id}) =>{
         // start the game after waiting 4 seconds
         setTimeout(() =>{
             setData(`GameRooms/${id}/Started`, true);
-        }, 100000)
+        }, 3300)
     }
 
     return(
         room?
         countDown?
-        <CountdownCircleTimer
+        <CountdownCircleTimer style = {{fontSize: "100px"}}
             isPlaying
-            duration={7}
+            duration={3}
             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
             colorsTime={[7, 5, 2, 0]}
+            size = {500}
         >
-            {({ remainingTime }) => remainingTime}
+            {({ remainingTime }) => 
+            (
+                <span >
+                    {remainingTime > 0 ? remainingTime : "Go!" }
+                </span>
+            )}
+            
         </CountdownCircleTimer>
         :
 
