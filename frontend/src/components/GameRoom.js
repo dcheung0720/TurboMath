@@ -68,19 +68,23 @@ const GameRoom = () => {
     return (
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
-            room.Started?
-            <div className = "PageContainer" style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>           
-                <div className = "MathProblem" style={{fontSize: "150px"}}>
-                    <div>Score: {room.Players[user.uid].score}</div>
-                    <MathProblem room = {room}></MathProblem>
+            <div>   
+                <div className = "PageContainer" style={{display: "flex", justifyContent: "center",
+                 marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s" }}>           
+                    <div className = "MathProblem" style={{fontSize: "150px"}}>
+                        <div>Score: {room.Players[user.uid].score}</div>
+                        <MathProblem room = {room}></MathProblem>
+                    </div>
+                    {/* only have the leader for multiplayer */}
+                    {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
+                </div> 
+                <div style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
+                    height: "85vh", width: "100vw", fontSize: "70px",
+                    transition: "all .8s", display:"flex", justifyContent:"center", alignItems: "center"  }}>
+                    <div>
+                        <WaitingRoom id = {id}></WaitingRoom> 
+                    </div>
                 </div>
-                {/* only have the leader for multiplayer */}
-                {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
-            </div> 
-            : 
-            <div style = {{display: "flex", justifyContent: "center", alignItems: "center",
-             height: "85vh", fontSize: "70px"  }}>
-                <WaitingRoom  id = {id}></WaitingRoom> 
             </div>
         : <></>
     )

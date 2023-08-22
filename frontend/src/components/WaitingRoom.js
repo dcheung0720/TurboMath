@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { useData, setData } from '../utilities/firebase';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 
@@ -16,7 +16,24 @@ const WaitingRoom = ({id}) =>{
         // start the game after waiting 4 seconds
         setTimeout(() =>{
             setData(`GameRooms/${id}/Started`, true);
-        }, 3300)
+            setCountDownVisibility(!countDown);
+        }, 3500)      
+    }
+
+    //play the race audio once the countdown starts
+    useEffect(()=>{
+        if(countDown){
+            playAudio("race");
+        }
+
+    },[countDown])
+
+    //play audio
+    const playAudio = (id) =>{
+        //get correct audio element and play the sound
+        document.getElementById(id).volume = .2;
+        document.getElementById(id).play();
+        console.log(document.getElementById(id))
     }
 
     return(
@@ -33,9 +50,13 @@ const WaitingRoom = ({id}) =>{
             (
                 <span >
                     {remainingTime > 0 ? remainingTime : "Go!" }
+                    {/* racing sound */}
+                    <audio id = "race" controls autoplay hidden>
+                        <source src="../audio/race.wav" type="audio/wav"></source>
+                    Your browser does not support the audio element.
+                    </audio>  
                 </span>
-            )}
-            
+            )}     
         </CountdownCircleTimer>
         :
 
@@ -66,7 +87,7 @@ const WaitingRoom = ({id}) =>{
                     </tbody>
                 </Table>
                 <Card.Text>
-                    Start whenever you are ready to TURBO!
+                    Start whenever you are ready to TURBO!        
                 </Card.Text>
                     <Button variant="primary" onClick={handleStart}>Start</Button>
                 </Card.Body>

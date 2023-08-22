@@ -92,11 +92,23 @@ const GameSettingsForm = ({gameType}) =>{
             </Form.Group>
 
             <Form.Group className="mb-3 d-flex align-items-center justify-content-center" aria-label="Default select example">
-                <Form.Label className="mr-2 label-centered"> Players: </Form.Label>
+                <Form.Label className="mr-2 label-centered"> #Players: </Form.Label>
                 <Form.Control className="label" as="select" value = {playerMode} onChange = {(e) => handleStateChange(e, setPlayerMode)}>
                     <option> Solo </option>
                     <option> Multiplayer </option>
                 </Form.Control>        
+            </Form.Group>
+
+            <Form.Group className="mb-3 d-flex align-items-center justify-content-center" aria-label="Default select example">
+                <Form.Label className="mr-2 label-centered"> GameMode: </Form.Label>
+                <Form.Control className="label" as="select" value = {gameMode} onChange = {(e) => handleStateChange(e, setGameMode)}>
+                    <option> Turbo </option>
+                    <option> Timer </option>
+                </Form.Control>
+                <div>
+                        {gameMode === "Turbo"? "Turbo mode is when you try to answer as many questions as possible in one minute!":
+                        "Timer mode is when you try to beat the best time for 10 questions!"}
+                </div>          
             </Form.Group>
             
             <Form.Group className="mb-3 d-flex align-items-center justify-content-center">
