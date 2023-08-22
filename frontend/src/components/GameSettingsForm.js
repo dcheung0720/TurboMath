@@ -87,34 +87,34 @@ const GameSettingsForm = ({gameType}) =>{
         <Form>
           <fieldset>
             <Form.Group className="mb-3 d-flex align-items-center justify-content-center">
-                <Form.Label htmlFor="disabledTextInput" className="mr-2 label-centered">Type:</Form.Label>
+                <Form.Label htmlFor="disabledTextInput" className="mr-2 label-centered">GameType:</Form.Label>
                 <Form.Control className="label" id="disabledTextInput" placeholder={gameType} disabled  />
             </Form.Group>
 
-            <Form.Group className="mb-3" aria-label="Default select example">
-                <Form.Label>Players: </Form.Label>
-                <Form.Select value = {playerMode} onChange = {(e) => handleStateChange(e, setPlayerMode)}>
+            <Form.Group className="mb-3 d-flex align-items-center justify-content-center" aria-label="Default select example">
+                <Form.Label className="mr-2 label-centered"> Players: </Form.Label>
+                <Form.Control className="label" as="select" value = {playerMode} onChange = {(e) => handleStateChange(e, setPlayerMode)}>
                     <option> Solo </option>
                     <option> Multiplayer </option>
-                </Form.Select>        
+                </Form.Control>        
             </Form.Group>
             
-            <Form.Group className="mb-3">
-                <Form.Label>Difficulty: </Form.Label>
-                <Form.Select value = {number1} onChange = {(e) => handleStateChange(e, setNumber1)}>
+            <Form.Group className="mb-3 d-flex align-items-center justify-content-center">
+                <Form.Label className="mr-2 label-centered">Difficulty: </Form.Label>
+                <Form.Control className="label" as="select" value = {number1} onChange = {(e) => handleStateChange(e, setNumber1)}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
-                </Form.Select>
+                </Form.Control>
 
-                <span> Digits By </span>
+                <span style={{margin: "2%"}}> Digits By </span>
 
-                <Form.Select value = {number2} onChange = {(e) => handleStateChange(e, setNumber2)}>
+                <Form.Control className="label" as="select"  value = {number2} onChange = {(e) => handleStateChange(e, setNumber2)}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
-                </Form.Select>
-                <span>Digits</span>          
+                </Form.Control>
+                <span style={{margin: "2%"}}> Digits</span>          
             </Form.Group>
 
             <Button variant="btn btn-success" type = "submit" onClick = {(e)=>CreateRoom(e)} >Create</Button>

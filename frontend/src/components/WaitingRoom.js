@@ -40,16 +40,16 @@ const WaitingRoom = ({id}) =>{
         :
 
         <div className="d-flex justify-content-around align-content-center">
-            <Card style={{ width: '35rem', fontSize: "25px" }}>
+            <Card style={{ width: '35rem', fontSize: "25px", color: "black" }}>
                 <Card.Body>
                 <Card.Title style={{ fontSize: "40px" }}>Welcome to the {room.GameType} room !</Card.Title>
+                <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                    Game Settings
+                </div>
                 <Table striped bordered hover style={{ textAlign: 'center' }}>
-                    <thead>
-                            Game Settings
-                    </thead>
                     <tbody>
                         <tr>
-                        <td>PlayerMode</td>
+                        <td>Player Mode</td>
                         <td>{room.PlayerMode}</td>
 
                         </tr>

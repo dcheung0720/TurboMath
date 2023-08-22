@@ -28,7 +28,7 @@ const CreateModal = ({gameType, ChangeModal}) =>{
               <Modal.Title>Game Room Settings</Modal.Title>         
             </Modal.Header>
     
-            <Modal.Body>
+            <Modal.Body className="modalBody">
               <GameSettingsForm gameType = {gameType}/>
             </Modal.Body>
           </Modal.Dialog>
