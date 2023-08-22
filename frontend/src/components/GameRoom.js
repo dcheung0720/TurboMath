@@ -6,6 +6,7 @@ import WaitingRoom from "./WaitingRoom";
 import { useParams } from "react-router-dom";
 import LeaderBoard from "./LeaderBoard";
 import MathProblem from "./MathProblem";
+import GameOver from "./Gameover";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./GameRoom.css"
 
@@ -57,21 +58,38 @@ const GameRoom = () => {
     const gameRoomPath = `/GameRooms/${id}`;
 
     const [ room, error ] = useData(gameRoomPath);
+    const [started, error2] = useData(gameRoomPath.concat("/Started"));
+    const [delay, setDelay] = useState(4);
     const [user] = useUserState();
 
-    console.log(room)
+    let intervalId1 = null;
+
+    // once the game starts, update the database time by 1 second 
+    useEffect(()=>{
+        if(room && id){
+            if (room.Started){
+                intervalId1 = setInterval(()=>{
+                    if(room.TimeLeft > 0){
+                        // update the time in database
+                        setData(gameRoomPath.concat("/TimeLeft"), room.TimeLeft);
+                    }
+                }, 1000)
+            }
+        }
+    }, [started])
 
     // handle user leaving
     const handleUserLeave = () => {
         //if user exsits, remove the user from firebase
         if(user){
+            clearInterval(intervalId1);   
             // if there is only one player left, destroy the room
             if(Object.keys(room.Players).length == 1){
-                removeData(gameRoomPath)
+                removeData(gameRoomPath);
             }
             else{
                 removeData(gameRoomPath.concat(`/Players/${user.uid}`));
-            }         
+            }              
         }
         console.log('User is leaving or closing the window.');
     };
@@ -117,22 +135,22 @@ const GameRoom = () => {
                         <MathProblem room = {room}></MathProblem>
                     </div>
                     {/* only have the leader for multiplayer */}
-                    <div className="timer-wrapper">
+                    {delay <= 0?  <div className="timer-wrapper">
                         <CountdownCircleTimer
                         isPlaying
-                        duration={10}
-                        colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                        duration={60}
+                        colors="#A30000"
                         colorsTime={[10, 6, 3, 0]}
                         >
                         {RenderTime}
                         </CountdownCircleTimer>
-                    </div>
+                    </div>: <></>}
                     {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                 </div> 
                 <div style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
                     height: "85vh", width: "100vw", fontSize: "70px",
                     transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
-                        <WaitingRoom id = {id}></WaitingRoom> 
+                        <WaitingRoom id = {id} delay = {delay} setDelay={setDelay}></WaitingRoom> 
                 </div>
             </div>
         : <></>

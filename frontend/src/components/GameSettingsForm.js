@@ -44,7 +44,8 @@ const GameSettingsForm = ({gameType}) =>{
                 "number2": GenerateNumbers(number2)
             }, 
             "GameType": gameType,
-            "Started": false
+            "Started": false,
+            "TimeLeft": 60
         }
         
         //upload to firebase

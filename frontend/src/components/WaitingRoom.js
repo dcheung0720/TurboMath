@@ -6,13 +6,22 @@ import { useEffect, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 
-const WaitingRoom = ({id}) =>{
+const WaitingRoom = ({id, delay, setDelay}) =>{
 
     const [room, error] = useData(`GameRooms/${id}`);
     const [countDown, setCountDownVisibility] =  useState(false);
 
+    let intervalId = null;
+
     const handleStart = () =>{
         setCountDownVisibility(!countDown);
+        intervalId = setInterval(()=>{
+            setDelay(delay => delay - 1);
+            if(delay == 0){
+                clearInterval(intervalId);
+            }
+        }, 1000)
+
         // start the game after waiting 4 seconds
         setTimeout(() =>{
             setData(`GameRooms/${id}/Started`, true);
