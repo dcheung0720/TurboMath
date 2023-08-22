@@ -62,18 +62,19 @@ const GameRoom = () => {
     const [delay, setDelay] = useState(4);
     const [user] = useUserState();
 
-    let intervalId1 = null;
+    const [intervalId, setintervalId] = useState(null);
 
     // once the game starts, update the database time by 1 second 
     useEffect(()=>{
         if(room && id){
             if (room.Started){
-                intervalId1 = setInterval(()=>{
+                const temp = setInterval(()=>{
                     if(room.TimeLeft > 0){
                         // update the time in database
-                        setData(gameRoomPath.concat("/TimeLeft"), room.TimeLeft);
+                        setData(gameRoomPath.concat("/TimeLeft"), room.TimeLeft --);
                     }
                 }, 1000)
+                setintervalId(temp);
             }
         }
     }, [started])
@@ -82,7 +83,7 @@ const GameRoom = () => {
     const handleUserLeave = () => {
         //if user exsits, remove the user from firebase
         if(user){
-            clearInterval(intervalId1);   
+            clearInterval(intervalId);   
             // if there is only one player left, destroy the room
             if(Object.keys(room.Players).length == 1){
                 removeData(gameRoomPath);
@@ -106,7 +107,7 @@ const GameRoom = () => {
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, [room, user]);
+    }, [room, user, intervalId]);
 
     useEffect(() =>{
         // if both room and user exists
