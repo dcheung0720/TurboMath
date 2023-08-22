@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 
-const GameSettingsForm = ({GameMode}) =>{
+const GameSettingsForm = ({gameType}) =>{
 
     //navigator
     let navigate = useNavigate();
@@ -16,7 +16,8 @@ const GameSettingsForm = ({GameMode}) =>{
     const [redirectId, setRedirectId] = useState(null);
 
     // set of states for forms
-    const [mode, setMode] = useState("Solo");
+    const [playerMode, setPlayerMode] = useState("Solo");
+    const [gameMode, setGameMode] = useState("Turbo");
     const [number1, setNumber1] = useState("1");
     const [number2, setNumber2] = useState("1");
 
@@ -33,7 +34,8 @@ const GameSettingsForm = ({GameMode}) =>{
         e.preventDefault();
         const id = FindId();
         const object = {
-            "Mode" : mode,
+            "PlayerMode" : playerMode,
+            "GameMode": gameMode,
             "Players": user.uid,
             "Difficulty1" : number1,
             "Difficulty2" : number2,
@@ -41,7 +43,7 @@ const GameSettingsForm = ({GameMode}) =>{
                 "number1": GenerateNumbers(number1),
                 "number2": GenerateNumbers(number2)
             }, 
-            "Type": GameMode,
+            "GameType": gameType,
             "Started": false
         }
         
@@ -86,12 +88,12 @@ const GameSettingsForm = ({GameMode}) =>{
           <fieldset>
             <Form.Group className="mb-3 d-flex align-items-center justify-content-center">
                 <Form.Label htmlFor="disabledTextInput" className="mr-2 label-centered">Type:</Form.Label>
-                <Form.Control className="label" id="disabledTextInput" placeholder={GameMode} disabled  />
+                <Form.Control className="label" id="disabledTextInput" placeholder={gameType} disabled  />
             </Form.Group>
 
             <Form.Group className="mb-3" aria-label="Default select example">
-                <Form.Label>Mode: </Form.Label>
-                <Form.Select value = {mode} onChange = {(e) => handleStateChange(e, setMode)}>
+                <Form.Label>Players: </Form.Label>
+                <Form.Select value = {playerMode} onChange = {(e) => handleStateChange(e, setPlayerMode)}>
                     <option> Solo </option>
                     <option> Multiplayer </option>
                 </Form.Select>        

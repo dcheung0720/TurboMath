@@ -13,6 +13,7 @@ const WaitingRoom = ({id}) =>{
 
     const handleStart = () =>{
         setCountDownVisibility(!countDown);
+        // start the game after waiting 4 seconds
         setTimeout(() =>{
             setData(`GameRooms/${id}/Started`, true);
         }, 4000)
@@ -24,9 +25,9 @@ const WaitingRoom = ({id}) =>{
         <div class="demo">
             <div class="demo__colored-blocks">
                 <div class="demo__colored-blocks-rotater">
-                <div class="demo__colored-block"></div>
-                <div class="demo__colored-block"></div>
-                <div class="demo__colored-block"></div>
+                    <div class="demo__colored-block"></div>
+                    <div class="demo__colored-block"></div>
+                    <div class="demo__colored-block"></div>
                 </div>
                 <div class="demo__colored-blocks-inner"></div>
                 <div class="demo__text">Ready</div>
@@ -52,17 +53,17 @@ const WaitingRoom = ({id}) =>{
         :
 
         <div className="d-flex justify-content-around align-content-center">
-            <Card style={{ width: '25rem', fontSize: "25px" }}>
+            <Card style={{ width: '35rem', fontSize: "25px" }}>
                 <Card.Body>
-                <Card.Title style={{ fontSize: "40px" }}>Welcome to the {room.Type} room !</Card.Title>
+                <Card.Title style={{ fontSize: "40px" }}>Welcome to the {room.GameType} room !</Card.Title>
                 <Table striped bordered hover style={{ textAlign: 'center' }}>
                     <thead>
                             Game Settings
                     </thead>
                     <tbody>
                         <tr>
-                        <td>Mode</td>
-                        <td>{room.Mode}</td>
+                        <td>PlayerMode</td>
+                        <td>{room.PlayerMode}</td>
 
                         </tr>
                         <tr>
@@ -71,8 +72,8 @@ const WaitingRoom = ({id}) =>{
 
                         </tr>
                         <tr>
-                        <td>3</td>
-                        <td colSpan={2}>Larry the Bird</td>
+                        <td>Game Mode</td>
+                        <td colSpan={2}> {room.GameMode}</td>
 
                         </tr>
                     </tbody>

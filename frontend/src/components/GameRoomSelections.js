@@ -13,10 +13,10 @@ function GameRoomsSelections() {
   const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png", "./images/all.png"];
 
   const [openModal, setOpenModal] = useState(false);
-  const [gameMode, setGameMode] = useState("Addition"); 
+  const [gameType, setGameType] = useState("Addition"); 
 
-  const ChangeModal = (e, gameMode) =>{
-    setGameMode(gameMode);
+  const ChangeModal = (e, gameType) =>{
+    setGameType(gameType);
     setOpenModal(!openModal);
   }  
 
@@ -50,7 +50,7 @@ function GameRoomsSelections() {
         )
     })}
     {/* open modal if the modal is true */}
-    {openModal === true? <CreateModal GameMode = {gameMode} ChangeModal = {ChangeModal}/> : <></>}  
+    {openModal === true? <CreateModal gameType = {gameType} ChangeModal = {ChangeModal}/> : <></>}  
   </>);
 
 }
