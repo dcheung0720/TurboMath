@@ -17,7 +17,7 @@ const WaitingRoom = ({id}) =>{
         setTimeout(() =>{
             setData(`GameRooms/${id}/Started`, true);
             setCountDownVisibility(!countDown);
-        }, 3500)      
+        }, 4000)      
     }
 
     //play the race audio once the countdown starts

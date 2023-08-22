@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AnswerSubmit from "./AnswerSubmission";
 import { setData, useData } from '../utilities/firebase.js';
 import { useUserState, removeData } from "../utilities/firebase.js";
@@ -6,6 +6,48 @@ import WaitingRoom from "./WaitingRoom";
 import { useParams } from "react-router-dom";
 import LeaderBoard from "./LeaderBoard";
 import MathProblem from "./MathProblem";
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import "./GameRoom.css"
+
+const RenderTime = ({ remainingTime }) => {
+    const currentTime = useRef(remainingTime);
+    const prevTime = useRef(null);
+    const isNewTimeFirstTick = useRef(false);
+    const [, setOneLastRerender] = useState(0);
+  
+    if (currentTime.current !== remainingTime) {
+      isNewTimeFirstTick.current = true;
+      prevTime.current = currentTime.current;
+      currentTime.current = remainingTime;
+    } else {
+      isNewTimeFirstTick.current = false;
+    }
+  
+    // force one last re-render when the time is over to tirgger the last animation
+    if (remainingTime === 0) {
+      setTimeout(() => {
+        setOneLastRerender((val) => val + 1);
+      }, 20);
+    }
+  
+    const isTimeUp = isNewTimeFirstTick.current;
+  
+    return (
+      <div className="time-wrapper">
+        <div key={remainingTime} className={`time ${isTimeUp ? "up" : ""}`}>
+          {remainingTime}
+        </div>
+        {prevTime.current !== null && (
+          <div
+            key={prevTime.current}
+            className={`time ${!isTimeUp ? "down" : ""}`}
+          >
+            {prevTime.current}
+          </div>
+        )}
+      </div>
+    );
+};
 
 const GameRoom = () => {
     //get game room data
@@ -63,7 +105,7 @@ const GameRoom = () => {
         }
 
     }, [room])
-
+      
     return (
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
@@ -75,6 +117,16 @@ const GameRoom = () => {
                         <MathProblem room = {room}></MathProblem>
                     </div>
                     {/* only have the leader for multiplayer */}
+                    <div className="timer-wrapper">
+                        <CountdownCircleTimer
+                        isPlaying
+                        duration={10}
+                        colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                        colorsTime={[10, 6, 3, 0]}
+                        >
+                        {RenderTime}
+                        </CountdownCircleTimer>
+                    </div>
                     {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                 </div> 
                 <div style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
