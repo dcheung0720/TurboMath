@@ -69,7 +69,7 @@ const GameRoom = () => {
         if(room && id){
             if (room.Started){
                 const temp = setInterval(()=>{
-                    if(room.TimeLeft > 0){
+                    if(room.TimeLeft >= 0){
                         // update the time in database
                         setData(gameRoomPath.concat("/TimeLeft"), room.TimeLeft --);
                     }
@@ -124,10 +124,15 @@ const GameRoom = () => {
         }
 
     }, [room])
+
+    if(room){
+        console.log(room.TimeLeft)
+    }
       
     return (
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
+            room.TimeLeft > 0?
             <div>   
                 <div className = "PageContainer" style={{display: "flex", justifyContent: "center",
                  marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s" }}>           
@@ -139,7 +144,7 @@ const GameRoom = () => {
                     {delay <= 0?  <div className="timer-wrapper">
                         <CountdownCircleTimer
                         isPlaying
-                        duration={60}
+                        duration={3}
                         colors="#A30000"
                         colorsTime={[10, 6, 3, 0]}
                         >
@@ -154,6 +159,7 @@ const GameRoom = () => {
                         <WaitingRoom id = {id} delay = {delay} setDelay={setDelay}></WaitingRoom> 
                 </div>
             </div>
+            : <GameOver></GameOver>
         : <></>
     )
 
