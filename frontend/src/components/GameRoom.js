@@ -77,7 +77,10 @@ const GameRoom = () => {
                 {/* only have the leader for multiplayer */}
                 {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
             </div> 
-            : <WaitingRoom id = {id}></WaitingRoom> 
+            : 
+            <div style = {{display: "flex", justifyContent: "center", alignItems: "center", height: "85vh"}}>
+                <WaitingRoom  id = {id}></WaitingRoom> 
+            </div>
         : <></>
     )
 
