@@ -48,7 +48,6 @@ const GameRoom = () => {
         };
     }, [room, user]);
 
-
     useEffect(() =>{
         // if both room and user exists
         if (room && user){
@@ -80,10 +79,8 @@ const GameRoom = () => {
                 </div> 
                 <div style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
                     height: "85vh", width: "100vw", fontSize: "70px",
-                    transition: "all .8s", display:"flex", justifyContent:"center", alignItems: "center"  }}>
-                    <div>
+                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
                         <WaitingRoom id = {id}></WaitingRoom> 
-                    </div>
                 </div>
             </div>
         : <></>
