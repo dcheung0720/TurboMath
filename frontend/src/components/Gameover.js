@@ -82,11 +82,17 @@ const GameOver = ({id, user}) =>{
     const NewGame = (e) =>{
         e.preventDefault();
 
+        // resets the scores for all players
+        const tempPlayer = {}
+        for(const playerID in room.Players){
+            tempPlayer[playerID] = {name: room.Players[user.uid].name, score:0}
+        }
+
         // create the exact same object
         const object = {
             "PlayerMode" : room.PlayerMode,
             "GameMode": room.GameMode,
-            "Players": room.Players,
+            "Players": tempPlayer,
             "Difficulty1" : room.Difficulty1,
             "Difficulty2" : room.Difficulty2,
             "Problems" : {
