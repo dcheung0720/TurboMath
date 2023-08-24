@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 // Sound
 // https://mixkit.co/free-sound-effects/game-show/
 
-const AnswerSubmit = ({number1, number2}) => {
+const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
   // get the current route id
   const {id} = useParams();
 
@@ -43,8 +43,8 @@ const AnswerSubmit = ({number1, number2}) => {
       setData(scorePath, score + 1);
 
       setTimeout(()=>{
-        setData(`GameRooms/${id}/Problems/number1`, Math.floor(Math.random() * 12));
-        setData(`GameRooms/${id}/Problems/number2`, Math.floor(Math.random() * 12));
+        setData(`GameRooms/${id}/Problems/number1`, GenerateNumbers(difficulty1));
+        setData(`GameRooms/${id}/Problems/number2`, GenerateNumbers(difficulty2));
         setFeedbackVis(false);
       }, 1000)
     }
@@ -54,6 +54,17 @@ const AnswerSubmit = ({number1, number2}) => {
       setCorrect(false);
     }
   };
+
+  const GenerateNumbers = (numDigits) =>{
+    switch(numDigits){
+        case "1":
+            return Math.floor(Math.random() * 9 + 1);
+        case "2":
+            return Math.floor(Math.random() * 90 + 10);   
+        case "3":        
+            return Math.floor(Math.random() * 900 + 100);       
+    }
+};
 
 
   //play audio

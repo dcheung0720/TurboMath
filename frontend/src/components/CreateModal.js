@@ -6,7 +6,7 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 
 import GameSettingsForm from "./GameSettingsForm";
 
-const CreateModal = ({GameMode, ChangeModal}) =>{
+const CreateModal = ({gameType, ChangeModal}) =>{
 
     const ContentClick = (e) =>{
         e.stopPropagation();
@@ -28,8 +28,8 @@ const CreateModal = ({GameMode, ChangeModal}) =>{
               <Modal.Title>Game Room Settings</Modal.Title>         
             </Modal.Header>
     
-            <Modal.Body>
-              <GameSettingsForm GameMode = {GameMode}/>
+            <Modal.Body className="modalBody">
+              <GameSettingsForm gameType = {gameType}/>
             </Modal.Body>
           </Modal.Dialog>
         </div>

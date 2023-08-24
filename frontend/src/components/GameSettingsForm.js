@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 
-const GameSettingsForm = ({GameMode}) =>{
+const GameSettingsForm = ({gameType}) =>{
 
     //navigator
     let navigate = useNavigate();
@@ -16,7 +16,8 @@ const GameSettingsForm = ({GameMode}) =>{
     const [redirectId, setRedirectId] = useState(null);
 
     // set of states for forms
-    const [mode, setMode] = useState("Solo");
+    const [playerMode, setPlayerMode] = useState("Solo");
+    const [gameMode, setGameMode] = useState("Turbo");
     const [number1, setNumber1] = useState("1");
     const [number2, setNumber2] = useState("1");
 
@@ -33,23 +34,26 @@ const GameSettingsForm = ({GameMode}) =>{
         e.preventDefault();
         const id = FindId();
         const object = {
-            "Mode" : mode,
+            "PlayerMode" : playerMode,
+            "GameMode": gameMode,
             "Players": user.uid,
             "Difficulty1" : number1,
             "Difficulty2" : number2,
             "Problems" : {
                 "number1": GenerateNumbers(number1),
                 "number2": GenerateNumbers(number2)
-            } 
+            }, 
+            "GameType": gameType,
+            "Started": false,
+            "TimeLeft": 3
         }
-        console.log(object);
         
         //upload to firebase
         setData(`GameRooms/${id}`,object);
         setRedirectId(id);
     }
 
-    // redirect me
+    // redirect me once the user clicks create
     if(redirectId){
         navigate(`/MathProblems/${redirectId}`)
     }
@@ -84,34 +88,46 @@ const GameSettingsForm = ({GameMode}) =>{
         <Form>
           <fieldset>
             <Form.Group className="mb-3 d-flex align-items-center justify-content-center">
-                <Form.Label htmlFor="disabledTextInput" className="mr-2 label-centered">Type:</Form.Label>
-                <Form.Control className="label" id="disabledTextInput" placeholder={GameMode} disabled  />
+                <Form.Label htmlFor="disabledTextInput" className="mr-2 label-centered">GameType:</Form.Label>
+                <Form.Control className="label" id="disabledTextInput" placeholder={gameType} disabled  />
             </Form.Group>
 
-            <Form.Group className="mb-3" aria-label="Default select example">
-                <Form.Label>Mode: </Form.Label>
-                <Form.Select value = {mode} onChange = {(e) => handleStateChange(e, setMode)}>
+            <Form.Group className="mb-3 d-flex align-items-center justify-content-center" aria-label="Default select example">
+                <Form.Label className="mr-2 label-centered"> #Players: </Form.Label>
+                <Form.Control className="label" as="select" value = {playerMode} onChange = {(e) => handleStateChange(e, setPlayerMode)}>
                     <option> Solo </option>
                     <option> Multiplayer </option>
-                </Form.Select>        
+                </Form.Control>        
+            </Form.Group>
+
+            <Form.Group className="mb-3 d-flex align-items-center justify-content-center" aria-label="Default select example">
+                <Form.Label className="mr-2 label-centered"> GameMode: </Form.Label>
+                <Form.Control className="label" as="select" value = {gameMode} onChange = {(e) => handleStateChange(e, setGameMode)}>
+                    <option> Turbo </option>
+                    <option> Timer </option>
+                </Form.Control>
+                <div>
+                        {gameMode === "Turbo"? "Turbo mode is when you try to answer as many questions as possible in one minute!":
+                        "Timer mode is when you try to beat the best time for 10 questions!"}
+                </div>          
             </Form.Group>
             
-            <Form.Group className="mb-3">
-                <Form.Label>Difficulty: </Form.Label>
-                <Form.Select value = {number1} onChange = {(e) => handleStateChange(e, setNumber1)}>
+            <Form.Group className="mb-3 d-flex align-items-center justify-content-center">
+                <Form.Label className="mr-2 label-centered">Difficulty: </Form.Label>
+                <Form.Control className="label" as="select" value = {number1} onChange = {(e) => handleStateChange(e, setNumber1)}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
-                </Form.Select>
+                </Form.Control>
 
-                <span> Digits By </span>
+                <span style={{margin: "2%"}}> Digits By </span>
 
-                <Form.Select value = {number2} onChange = {(e) => handleStateChange(e, setNumber2)}>
+                <Form.Control className="label" as="select"  value = {number2} onChange = {(e) => handleStateChange(e, setNumber2)}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
-                </Form.Select>
-                <span>Digits</span>          
+                </Form.Control>
+                <span style={{margin: "2%"}}> Digits</span>          
             </Form.Group>
 
             <Button variant="btn btn-success" type = "submit" onClick = {(e)=>CreateRoom(e)} >Create</Button>

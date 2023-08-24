@@ -1,12 +1,12 @@
 .App {
   text-align: center;
   font-family: 'Bangers', cursive;
+  background-color:#32386D ;
+  color:white;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
