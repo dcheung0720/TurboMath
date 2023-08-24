@@ -30,7 +30,7 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
 
      // clear interval if delay is < 0
      useEffect(()=>{
-        if(delay < 0){
+        if(delay <= 0){
             clearInterval(intervalId.current);
         }
 

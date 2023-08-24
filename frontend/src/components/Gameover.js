@@ -59,11 +59,24 @@ const GameOver = ({id, user}) =>{
 
     },[gameOverTimer])
 
+    //play gameover sounds when it first mounts
+    useEffect(()=>{
+        playAudio("gameOver");
+    },[])
+
     // button functions
     const GoHome = () =>{
         // remove the user
         handleUserLeave();
         navigate('../');
+    }
+
+    //play audio
+    const playAudio = (id) =>{
+        //get correct audio element and play the sound
+        document.getElementById(id).volume = .2;
+        document.getElementById(id).play();
+        console.log(document.getElementById(id))
     }
 
     const NewGame = (e) =>{
@@ -105,6 +118,10 @@ const GameOver = ({id, user}) =>{
 
     return(
         <div className = "gameOver">
+            <audio id = "gameOver" controls autoplay hidden>
+                        <source src="../audio/gameover.wav" type="audio/wav"></source>
+                    Your browser does not support the audio element.
+                    </audio> 
             <div className='gameOver-block' style = {{opacity: gameOverTimer > 0? "1": "0", transition: "all 1s"}}>
                 <h1>TIMES UP!</h1>
             </div>
