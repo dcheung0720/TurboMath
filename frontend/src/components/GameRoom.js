@@ -62,7 +62,7 @@ const GameRoom = () => {
     const [delay, setDelay] = useState(4);
     const [user] = useUserState();
 
-    
+    console.log(delay)
 
     const [intervalId, setintervalId] = useState(null);
 
@@ -85,8 +85,6 @@ const GameRoom = () => {
     const handleUserLeave = () => {
         //if user exsits, remove the user from firebase
         if(user){
-            clearInterval(intervalId);   
-            setintervalId(null);
             // if there is only one player left, destroy the room
             if(Object.keys(room.Players).length == 1){
                 removeData(gameRoomPath);
@@ -110,7 +108,7 @@ const GameRoom = () => {
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, [room, user, intervalId]);
+    }, [room, user, intervalId, started]);
 
     useEffect(() =>{
         // if both room and user exists

@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { useData, setData } from '../utilities/firebase';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 
@@ -11,16 +11,15 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
     const [room, error] = useData(`GameRooms/${id}`);
     const [countDown, setCountDownVisibility] =  useState(false);
 
-    let intervalId = null;
+    const intervalId = useRef();
 
     const handleStart = () =>{
         setCountDownVisibility(!countDown);
-        intervalId = setInterval(()=>{
+        setDelay(4);
+
+        intervalId.current = setInterval(()=>{
             setDelay(delay => delay - 1);
-            if(delay == 0){
-                clearInterval(intervalId);
-            }
-        }, 1000)
+        }, 1000);
 
         // start the game after waiting 4 seconds
         setTimeout(() =>{
@@ -29,12 +28,19 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         }, 4000)      
     }
 
+     // clear interval if delay is < 0
+     useEffect(()=>{
+        if(delay < 0){
+            clearInterval(intervalId.current);
+        }
+
+    }, [delay])
+
     //play the race audio once the countdown starts
     useEffect(()=>{
         if(countDown){
             playAudio("race");
         }
-
     },[countDown])
 
     //play audio
@@ -98,7 +104,7 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
                 <Card.Text>
                     Start whenever you are ready to TURBO!        
                 </Card.Text>
-                    <Button variant="primary" onClick={handleStart}>Start</Button>
+                    <Button variant="primary" onClick={()=> handleStart()}>Start</Button>
                 </Card.Body>
             </Card>
       </div> : <></>
