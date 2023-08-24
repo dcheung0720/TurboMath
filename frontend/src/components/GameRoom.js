@@ -159,7 +159,7 @@ const GameRoom = () => {
                         <WaitingRoom id = {id} delay = {delay} setDelay={setDelay}></WaitingRoom> 
                 </div>
             </div>
-            : <GameOver></GameOver>
+            : <GameOver id = {id} user = {user}></GameOver>
         : <></>
     )
 

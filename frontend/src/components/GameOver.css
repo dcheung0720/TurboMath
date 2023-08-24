@@ -1,17 +1,14 @@
 .gameOver{
     position:relative;
-
 }
 
 
 .gameOver-content{
     position:absolute;
     display: flex;
-   
     justify-content: center;
     align-items: center;    
     top: 0;
-
     width: 100vw;
     height: 85vh; 
 }
@@ -21,6 +18,17 @@
     justify-content: center;
     align-items: center;
     height: 85vh;
-    font-size: 10vw;
 }
 
+.gameOver-block h1{
+    font-size: 10.2vw;
+}
+
+.btn-group{
+    display: flex;
+
+}
+
+.btn-group button{
+    margin: .5vw;
+}
