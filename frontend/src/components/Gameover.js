@@ -2,10 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import "./GameOver.css"
 import { useEffect, useState } from 'react';
-import { setData, useData } from '../utilities/firebase';
+import { removeData, setData, useData } from '../utilities/firebase';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
-
 
 
 
@@ -15,6 +14,9 @@ const GameOver = ({id, user}) =>{
 
     const [intervalID, setIntervalID] = useState(null);
 
+    //gameRoomPath
+    const gameRoomPath = `/GameRooms/${id}`;
+
     // gameroomData
     const [data, error] = useData('GameRooms');
 
@@ -22,8 +24,7 @@ const GameOver = ({id, user}) =>{
 
     const [player, error2] = useData(`/GameRooms/${id}/Players/${user.uid}`);
 
-    //redirect id
-    const [redirectId, setRedirectId] = useState(null);
+    let navigate = useNavigate();
 
     let roomIDs;
     
@@ -32,8 +33,24 @@ const GameOver = ({id, user}) =>{
         roomIDs = Object.keys(data);
     }
 
-    let navigate = useNavigate();
+    // handle user leaving
+    const handleUserLeave = () => {
+        //if user exsits, remove the user from firebase
+        if(user){
+            clearInterval(intervalID);   
+            setIntervalID(null);
+            // if there is only one player left, destroy the room
+            if(Object.keys(room.Players).length == 1){
+                removeData(gameRoomPath);
+            }
+            else{
+                removeData(gameRoomPath.concat(`/Players/${user.uid}`));
+            }              
+        }
+        console.log('User is leaving or closing the window.');
+    };
 
+    // time it takes for the game result screen to show up.
     useEffect(()=>{
         let temp = setInterval(()=>{
             setGameOverTimer(gameOverTimer-1);
@@ -42,8 +59,10 @@ const GameOver = ({id, user}) =>{
 
     },[gameOverTimer])
 
-
+    // button functions
     const GoHome = () =>{
+        // remove the user
+        handleUserLeave();
         navigate('../');
     }
 
