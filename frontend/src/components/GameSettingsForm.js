@@ -18,8 +18,8 @@ const GameSettingsForm = ({gameType}) =>{
     // set of states for forms
     const [playerMode, setPlayerMode] = useState("Solo");
     const [gameMode, setGameMode] = useState("Turbo");
-    const [number1, setNumber1] = useState("1");
-    const [number2, setNumber2] = useState("1");
+    const [difficulty1, setDifficulty1] = useState("1");
+    const [difficulty2, setDifficulty2] = useState("1");
 
     // gameroomData
     const [data, error] = useData('GameRooms');
@@ -30,18 +30,22 @@ const GameSettingsForm = ({gameType}) =>{
         roomIDs = Object.keys(data);
     }
 
+
     const CreateRoom = (e) =>{
         e.preventDefault();
         const id = FindId();
+
+        const nums = handleProblemGeneration(difficulty1, difficulty2);
+
         const object = {
             "PlayerMode" : playerMode,
             "GameMode": gameMode,
             "Players": user.uid,
-            "Difficulty1" : number1,
-            "Difficulty2" : number2,
+            "Difficulty1" : difficulty1,
+            "Difficulty2" : difficulty2,
             "Problems" : {
-                "number1": GenerateNumbers(number1),
-                "number2": GenerateNumbers(number2)
+                "number1": nums[0],
+                "number2": nums[1]
             }, 
             "GameType": gameType,
             "Started": false,
@@ -51,6 +55,67 @@ const GameSettingsForm = ({gameType}) =>{
         //upload to firebase
         setData(`GameRooms/${id}`,object);
         setRedirectId(id);
+    }
+
+    const handleProblemGeneration = (numDigits1, numDigits2) =>{
+        let nums = []
+
+        let num1;
+        let num2;
+        switch(gameType){  
+            case "Addition":
+                num1 = GenerateNumbers(numDigits1);
+                num2 = GenerateNumbers(numDigits2);
+
+                break;
+            case "Subtraction":
+                num1 = GenerateNumbers(numDigits1);
+                num2 = GenerateNumbers(numDigits2);
+
+                //swap to ensure the first number is bigger
+                if(num1 < num2){
+                let temp = num1;
+                num1 = num2;
+                num2 = temp;
+                }
+
+                break;
+
+            case "Multiplication":
+                num1 = GenerateNumbers(numDigits1);
+                num2 = GenerateNumbers(numDigits2);
+
+                break;
+
+            case "Division":
+                //convert from float to int
+                numDigits1 = parseInt(numDigits1);
+                numDigits2 = parseInt(numDigits2);
+                let smallestDig = numDigits1 < numDigits2? numDigits1 : numDigits2;
+                let biggestDig = numDigits1 > numDigits2? numDigits1 : numDigits2;
+
+                let numSmall = GenerateNumbers(""+smallestDig);
+
+                let randFactor;
+                switch(biggestDig){
+                case 1:
+                    randFactor = Math.floor(Math.random() * 9/numSmall + 1);
+                    break;
+                case 2:
+                    randFactor = Math.floor(Math.random() * 99/numSmall + 11/numSmall);
+                    break;
+                case 3:
+                    randFactor = Math.floor(Math.random() * 999/numSmall + 101/numSmall);
+                    break;
+                }
+                let numBig = randFactor * numSmall;
+                num1 = numBig;
+                num2 = numSmall;
+                
+            }
+            nums.push(num1);
+            nums.push(num2);
+        return nums;
     }
 
     // redirect me once the user clicks create
@@ -114,7 +179,7 @@ const GameSettingsForm = ({gameType}) =>{
             
             <Form.Group className="mb-3 d-flex align-items-center justify-content-center">
                 <Form.Label className="mr-2 label-centered">Difficulty: </Form.Label>
-                <Form.Control className="label" as="select" value = {number1} onChange = {(e) => handleStateChange(e, setNumber1)}>
+                <Form.Control className="label" as="select" value = {difficulty1} onChange = {(e) => handleStateChange(e, setDifficulty1)}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -122,7 +187,7 @@ const GameSettingsForm = ({gameType}) =>{
 
                 <span style={{margin: "2%"}}> Digits By </span>
 
-                <Form.Control className="label" as="select"  value = {number2} onChange = {(e) => handleStateChange(e, setNumber2)}>
+                <Form.Control className="label" as="select"  value = {difficulty2} onChange = {(e) => handleStateChange(e, setDifficulty2)}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>

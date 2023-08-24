@@ -20,12 +20,33 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
   //get user
   const [user] = useUserState();
 
+  //get room data
+  const [room, error2] = useData(`GameRooms/${id}`)
+
   const scorePath = `GameRooms/${id}/Players/${user.uid}/score`
+
   //get current score
   const [score, error] = useData(scorePath)
 
   const handleChange = (e) => {
     setFormData(e.target.value);
+  };
+
+
+  const isCorrect = (formData) =>{
+      if (room){
+        switch(room.GameType){
+          case "Addition":
+            return parseInt(formData) === number1 + number2;
+          case "Subtraction":
+            return parseInt(formData) === number1 - number2;
+          case "Multiplication":
+            return parseInt(formData) === number1 * number2;
+          case "Division":
+            return parseInt(formData) === number1 / number2;
+        }
+      }
+      
   };
 
   const handleSubmit = (e) => {
@@ -34,7 +55,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
     setFeedbackVis(true);
 
     //if correct
-    if(parseInt(formData) == number1 * number2 ){
+    if(isCorrect(formData)){
       //play correct sound 
       playAudio("correct");
       
@@ -42,9 +63,11 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
       setCorrect(true);
       setData(scorePath, score + 1);
 
+      const nums = handleProblemGeneration(difficulty1, difficulty2);
+
       setTimeout(()=>{
-        setData(`GameRooms/${id}/Problems/number1`, GenerateNumbers(difficulty1));
-        setData(`GameRooms/${id}/Problems/number2`, GenerateNumbers(difficulty2));
+        setData(`GameRooms/${id}/Problems/number1`, nums[0]);
+        setData(`GameRooms/${id}/Problems/number2`, nums[1]);
         setFeedbackVis(false);
       }, 1000)
     }
@@ -54,6 +77,72 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
       setCorrect(false);
     }
   };
+
+
+  const handleProblemGeneration = (numDigits1, numDigits2) =>{
+      let nums = []
+      if (room){
+        let num1;
+        let num2;
+        switch(room.GameType){  
+          case "Addition":
+            num1 = GenerateNumbers(numDigits1);
+            num2 = GenerateNumbers(numDigits2);
+
+            break;
+          case "Subtraction":
+            num1 = GenerateNumbers(numDigits1);
+            num2 = GenerateNumbers(numDigits2);
+
+            //swap to ensure the first number is bigger
+            if(num1 < num2){
+              let temp = num1;
+              num1 = num2;
+              num2 = temp;
+            }
+
+            break;
+
+          case "Multiplication":
+            num1 = GenerateNumbers(numDigits1);
+            num2 = GenerateNumbers(numDigits2);
+
+            break;
+
+          case "Division":
+            //convert from float to int
+            numDigits1 = parseInt(numDigits1);
+            numDigits2 = parseInt(numDigits2);
+            let smallestDig = numDigits1 < numDigits2? numDigits1 : numDigits2;
+            let biggestDig = numDigits1 > numDigits2? numDigits1 : numDigits2;
+
+            let numSmall = GenerateNumbers(""+smallestDig);
+
+            let randFactor;
+            switch(biggestDig){
+              case 1:
+                randFactor = Math.floor(Math.random() * 9/numSmall + 1);
+                break;
+              case 2:
+                randFactor = Math.floor(Math.random() * 99/numSmall + 11/numSmall);
+                break;
+              case 3:
+                randFactor = Math.floor(Math.random() * 999/numSmall + 101/numSmall);
+                break;
+            }
+            let numBig = randFactor * numSmall;
+            num1 = numBig;
+            num2 = numSmall;
+            
+        }
+        nums.push(num1);
+        nums.push(num2);
+        return nums;
+      }
+      
+
+
+  }
 
   const GenerateNumbers = (numDigits) =>{
     switch(numDigits){
