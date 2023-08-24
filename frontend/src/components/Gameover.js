@@ -88,6 +88,9 @@ const GameOver = ({id, user}) =>{
             tempPlayer[playerID] = {name: room.Players[user.uid].name, score:0}
         }
 
+        //generate new numbers
+        const nums = handleProblemGeneration(room.Difficulty1, room.Difficulty2);
+
         // create the exact same object
         const object = {
             "PlayerMode" : room.PlayerMode,
@@ -96,8 +99,8 @@ const GameOver = ({id, user}) =>{
             "Difficulty1" : room.Difficulty1,
             "Difficulty2" : room.Difficulty2,
             "Problems" : {
-                "number1": GenerateNumbers(room.Difficulty1),
-                "number2": GenerateNumbers(room.Difficulty2)
+                "number1": nums[0],
+                "number2": nums[1]
             }, 
             "GameType": room.GameType,
             "Started": false,
@@ -109,6 +112,70 @@ const GameOver = ({id, user}) =>{
         
         navigate(`../MathProblems/${id}`);
     }
+
+    const handleProblemGeneration = (numDigits1, numDigits2) =>{
+        let nums = []
+        if (room){
+          let num1;
+          let num2;
+          switch(room.GameType){  
+            case "Addition":
+              num1 = GenerateNumbers(numDigits1);
+              num2 = GenerateNumbers(numDigits2);
+  
+              break;
+            case "Subtraction":
+              num1 = GenerateNumbers(numDigits1);
+              num2 = GenerateNumbers(numDigits2);
+  
+              //swap to ensure the first number is bigger
+              if(num1 < num2){
+                let temp = num1;
+                num1 = num2;
+                num2 = temp;
+              }
+  
+              break;
+  
+            case "Multiplication":
+              num1 = GenerateNumbers(numDigits1);
+              num2 = GenerateNumbers(numDigits2);
+  
+              break;
+  
+            case "Division":
+              //convert from float to int
+              numDigits1 = parseInt(numDigits1);
+              numDigits2 = parseInt(numDigits2);
+              let smallestDig = numDigits1 < numDigits2? numDigits1 : numDigits2;
+              let biggestDig = numDigits1 > numDigits2? numDigits1 : numDigits2;
+  
+              let numSmall = GenerateNumbers(""+smallestDig);
+  
+              let randFactor;
+              switch(biggestDig){
+                case 1:
+                  randFactor = Math.floor(Math.random() * 9/numSmall + 1);
+                  break;
+                case 2:
+                  randFactor = Math.floor(Math.random() * 99/numSmall + 11/numSmall);
+                  break;
+                case 3:
+                  randFactor = Math.floor(Math.random() * 999/numSmall + 101/numSmall);
+                  break;
+              }
+              let numBig = randFactor * numSmall;
+              num1 = numBig;
+              num2 = numSmall;
+              
+          }
+          nums.push(num1);
+          nums.push(num2);
+          return nums;
+        }
+    }
+
+    
 
     const GenerateNumbers = (numDigits) =>{
         console.log(numDigits)
