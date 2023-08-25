@@ -24,6 +24,8 @@ const GameOver = ({id, user}) =>{
 
     const [player, error2] = useData(`/GameRooms/${id}/Players/${user.uid}`);
 
+    const [users, error3] = useData(`/Users/`);
+
     let navigate = useNavigate();
 
     let roomIDs;
@@ -62,7 +64,16 @@ const GameOver = ({id, user}) =>{
     //play gameover sounds when it first mounts
     useEffect(()=>{
         playAudio("gameOver");
-    },[])
+        if(player){
+            // update the player's high score if it's a high score
+            // if(player.score > users[user.uid].TurboMathHS){
+            //     setData(`/Users/${user.uid}/TurboMathHS`, player.score);
+            // }
+        }
+        
+        
+
+    },[player])
 
     // button functions
     const GoHome = () =>{
