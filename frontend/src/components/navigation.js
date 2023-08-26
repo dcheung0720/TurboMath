@@ -402,7 +402,7 @@ const Navigation = () =>{
     );
   
     return (
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar bg="dark" variant="dark" expand="lg" style = {{padding: "0", height: "12vh"}}>
         <Container style = {{ justifyContent: "center"}}>
             <Navbar.Brand href="/" style={{marginLeft: "37%", color: 'white', fontSize: "4em" }}>
               Turbo Math
