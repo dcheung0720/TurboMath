@@ -26,6 +26,18 @@ const GameOver = ({id, user}) =>{
 
     const [users, error3] = useData(`/Users/`);
 
+    let statPath;
+
+
+    // stat path
+    if(room){
+        statPath = `Users/${user.uid}/${room.GameType}/${room.GameMode}`;
+    }
+
+
+
+    const [stats, error4] = useData(statPath);
+
     let navigate = useNavigate();
 
     let roomIDs;
@@ -64,16 +76,39 @@ const GameOver = ({id, user}) =>{
     //play gameover sounds when it first mounts
     useEffect(()=>{
         playAudio("gameOver");
-        if(player){
-            // update the player's high score if it's a high score
-            // if(player.score > users[user.uid].TurboMathHS){
-            //     setData(`/Users/${user.uid}/TurboMathHS`, player.score);
-            // }
+        let path;
+        if(player && room && stats){
+            //  update the player's stats
+            if(room.Difficulty1 == "1" &&  room.Difficulty2 == "1"){
+                path = "1x1";
+            }
+            else if (room.Difficulty1 == "1" &&  room.Difficulty2 == "2"
+            || room.Difficulty1 == "2" &&  room.Difficulty2 == "1"){
+                path = "2x1";
+            }
+            else if (room.Difficulty1 == "1" &&  room.Difficulty2 == "3"
+            || room.Difficulty1 == "3" &&  room.Difficulty2 == "1"){
+                path = "3x1";
+            }
+            else if (room.Difficulty1 == "2" &&  room.Difficulty2 == "2"){
+                path = "2x2";
+            }
+            else if (room.Difficulty1 == "2" &&  room.Difficulty2 == "3"
+            || room.Difficulty1 == "3" &&  room.Difficulty2 == "2"){
+                path = "3x2";
+            }
+            else if (room.Difficulty1 == "3" &&  room.Difficulty2 == "3"){
+                path = "3x3";
+            }
+            
+            if(room.GameMode === "Turbo"){
+                // update the player's high score if it's a high score
+                if(player.score > stats[path].HS){
+                    setData(statPath.concat("/" + path).concat("/HS"), player.score);
+                }
+            }
         }
-        
-        
-
-    },[player])
+    },[])
 
     // button functions
     const GoHome = () =>{
