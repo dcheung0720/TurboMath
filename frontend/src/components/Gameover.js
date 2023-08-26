@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import "./GameOver.css"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { removeData, setData, useData } from '../utilities/firebase';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
@@ -26,15 +26,17 @@ const GameOver = ({id, user}) =>{
 
     const [users, error3] = useData(`/Users/`);
 
+    // Inside your GameOver component
+    const [statsUpdated, setStatsUpdated] = useState(false);
+
+    const intervalId = useRef();
+
     let statPath;
 
-
-    // stat path
+    // player stats path
     if(room){
         statPath = `Users/${user.uid}/${room.GameType}/${room.GameMode}`;
     }
-
-
 
     const [stats, error4] = useData(statPath);
 
@@ -46,6 +48,8 @@ const GameOver = ({id, user}) =>{
     if (data){
         roomIDs = Object.keys(data);
     }
+
+    console.log(statPath)
 
     // handle user leaving
     const handleUserLeave = () => {
@@ -66,19 +70,28 @@ const GameOver = ({id, user}) =>{
 
     // time it takes for the game result screen to show up.
     useEffect(()=>{
-        let temp = setInterval(()=>{
-            setGameOverTimer(gameOverTimer-1);
+        intervalId.current = setInterval(()=>{
+            setGameOverTimer(gameOverTimer => gameOverTimer-1);
         },1000)
-        setIntervalID(temp);
+    },[])
 
-    },[gameOverTimer])
+    // if gameOverTimer < 0, clear the interval
+    useEffect(()=>{
+        if(gameOverTimer < 0){
+            clearInterval(intervalId.current);
+        }
+    }, [gameOverTimer]);
 
     //play gameover sounds when it first mounts
     useEffect(()=>{
         playAudio("gameOver");
+    }, [])
+
+    useEffect(()=>{
         let path;
-        if(player && room && stats){
+        if(player && room && stats && !statsUpdated){
             //  update the player's stats
+             // determining difficulty
             if(room.Difficulty1 == "1" &&  room.Difficulty2 == "1"){
                 path = "1x1";
             }
@@ -102,14 +115,31 @@ const GameOver = ({id, user}) =>{
             }
             
             if(room.GameMode === "Turbo"){
-                // update the player's high score if it's a high score
-                if(player.score > stats[path].HS){
-                    setData(statPath.concat("/" + path).concat("/HS"), player.score);
-                }
+                // undo infinite loop
+                setStatsUpdated(true);
+
+                const newHS = player.score > stats[path].HS? player.score : stats[path].HS;
+
+                const numGames = stats[path].GamesPlayed + 1;
+
+                const totalScore = stats[path].TotalScore + player.score;
+                
+                //update HS
+                setData(statPath.concat("/" + path).concat("/HS"), newHS)
+
+                // update GamesPlayed
+                setData(statPath.concat("/" + path).concat("/GamesPlayed"), numGames);
+
+                 // update TotalScore
+                 setData(statPath.concat("/" + path).concat("/TotalScore"), totalScore);
+
+                 // update AverageScore
+                 setData(statPath.concat("/" + path).concat("/AverageScore"), Math.round(totalScore/numGames * 100)/ 100);
+
             }
         }
-    },[])
-
+    }, [stats])
+        
     // button functions
     const GoHome = () =>{
         // remove the user
