@@ -134,7 +134,7 @@ const GameRoom = () => {
                 <div className = "PageContainer" style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh",
                  marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
                     <div className = "MathProblem" style={{fontSize: "5vw"}}>
-                        <div>Score: {room.Players[user.uid].score}</div>
+                        <div style={{position:"fixed", width: "100vw", top: "10vh"}}>Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room}></MathProblem>
                     </div>
                     {/* only have the leader for multiplayer */}

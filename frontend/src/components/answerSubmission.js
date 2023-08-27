@@ -164,7 +164,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
   }
 
   return (
-    <>
+    <div>
       <div className="container">
         {/* audio player */}
 
@@ -193,8 +193,10 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
           </div>
         </form>
       </div>
-      {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
-    </>
+      <p>
+          {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
+      </p>
+    </div>
   );
 }
 
