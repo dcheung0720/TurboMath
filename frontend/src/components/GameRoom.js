@@ -131,9 +131,9 @@ const GameRoom = () => {
         room && user && room.Players[user.uid]?
             room.TimeLeft > 0?
             <div>   
-                <div className = "PageContainer" style={{display: "flex", justifyContent: "center",
-                 marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s" }}>           
-                    <div className = "MathProblem" style={{fontSize: "150px"}}>
+                <div className = "PageContainer" style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh",
+                 marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
+                    <div className = "MathProblem" style={{fontSize: "5vw"}}>
                         <div>Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room}></MathProblem>
                     </div>

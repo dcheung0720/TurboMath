@@ -24,15 +24,15 @@ function GameRoomsSelections() {
   return (<>
     {gameRoomNames.map((Title, idx) =>{
         return(
-            <Card border="primary"  className='mt-3 ml-3' style={{backgroundColor: "#32386D", fontSize: "1vw", width: '25vw', height: "50vh", marginLeft: "10px"}}>
+            <Card border="primary"  className='mt-3 ml-3' style={{backgroundColor: "#32386D", fontSize: "100%", width: '25%',
+             height: "40%", marginLeft: "10px", flexShrink: 0}}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "35%", height: "90%"}}/>
                  </div>
-                <Card.Body style = {{display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                    <Card.Title style = {{fontSize: "2vw"}}>{Title}</Card.Title>
+                <Card.Body style = {{height: "100%", width: "100%"}}>
+                    <Card.Title style = {{fontSize: "1.5vw"}}>{Title}</Card.Title>
                     <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
+                    Some quick example text to build on the card title 
                     </Card.Text>
                     <Link to="/MathProblems/1" className="custom-link">
                             <Button variant="primary"> Quick Join </Button>

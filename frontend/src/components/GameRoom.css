@@ -6,6 +6,10 @@ h1 {
   .timer-wrapper {
     display: flex;
     justify-content: center;
+    position: fixed;
+    align-items: right;
+    top: 12vh;
+    right: 2vw;
   }
   
   .time-wrapper {
