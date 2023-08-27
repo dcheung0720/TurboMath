@@ -25,9 +25,9 @@ function GameRoomsSelections() {
     {gameRoomNames.map((Title, idx) =>{
         return(
             <Card border="primary"  className='mt-3 ml-3' style={{backgroundColor: "#32386D", fontSize: "100%", width: '25%',
-             height: "40%", marginLeft: "10px", flexShrink: 0}}>
+             height: "40%", flexShrink: 0}}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "35%", height: "90%"}}/>
+                    <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "20%", height: "90%"}}/>
                  </div>
                 <Card.Body style = {{height: "100%", width: "100%"}}>
                     <Card.Title style = {{fontSize: "1.5vw"}}>{Title}</Card.Title>
