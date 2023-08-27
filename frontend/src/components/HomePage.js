@@ -7,14 +7,15 @@ const HomePage = () =>{
 
     return(
         user?
-        <>
-            <h1>Welcome, {user.displayName} !</h1>
-            <div style={{display: "flex", justifyContent: "center", flexWrap : "wrap"}}>
-                <div className = "SelectionContainer" style = {{width: "70%", display: "flex", flexWrap : "wrap", justifyContent: "center"}}>
+        <div style={{marginTop: "12vh"}}>
+            {/* <h1 style = {{marginBottom: 0, marginTop: "1vh"}}>Game Selections</h1> */}
+            <div style={{display: "flex", justifyContent: "center", flexWrap : "wrap", height: "88vh"}}>
+                <div className = "SelectionContainer" style = {{width: "100%", height: "100%", display: "flex",
+                 flexWrap : "wrap", justifyContent: "center", overflow: "hidden"}}>
                     <GameRoomsSelections/>
                 </div>
             </div>
-        </>:
+        </div>:
         <></>
     )
 }

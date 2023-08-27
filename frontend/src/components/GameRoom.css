@@ -1,3 +1,8 @@
+.PageContainer{
+  overflow: hidden;
+  height: 100%;
+}
+
 h1 {
     text-align: center;
     margin-bottom: 40px;
@@ -6,6 +11,10 @@ h1 {
   .timer-wrapper {
     display: flex;
     justify-content: center;
+    position: fixed;
+    align-items: right;
+    top: 12vh;
+    right: 2vw;
   }
   
   .time-wrapper {

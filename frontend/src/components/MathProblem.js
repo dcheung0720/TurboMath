@@ -4,7 +4,7 @@ import "./MathProblem.css"
 
 const MathProblem = ({room}) =>{
     return(
-        <div className = "problem" style={{width: "1000px"}}>
+        <div className = "problem" style={{width: "100vw", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
             <div>What is {room.Problems.number1}
                 {room.GameType === "Multiplication" ? <>x</>
                 : room.GameType === "Addition"? <>+</>:

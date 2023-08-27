@@ -130,11 +130,11 @@ const GameRoom = () => {
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
             room.TimeLeft > 0?
-            <div>   
-                <div className = "PageContainer" style={{display: "flex", justifyContent: "center",
-                 marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s" }}>           
-                    <div className = "MathProblem" style={{fontSize: "150px"}}>
-                        <div>Score: {room.Players[user.uid].score}</div>
+            <div style={{height: "97.25vh"}}>   
+                <div className = "PageContainer" style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", overflow: "hidden",
+                 marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
+                    <div className = "MathProblem" style={{fontSize: "5vw"}}>
+                        <div style={{position:"fixed", width: "100vw", top: "10vh"}}>Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room}></MathProblem>
                     </div>
                     {/* only have the leader for multiplayer */}
@@ -151,12 +151,12 @@ const GameRoom = () => {
                     {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                 </div> 
                 <div style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
-                    height: "85vh", width: "100vw", fontSize: "70px",
+                    height: "85vh", top: "10vh", width: "100vw", fontSize: "70px",
                     transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
                         <WaitingRoom id = {id} delay = {delay} setDelay={setDelay}></WaitingRoom> 
                 </div>
             </div>
-            : <GameOver id = {id} user = {user}></GameOver>
+            :  <div style={{height: "100vh"}}><GameOver id = {id} user = {user}></GameOver></div>
         : <></>
     )
 

@@ -75,10 +75,10 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         </CountdownCircleTimer>
         :
 
-        <div className="d-flex justify-content-around align-content-center">
-            <Card style={{ width: '35rem', fontSize: "25px", color: "black" }}>
+        <div className="d-flex justify-content-around align-content-center" >
+            <Card style={{ width: '35rem', fontSize: "25px", color: "black", borderRadius: "10%" }}>
                 <Card.Body>
-                <Card.Title style={{ fontSize: "40px" }}>Welcome to the {room.GameType} room !</Card.Title>
+                <Card.Title style={{ fontSize: "35px" }}>Welcome to the {room.GameType} room !</Card.Title>
                 <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                     Game Settings
                 </div>

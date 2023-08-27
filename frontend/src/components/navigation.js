@@ -19,7 +19,341 @@ const Navigation = () =>{
       // if user does not exist, add it to the database
       if(data != null && user!= null && Object.keys(data).filter(x => x == user.uid).length == 0){
         const userData = {
-          SpeedMathHS: 10
+          "Addition":{
+              "Turbo": {
+                  "1x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "2x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "2x2": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x2": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x3": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  }
+              },
+              "Frenzy":{
+                "1x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "2x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "2x2": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x2": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x3": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                }
+              }
+          },
+          "Subtraction":{
+            "Turbo": {
+                "1x1": {
+                  "HS": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageScore":0
+                },
+                "2x1": {
+                  "HS": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageScore":0
+                },
+                "3x1": {
+                  "HS": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageScore":0
+                },
+                "2x2": {
+                  "HS": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageScore":0
+                },
+                "3x2": {
+                  "HS": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageScore":0
+                },
+                "3x3": {
+                  "HS": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageScore":0
+                }
+            },
+            "Frenzy":{
+              "1x1": {
+                "BT": 0,
+                "GamesPlayed": 0,
+                "TotalScore": 0,
+                "AverageTime":0
+              },
+              "2x1": {
+                "BT": 0,
+                "GamesPlayed": 0,
+                "TotalScore": 0,
+                "AverageTime":0
+              },
+              "3x1": {
+                "BT": 0,
+                "GamesPlayed": 0,
+                "TotalScore": 0,
+                "AverageTime":0
+              },
+              "2x2": {
+                "BT": 0,
+                "GamesPlayed": 0,
+                "TotalScore": 0,
+                "AverageTime":0
+              },
+              "3x2": {
+                "BT": 0,
+                "GamesPlayed": 0,
+                "TotalScore": 0,
+                "AverageTime":0
+              },
+              "3x3": {
+                "BT": 0,
+                "GamesPlayed": 0,
+                "TotalScore": 0,
+                "AverageTime":0
+              }
+            }
+          },
+            "Multiplication":{
+              "Turbo": {
+                  "1x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "2x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "2x2": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x2": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x3": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  }
+              },
+              "Frenzy":{
+                "1x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "2x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "2x2": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x2": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x3": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                }
+              }
+          },
+            "Division":{
+              "Turbo": {
+                  "1x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "2x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x1": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "2x2": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x2": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  },
+                  "3x3": {
+                    "HS": 0,
+                    "GamesPlayed": 0,
+                    "TotalScore": 0,
+                    "AverageScore":0
+                  }
+              },
+              "Frenzy":{
+                "1x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "2x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x1": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "2x2": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x2": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                },
+                "3x3": {
+                  "BT": 0,
+                  "GamesPlayed": 0,
+                  "TotalScore": 0,
+                  "AverageTime":0
+                }
+              }
+          },
+          "AYFTAFG":{
+              
+          },
+          "Friends":{
+            "Following":{
+               0: "noOne"
+            },
+            "Followed":{
+              0: "noOne"
+            }
+          },
+
+          "Games":{
+              0: {
+                 "Date" : "9-25-13",
+                 "PlayerMode": "Solo",
+                 "GameType": "Subtraction",
+                 "GameMode": "Turbo",
+                 "Score": 0,
+                 "Time" : 10,
+                 "Difficulty": "1x1",
+              }
+          }
         }
 
         setData(`/Users/${user.uid}`, userData )
@@ -68,7 +402,7 @@ const Navigation = () =>{
     );
   
     return (
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "12vh", position: "fixed", width: "100vw", top: "0"}}>
         <Container style = {{ justifyContent: "center"}}>
             <Navbar.Brand href="/" style={{marginLeft: "37%", color: 'white', fontSize: "4em" }}>
               Turbo Math
