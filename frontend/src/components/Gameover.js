@@ -266,7 +266,7 @@ const GameOver = ({id, user}) =>{
     };
 
     return(
-        <div className = "gameOver" style = {{height: "100%", overflow: "hidden"}}>
+        <div className = "gameOver" style = {{height: "100%"}}>
             <audio id = "gameOver" controls autoplay hidden>
                         <source src="../audio/gameover.wav" type="audio/wav"></source>
                     Your browser does not support the audio element.
@@ -275,7 +275,7 @@ const GameOver = ({id, user}) =>{
                 <h1>TIMES UP!</h1>
             </div>
             {room && player? <div className='gameOver-content' style = {{opacity: gameOverTimer > 0? "0": "1", transition: "all 1s"}}>
-                <Card style={{marginTop: "25vh", width: '25vw', height: '60vh', backgroundColor: "#32386D", borderColor: "white", borderWidth: "10px"}}>
+                <Card style={{width: '25vw', height: '60vh', backgroundColor: "#32386D", borderColor: "white", borderWidth: "10px"}}>
                     <Card.Body>
                         <Card.Title style={{fontSize: "2vw"}}>Game Results</Card.Title>
                         <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1.5vw" }}>
