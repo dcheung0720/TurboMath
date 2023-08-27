@@ -377,24 +377,27 @@ const Navigation = () =>{
               id="nav-dropdown-dark-example"
               title={"Welcome, " + user.displayName}
               menuVariant="dark"
-              style={{color: 'white', fontSize: "2.5em"}} // Apply custom color to the NavDropdown title
+              style={{
+                color: "white",
+                fontSize: "1.5em",
+                width: "100%", // Allow the width to adjust based on content
+                display: "flex", // Change to flex to center the dropdown
+                justifyContent: "center", // Center content horizontally
+                alignItems: "center", // Center content vertically
+                flexDirection: "column", // Arrange items in a column
+                minHeight: "100%", // Fill the height of the dropdown
+              }}
             >
-              {/* Dropdown items */}
-              <NavDropdown.Item style={{width: "2.5em", fontSize: "2.5em"}} href="#action/3.1" className="text-primary">
-                Action
-              </NavDropdown.Item>
-              <NavDropdown.Item style={{width: "2.5em", fontSize: "2.5em"}} href="#action/3.2" className="text-danger">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item style={{width: "2.5em", fontSize: "2.5em"}} href="#action/3.3" className="text-success">
-                Something
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                <button className="btn btn-secondary btn-lg" onClick={() => signOut()}>
-                  Sign Out
-                </button>
-              </NavDropdown.Item>
+                {/* Dropdown items */}
+                <NavDropdown.Item style={{width: "13vw", fontSize: "1.5em", textAlign: "left"}} href="#action/3.1" className="text-success">
+                  Your Profile
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.2">
+                  <button style={{width: "100%", fontSize: "1em"}} className="btn btn-secondary btn-lg" onClick={() => signOut()}>
+                    Sign Out
+                  </button>
+                </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
