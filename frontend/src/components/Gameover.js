@@ -24,6 +24,7 @@ const GameOver = ({id, user}) =>{
 
     const [player, error2] = useData(`/GameRooms/${id}/Players/${user.uid}`);
 
+    //user data
     const [users, error3] = useData(`/Users/`);
 
     // Inside your GameOver component
@@ -89,7 +90,7 @@ const GameOver = ({id, user}) =>{
 
     useEffect(()=>{
         let path;
-        if(player && room && stats && !statsUpdated){
+        if(player && room && stats && users && !statsUpdated){
             //  update the player's stats
              // determining difficulty
             if(room.Difficulty1 == "1" &&  room.Difficulty2 == "1"){
@@ -137,6 +138,23 @@ const GameOver = ({id, user}) =>{
                  setData(statPath.concat("/" + path).concat("/AverageScore"), Math.round(totalScore/numGames * 100)/ 100);
 
             }
+
+            const date = new Date();
+            // game object data
+            const gameObject = {
+                "DateTime": `${date}`,
+                "Difficulty": path,
+                "GameMode": room.GameMode,
+                "GameType": room.GameType,
+                "PlayerMode": room.PlayerMode,
+                "Score": room.GameMode === "Turbo"? player.score: "N/A",
+                "Time" : room.GameMode === "Frenzy"? player.score: "N/A"
+            }
+
+            //upload gameData to Firebase
+            const id = Object.entries(users[user.uid].Games).length;
+            setData(`Users/${user.uid}/Games/${id}`, gameObject);
+
         }
     }, [stats])
         
@@ -183,7 +201,7 @@ const GameOver = ({id, user}) =>{
             "TimeLeft": 3
         }
         
-        //upload to firebase
+        //upload playerData to firebase
         setData(`GameRooms/${id}`,object);
         
         navigate(`../MathProblems/${id}`);
