@@ -390,7 +390,7 @@ const Navigation = () =>{
             >
                 {/* Dropdown items */}
                 <NavDropdown.Item style={{width: "13vw", fontSize: "1.5em", textAlign: "left"}} href="#action/3.1" className="text-success">
-                  Your Profile
+                    <Link to = {`/Profile/${user.uid}`}> Your Profile</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.2">
