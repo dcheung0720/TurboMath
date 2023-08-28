@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { setData, useData, useUserState } from '../utilities/firebase';
 import { useParams } from 'react-router-dom';
+
 
 // Sound
 // https://mixkit.co/free-sound-effects/game-show/
 
-const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
+const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestions, setWrongQuestions}) => {
   // get the current route id
   const {id} = useParams();
 
@@ -17,6 +18,10 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
   //correct or not
   const [correct, setCorrect] = useState(false); 
 
+  //can submit? to prevent multiple submit
+  const [canSubmit, setCanSubmit] = useState(true);
+  const inputRef = useRef(null); // Initialize inputRef
+
   //get user
   const [user] = useUserState();
 
@@ -26,7 +31,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
   const scorePath = `GameRooms/${id}/Players/${user.uid}/score`
 
   //get current score
-  const [score, error] = useData(scorePath)
+  const [score, error] = useData(scorePath);
 
   const handleChange = (e) => {
     setFormData(e.target.value);
@@ -49,6 +54,11 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
       
   };
 
+  useEffect(()=>{
+    // focus on the input when cansubmit changes
+    inputRef.current.focus();
+  }, [canSubmit])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormData("");
@@ -64,17 +74,33 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
       setData(scorePath, score + 1);
 
       const nums = handleProblemGeneration(difficulty1, difficulty2);
+      setCanSubmit(false);
 
       setTimeout(()=>{
         setData(`GameRooms/${id}/Problems/number1`, nums[0]);
         setData(`GameRooms/${id}/Problems/number2`, nums[1]);
         setFeedbackVis(false);
+        setCanSubmit(true);
       }, 1000)
     }
     else{
       //play incorrect sound 
       playAudio("incorrect");
       setCorrect(false);
+
+      //add to the list of wrongly answered questions
+      const wrongID = Object.entries(wrongQuestions).length;
+      
+      //const object construction
+      const wrongObject = {
+        number1: room.Problems.number1,
+        number2: room.Problems.number2
+      }
+
+      wrongQuestions[wrongID] = wrongObject
+
+      console.log(wrongQuestions);
+      setWrongQuestions(wrongQuestions);
     }
   };
 
@@ -160,7 +186,6 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
   const playAudio = (id) =>{
     //get correct audio element and play the sound
     document.getElementById(id).play();
-    console.log(document.getElementById(id))
   }
 
   return (
@@ -187,15 +212,13 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2}) => {
               <span className="input-group-text bg-primary text-white" id="inputGroup-sizing-default">Answer</span>
             </div>
             {/* input group for answer submission */}
-            <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={formData}
+            <input ref = {inputRef} disabled = {!canSubmit} type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={formData}
               onChange={handleChange} placeholder='Input Your Answer Here'/>
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </form>
+        {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
       </div>
-      <p>
-          {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
-      </p>
     </div>
   );
 }

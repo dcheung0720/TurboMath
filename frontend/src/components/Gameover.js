@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const GameOver = ({id, user}) =>{
+const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
     const [gameOverTimer, setGameOverTimer] = useState(2);
 
@@ -50,8 +50,6 @@ const GameOver = ({id, user}) =>{
         roomIDs = Object.keys(data);
     }
 
-    console.log(statPath)
-
     // handle user leaving
     const handleUserLeave = () => {
         //if user exsits, remove the user from firebase
@@ -90,7 +88,7 @@ const GameOver = ({id, user}) =>{
 
     useEffect(()=>{
         let path;
-        if(player && room && stats && users && !statsUpdated){
+        if(player && room && stats && users && wrongQuestions && !statsUpdated){
             //  update the player's stats
              // determining difficulty
             if(room.Difficulty1 == "1" &&  room.Difficulty2 == "1"){
@@ -148,7 +146,8 @@ const GameOver = ({id, user}) =>{
                 "GameType": room.GameType,
                 "PlayerMode": room.PlayerMode,
                 "Score": room.GameMode === "Turbo"? player.score: "N/A",
-                "Time" : room.GameMode === "Frenzy"? player.score: "N/A"
+                "Time" : room.GameMode === "Frenzy"? player.score: "N/A",
+                "WrongQuesetions": wrongQuestions
             }
 
             //upload gameData to Firebase
