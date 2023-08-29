@@ -147,7 +147,7 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                 "PlayerMode": room.PlayerMode,
                 "Score": room.GameMode === "Turbo"? player.score: "N/A",
                 "Time" : room.GameMode === "Frenzy"? player.score: "N/A",
-                "WrongQuesetions": wrongQuestions
+                "WrongQuestions": wrongQuestions
             }
 
             //upload gameData to Firebase
