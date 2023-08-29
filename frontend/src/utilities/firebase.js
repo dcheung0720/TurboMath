@@ -1,9 +1,11 @@
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut} from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, onValue, ref, set, push, remove } from 'firebase/database';
+import {getStorage, listAll, ref as sRef, getDownloadURL} from 'firebase/storage';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDatabaseValue } from "@react-query-firebase/database";
 import { useState,useEffect } from 'react';
+
 
 
 const firebaseConfig = {
@@ -19,6 +21,7 @@ const firebaseConfig = {
 
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
+const storage = getStorage(firebase);
 
 
 
@@ -59,4 +62,20 @@ export const setData = (path, value) =>{
 export const removeData = (path) =>{
     remove(ref(database, path));
 }
+
+//use images
+export const useImages = (path) =>{
+  const [imageLists, setImageLists] = useState([]);
+  useEffect(()=>{
+    listAll(sRef(storage, path)).then((res)=>{
+        res.items.forEach(x => {
+          getDownloadURL(x).then(url =>{
+            setImageLists((prev) => [...imageLists, url]);
+          })
+        })
+    })
+  }, [path])
+
+  return imageLists;
+};
 
