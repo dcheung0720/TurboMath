@@ -5,6 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { setData, signInWithGoogle, signOut, useData, useUserState} from '../utilities/firebase';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
 
 const Navigation = () =>{
 
@@ -372,8 +373,9 @@ const Navigation = () =>{
     );
   
     const SignOutButton = () => (
-      <div style={{position: "fixed", right: "2vw"}}>
+      <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "10vh"}}>
         {/* dropdown button */}
+        {user && data? <Image src = {`${data[user.uid].Profile.Image}`} style = {{height: "70%"}}  roundedCircle />: <></>}
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
