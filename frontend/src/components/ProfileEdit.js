@@ -30,16 +30,27 @@ const ProfileEdit = ({handleModalVisibility}) =>{
 
     const handleCaptionChange = (e)=>{   
         setCaption(e.target.value);
+    };
+
+    const handleSubmit = () =>{
+        // set the new profile src
+        setData(`Users/${id}/Profile/Image`, pfpSelected);
+
+        // set the new profile caption
+        setData(`Users/${id}/Profile/Caption`, caption);
+
+        // close the modal
+        handleModalVisibility();
 
     };
     
-    return(<div className = "profileEditModal" onClick={()=> handleModalVisibility()}>
+    return(<div className = "profileEditModal" onTouchStart={()=> handleModalVisibility()}>
         <Card className = "profileEdit" style = {{width: "50%"}} onClick={(e)=>{e.stopPropagation()}}>
             <Card.Body>
                 <Card.Title>Profile Edit</Card.Title>
                 <div className="imageSelections">
                     {console.log(pfpList)}
-                    {pfpList.length >= 4? pfpList.map(pfpSrc => 
+                    {pfpList.length >= 4? pfpList.sort((a,b) => a - b).map(pfpSrc => 
                         <Image className = "pfpSrc" src= {`${pfpSrc}`} 
                         style={{width: "10%", height:"30%", border: pfpSelected === pfpSrc? "2px solid blue": "None"}}
                         onClick={(e)=>selectPfp(e)}
@@ -52,8 +63,8 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                         <Form.Control as="textarea" rows={3} value = {caption} onChange = {(e) => handleCaptionChange(e)}/>
                     </Form.Group>
                 </Form>
-                <Button variant="secondary" onClick={()=> handleModalVisibility()}>Cancel </Button>
-                <Button variant="primary"> Submit</Button>
+                <Button variant="secondary" onClick={()=> handleModalVisibility()}> Cancel </Button>
+                <Button variant="primary" onClick = {handleSubmit}> Submit</Button>
             </Card.Body>
         </Card>
     </div>)
