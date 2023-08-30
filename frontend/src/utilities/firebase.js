@@ -74,7 +74,7 @@ export const useImages = (path) =>{
           })
         })
     })
-  }, [])
+  }, [path])
   return [imageLists];
 };
 
