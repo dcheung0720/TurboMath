@@ -70,7 +70,7 @@ export const useImages = (path) =>{
     listAll(sRef(storage, path)).then((res)=>{
         res.items.forEach(x => {
           getDownloadURL(x).then(url =>{
-            setImageLists((prev) => prev.length < 4? [...prev, url] : [...prev]);
+            setImageLists((prev) => !prev.includes(url)? [...prev, url] : [...prev]);
           })
         })
     })
