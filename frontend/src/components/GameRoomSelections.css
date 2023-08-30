@@ -1,0 +1,9 @@
+button{
+    width: 6vw;
+}
+
+.btn-group{
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+}

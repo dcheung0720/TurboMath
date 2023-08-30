@@ -1,11 +1,10 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
-
 import GameRoom from './GameRoom';
 import CreateModal from "./CreateModal";
 import { Routes,Route, Link } from "react-router-dom";
 import { useState } from 'react';
+import "./GameRoomSelections.css"
 
 function GameRoomsSelections() {
 
@@ -34,7 +33,8 @@ function GameRoomsSelections() {
                     <Card.Text>
                     Some quick example text to build on the card title 
                     </Card.Text>
-                    <Link to="/MathProblems/1" className="custom-link">
+                    <div className = "btn-group">
+                        <Link to="/MathProblems/1" className="custom-link">
                             <Button variant="primary"> Quick Join </Button>
                         </Link>
                         &nbsp;
@@ -45,6 +45,7 @@ function GameRoomsSelections() {
                         <Link to="" className="custom-link">
                             <Button onClick = {(e) => ChangeModal(e, Title)} variant="danger"> Create </Button>               
                         </Link>
+                    </div>
                 </Card.Body>                           
             </Card>
         )

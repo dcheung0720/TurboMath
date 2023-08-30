@@ -61,6 +61,7 @@ const GameRoom = () => {
     const [started, error2] = useData(gameRoomPath.concat("/Started"));
     const [delay, setDelay] = useState(4);
     const [user] = useUserState();
+    const [wrongQuestions, setWrongQuestions] = useState({});
 
     const [intervalId, setintervalId] = useState(null);
 
@@ -131,11 +132,11 @@ const GameRoom = () => {
         room && user && room.Players[user.uid]?
             room.TimeLeft > 0?
             <div style={{height: "97.25vh"}}>   
-                <div className = "PageContainer" style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", overflow: "hidden",
+                <div className = "PageContainer" style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%"    ,
                  marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
                     <div className = "MathProblem" style={{fontSize: "5vw"}}>
                         <div style={{position:"fixed", width: "100vw", top: "10vh"}}>Score: {room.Players[user.uid].score}</div>
-                        <MathProblem room = {room}></MathProblem>
+                        <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
                     </div>
                     {/* only have the leader for multiplayer */}
                     {delay <= 0?  <div className="timer-wrapper">
@@ -156,7 +157,7 @@ const GameRoom = () => {
                         <WaitingRoom id = {id} delay = {delay} setDelay={setDelay}></WaitingRoom> 
                 </div>
             </div>
-            :  <div style={{height: "100vh"}}><GameOver id = {id} user = {user}></GameOver></div>
+            :  <div style={{height: "90vh"}}><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>
         : <></>
     )
 

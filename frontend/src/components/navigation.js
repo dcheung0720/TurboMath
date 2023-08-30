@@ -5,6 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { setData, signInWithGoogle, signOut, useData, useUserState} from '../utilities/firebase';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
 
 const Navigation = () =>{
 
@@ -19,6 +20,11 @@ const Navigation = () =>{
       // if user does not exist, add it to the database
       if(data != null && user!= null && Object.keys(data).filter(x => x == user.uid).length == 0){
         const userData = {
+          "Profile":{
+             "Name": user.displayName,
+             "Image": "https://firebasestorage.googleapis.com/v0/b/turbomath-a0c94.appspot.com/o/Pfp%2Felephant.jpg?alt=media&token=1d0d7124-657b-44cf-bf02-be4ff72a6b22",
+             "Caption": "I would love to learn about math today!"
+          },
           "Addition":{
               "Turbo": {
                   "1x1": {
@@ -367,8 +373,9 @@ const Navigation = () =>{
     );
   
     const SignOutButton = () => (
-      <div style={{marginRight: "2%"}}>
+      <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "10vh"}}>
         {/* dropdown button */}
+        {user && data? <Image src = {`${data[user.uid].Profile.Image}`} style = {{height: "70%"}}  roundedCircle />: <></>}
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
@@ -377,24 +384,27 @@ const Navigation = () =>{
               id="nav-dropdown-dark-example"
               title={"Welcome, " + user.displayName}
               menuVariant="dark"
-              style={{color: 'white', fontSize: "2.5em"}} // Apply custom color to the NavDropdown title
+              style={{
+                color: "white",
+                fontSize: "1.5em",
+                width: "100%", // Allow the width to adjust based on content
+                display: "flex", // Change to flex to center the dropdown
+                justifyContent: "center", // Center content horizontally
+                alignItems: "center", // Center content vertically
+                flexDirection: "column", // Arrange items in a column
+                minHeight: "100%", // Fill the height of the dropdown
+              }}
             >
-              {/* Dropdown items */}
-              <NavDropdown.Item style={{width: "2.5em", fontSize: "2.5em"}} href="#action/3.1" className="text-primary">
-                Action
-              </NavDropdown.Item>
-              <NavDropdown.Item style={{width: "2.5em", fontSize: "2.5em"}} href="#action/3.2" className="text-danger">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item style={{width: "2.5em", fontSize: "2.5em"}} href="#action/3.3" className="text-success">
-                Something
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                <button className="btn btn-secondary btn-lg" onClick={() => signOut()}>
-                  Sign Out
-                </button>
-              </NavDropdown.Item>
+                {/* Dropdown items */}
+                <NavDropdown.Item style={{width: "13vw", fontSize: "1.5em", textAlign: "left"}} href={`/Profile/${user.uid}`} className="text-success">
+                    <Link to = {`/Profile/${user.uid}`}> Your Profile</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.2">
+                  <button style={{width: "100%", fontSize: "1em"}} className="btn btn-secondary btn-lg" onClick={() => signOut()}>
+                    Sign Out
+                  </button>
+                </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -402,9 +412,9 @@ const Navigation = () =>{
     );
   
     return (
-      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "12vh", position: "fixed", width: "100vw", top: "0"}}>
+      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "12vh", display: "flex", justifyContent: "center", position: "fixed", width: "100vw", top: "0"}}>
         <Container style = {{ justifyContent: "center"}}>
-            <Navbar.Brand href="/" style={{marginLeft: "37%", color: 'white', fontSize: "4em" }}>
+            <Navbar.Brand href="/" style={{color: 'white', fontSize: "4em" }}>
               Turbo Math
             </Navbar.Brand>
         </Container>

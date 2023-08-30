@@ -1,0 +1,10 @@
+.profilePage{
+    height: 88vh;
+    margin-top: 12vh;
+}
+
+.container{
+    height: 100%;
+    display:grid;
+    align-items: center;
+}

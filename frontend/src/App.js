@@ -3,6 +3,7 @@ import './App.css';
 import Navigation from './components/Navigation';
 import GameRoom from './components/GameRoom';
 import HomePage from './components/HomePage';
+import Profile from './components/Profile';
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { BrowserRouter as Router, Route, Link, Routes,  Outlet  } from 'react-router-dom';
 
@@ -15,9 +16,10 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <div className="App">
           <Navigation/>
-          <Routes>
+          <Routes>  
             <Route path="/" element={<HomePage />}/>
             <Route path="/MathProblems/:id" element={<GameRoom />}/>
+            <Route path="/Profile/:id" element={<Profile />}/>
           </Routes>
         </div>
       </QueryClientProvider>
