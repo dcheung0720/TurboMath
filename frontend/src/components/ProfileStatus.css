@@ -1,3 +1,10 @@
-.ProfileStatus{
+.profileStatus{
     color: black;
 }
+
+.profileStatus img{
+    border: 5px solid #555;
+    height: 50%;
+    width: 65%;
+}
+

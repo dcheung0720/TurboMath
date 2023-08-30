@@ -2,21 +2,27 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
 import "./ProfileStatus.css";
-import { useImages } from '../utilities/firebase';
+import { useImages, useData, useUserState } from '../utilities/firebase';
+
 
 const ProfileStatus = () =>{
+    const [user] = useUserState();
     const images = useImages("Pfp");
+    const [userData, error] = useData(`Users/${user.uid}`);
     return(
-        <Card className = "ProfileStatus" style={{ width: '18rem', height: "50vh" }}>
+        userData?
+        <Card className = "profileStatus" style={{ width: '18rem', height: "50vh" }}>
             <Card.Body>
-                <Card.Title>Profile</Card.Title>
-                    <Image src= {images[0]} roundedCircle />
+                <Card.Title style = {{fontSize: "3rem"}}>Profile</Card.Title>
+                    <Image src= {userData.Profile.Image} roundedCircle />
                 <Card.Text>
-                    I would Love to Learn about Math Today!
+                    {userData.Profile.Caption}
                 </Card.Text>
                 <Button variant="primary">Edit Profile</Button>
             </Card.Body>
         </Card>
+        :
+        <></>
     )
 };
 

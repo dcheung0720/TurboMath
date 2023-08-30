@@ -19,6 +19,11 @@ const Navigation = () =>{
       // if user does not exist, add it to the database
       if(data != null && user!= null && Object.keys(data).filter(x => x == user.uid).length == 0){
         const userData = {
+          "Profile":{
+             "Name": user.displayName,
+             "Image": "https://firebasestorage.googleapis.com/v0/b/turbomath-a0c94.appspot.com/o/Pfp%2Felephant.jpg?alt=media&token=1d0d7124-657b-44cf-bf02-be4ff72a6b22",
+             "Caption": "I would love to learn about math today!"
+          },
           "Addition":{
               "Turbo": {
                   "1x1": {

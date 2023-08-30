@@ -12,7 +12,7 @@ const Profile = () =>{
     // id must match param id name
     const [userData, error] = useData(`Users/${id}`);
 
-    return(<div className="ProfilePage">
+    return(<div className="profilePage">
         <Container className = "container" >
             <Row>
                 <Col>
