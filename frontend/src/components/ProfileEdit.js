@@ -15,12 +15,15 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     const [pfpList] = useImages("Pfp");
     const [pfpSelected, setPfpSelected] = useState(null);
     const [caption, setCaption] = useState(null);
+    const [origCaption, setOrigCaption] = useState(null);
+    const [textAreaDisabled, setTextAreaDisabled] = useState(true);
     
     //once userData is loaded
     useEffect(()=>{
         if(userData){
             setPfpSelected(userData.Profile.Image); 
             setCaption(userData.Profile.Caption);
+            setOrigCaption(userData.Profile.Caption);
         }
     }, [userData])
 
@@ -28,8 +31,18 @@ const ProfileEdit = ({handleModalVisibility}) =>{
         setPfpSelected(e.target.src);
     };
 
+    const handleCancelCaptionEdit = ()=>{
+        setCaption(origCaption);
+        handleCaptionEdit();
+    }
+
     const handleCaptionChange = (e)=>{   
         setCaption(e.target.value);
+
+    };
+
+    const handleCaptionEdit = (e)=>{
+        setTextAreaDisabled((prev) => !prev);
     };
 
     const handleSubmit = () =>{
@@ -44,7 +57,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
 
     };
     
-    return(<div className = "profileEditModal" onTouchStart={()=> handleModalVisibility()}>
+    return(<div className = "profileEditModal" onClick={()=> handleModalVisibility()}>
         <Card className = "profileEdit" style = {{width: "50%"}} onClick={(e)=>{e.stopPropagation()}}>
             <Card.Body>
                 <Card.Title>Profile Edit</Card.Title>
@@ -59,12 +72,22 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                 </div>
                 <Form>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Example textarea</Form.Label>
-                        <Form.Control as="textarea" rows={3} value = {caption} onChange = {(e) => handleCaptionChange(e)}/>
+                        <Form.Label style={{float: "left"}}>Your Caption:</Form.Label>
+                        <div style={{display: "flex", alignItems: "center"}}>
+                            <Form.Control disabled = {textAreaDisabled} as="textarea" rows={3} 
+                                value = {caption} onChange = {(e) => handleCaptionChange(e)}
+                                style={{resize: "none"}}/>
+                            {textAreaDisabled?
+                            <Button variant="primary" onClick = {handleCaptionEdit} 
+                                style={{width: "10%", height: "50%"}}
+                            > Edit</Button>
+                            : <Button variant="secondary" onClick = {handleCancelCaptionEdit}> Cancel</Button>
+                            }
+                        </div>
                     </Form.Group>
                 </Form>
                 <Button variant="secondary" onClick={()=> handleModalVisibility()}> Cancel </Button>
-                <Button variant="primary" onClick = {handleSubmit}> Submit</Button>
+                <Button variant="primary" onClick = {handleSubmit}> Save Changes</Button>
             </Card.Body>
         </Card>
     </div>)
