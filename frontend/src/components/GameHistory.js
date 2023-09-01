@@ -45,13 +45,12 @@ const GameHistory = () =>{
                 // need 0 padding for activity calendar dates, BRUH
                 const activityDate = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${(d.getDate()).toString().padStart(2, '0')}`; 
 
-                
-
+                // the reason we need to be [0][1] is because we need to get the first array of array with date and count
                 if(dateMatch.length === 1){
                     activityDataHolder.push({
-                        count: dateMatch[1],
+                        count: dateMatch[0][1],
                         date: activityDate,
-                        level: dateMatch[1] >= 5? 5: dateMatch[1]  
+                        level: dateMatch[0][1] >= 5? 5: dateMatch[0][1]  
                     })
                 }
                 else{
@@ -91,7 +90,7 @@ const GameHistory = () =>{
                 "Nov",
                 "Dec"
             ],
-            totalCount: "{{count}} contributions in {{year}}",
+            totalCount: "{{count}} Games in {{year}}",
             weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
             }}
         />
