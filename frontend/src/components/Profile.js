@@ -15,15 +15,15 @@ const Profile = () =>{
     const [userData, error] = useData(`Users/${id}`);
 
     return(<div className="profilePage">
-        <Container className = "container" >
+        <Container className = "container">
             <Row>
                 <Col>
                     <ProfileStatus></ProfileStatus>
                 </Col>
                 <Col xs={6}>2 of 3 (wider)</Col>
             </Row>
-            <Row>
-                <Col><GameHistory></GameHistory></Col>
+            <Row style={{backgroundColor: "white", borderRadius: "25px", width: "100%", border: "5px solid black" }} >
+                <Col style = {{display: "flex", justifyContent: "center", marginTop: "1%"}}><GameHistory></GameHistory></Col>
             </Row>
         </Container>
     </div>)

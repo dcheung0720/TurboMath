@@ -38,7 +38,7 @@ const GameHistory = () =>{
 
             let activityDataHolder = [];
             //loop through all dates in 2023
-            for(let d = new Date(2023,0, 1); d < new Date(2023, 11, 31); d.setDate(d.getDate() + 1)){
+            for(let d = new Date(2023,0, 1); d <= new Date(2023, 11, 31); d.setDate(d.getDate() + 1)){
                 const tempDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
                 
                 //see if there is any data for the user at this date
@@ -69,41 +69,53 @@ const GameHistory = () =>{
     }, [userGamedates]);
 
     return (
-        <ActivityCalendar
-            data = {activityData}
+        <div className = "activityTracker" style = {{color: "black"}}>
+                <h3 style = {{textAlign:"left"}}>Your Game Activity:</h3>
+                <ActivityCalendar
+                    data = {activityData}
+                    showWeekdayLabels = {true}
+                    renderBlock={(block, activity) => (
+                        <MuiTooltip
+                        title={`${activity.count} games on ${activity.date}`}
+                        >
+                        {block}
+                        </MuiTooltip>
+                    )}
+                    labels={{
+                    legend: {
+                        less: "Less",
+                        more: "More"
+                    },
+                    months: [
+                        "Jan",
+                        "Feb",
+                        "Mar",
+                        "Apr",
+                        "May",
+                        "Jun",
+                        "Jul",
+                        "Aug",
+                        "Sep",
+                        "Oct",
+                        "Nov",
+                        "Dec"
+                    ],
+                    totalCount: "{{count}} Games in {{year}}",
+                    weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+                    }}
 
-            renderBlock={(block, activity) => (
-                <MuiTooltip
-                  title={`${activity.count} games on ${activity.date}`}
-                >
-                  {block}
-                </MuiTooltip>
-            )}
-
-            labels={{
-            legend: {
-                less: "Less",
-                more: "More"
-            },
-            months: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec"
-            ],
-            totalCount: "{{count}} Games in {{year}}",
-            weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-            }}
-        />
-        );
+                    theme={{
+                        "dark": [
+                        "hsl(0, 0%, 22%)",
+                        "hsl(120, 10%, 45%)",
+                        "hsl(120, 35%, 45%)",
+                        "hsl(120, 65%, 45%)",
+                        "hsl(100, 100%, 45%)"
+                        ]
+                    }}
+                />
+            </div>
+            );
 };
 
 export default GameHistory;
