@@ -24,8 +24,6 @@ const Profile = () =>{
             </Row>
             <Row>
                 <Col><GameHistory></GameHistory></Col>
-                <Col xs={5}>2 of 3 (wider)</Col>
-                <Col>3 of 3</Col>
             </Row>
         </Container>
     </div>)

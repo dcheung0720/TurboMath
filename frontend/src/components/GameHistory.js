@@ -2,6 +2,8 @@ import ActivityCalendar from "react-activity-calendar";
 import { useData } from "../utilities/firebase";
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
+import { Tooltip as MuiTooltip } from '@mui/material';
+
 
 const GameHistory = () =>{
 
@@ -64,13 +66,20 @@ const GameHistory = () =>{
 
             setActivityData(activityDataHolder);
         }
-    }, [userGamedates])
-
-    console.log(activityData)
+    }, [userGamedates]);
 
     return (
         <ActivityCalendar
             data = {activityData}
+
+            renderBlock={(block, activity) => (
+                <MuiTooltip
+                  title={`${activity.count} games on ${activity.date}`}
+                >
+                  {block}
+                </MuiTooltip>
+            )}
+
             labels={{
             legend: {
                 less: "Less",
