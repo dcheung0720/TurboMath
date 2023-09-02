@@ -23,7 +23,7 @@ const ProfileStatus = () =>{
     return(
         userData?
         <div>
-            <Card className = "profileStatus" style={{ width: '18rem', height: "50vh" }}>
+            <Card className = "profileStatus" style={{ width: '100%', height: "50vh" }}>
                 <Card.Body>
                     <Card.Title style = {{fontSize: "3rem"}}>Profile</Card.Title>
                         <Image src= {userData.Profile.Image} roundedCircle />

@@ -5,6 +5,10 @@ import ProfileStatus from "./ProfileStatus";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import GameHistory from "./GameHistory";
+import ProfileStats from "./ProfileStats";
+import ProfileGraph from "./ProfileGraph";
+
 
 const Profile = () =>{
     const {id} = useParams();
@@ -13,17 +17,22 @@ const Profile = () =>{
     const [userData, error] = useData(`Users/${id}`);
 
     return(<div className="profilePage">
-        <Container className = "container" >
-            <Row>
-                <Col>
+        <Container className = "container">
+            <Row style={{width: "100%"}}>
+                <Col xs={4}>
                     <ProfileStatus></ProfileStatus>
                 </Col>
-                <Col xs={6}>2 of 3 (wider)</Col>
+                <Col xs={8} style={{height: "50vh"}}>
+                    <Row style = {{ marginBottom: '2vh', height: "22vh"}}>
+                        <ProfileStats/>
+                    </Row>
+                    <Row style={{height: "26vh"}}> 
+                        <ProfileGraph/>
+                    </Row>
+                </Col>
             </Row>
-            <Row>
-                <Col>1 of 3</Col>
-                <Col xs={5}>2 of 3 (wider)</Col>
-                <Col>3 of 3</Col>
+            <Row style={{backgroundColor: "white", borderRadius: "25px", width: "100%", border: "5px solid black" }} >
+                <Col style = {{display: "flex", justifyContent: "center", marginTop: "1%"}}><GameHistory></GameHistory></Col>
             </Row>
         </Container>
     </div>)

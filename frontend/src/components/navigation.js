@@ -6,6 +6,8 @@ import { setData, signInWithGoogle, signOut, useData, useUserState} from '../uti
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Navigation = () =>{
 
@@ -397,7 +399,7 @@ const Navigation = () =>{
             >
                 {/* Dropdown items */}
                 <NavDropdown.Item style={{width: "13vw", fontSize: "1.5em", textAlign: "left"}} href={`/Profile/${user.uid}`} className="text-success">
-                    <Link to = {`/Profile/${user.uid}`}> Your Profile</Link>
+                    <Link to = {`/Profile/${user.uid}`}><FontAwesomeIcon icon={faUser} /> Your Profile</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.2">
