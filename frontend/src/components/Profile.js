@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import GameHistory from "./GameHistory";
+import ProfileStats from "./ProfileStats";
+import ProfileGraph from "./ProfileGraph";
 
 
 const Profile = () =>{
@@ -16,11 +18,18 @@ const Profile = () =>{
 
     return(<div className="profilePage">
         <Container className = "container">
-            <Row>
-                <Col>
+            <Row style={{width: "100%"}}>
+                <Col xs={4}>
                     <ProfileStatus></ProfileStatus>
                 </Col>
-                <Col xs={6}>2 of 3 (wider)</Col>
+                <Col xs={8} style={{height: "50vh"}}>
+                    <Row style = {{ marginBottom: '2vh', height: "20vh"}}>
+                        <ProfileStats/>
+                    </Row>
+                    <Row style={{height: "28vh"}}> 
+                        <ProfileGraph/>
+                    </Row>
+                </Col>
             </Row>
             <Row style={{backgroundColor: "white", borderRadius: "25px", width: "100%", border: "5px solid black" }} >
                 <Col style = {{display: "flex", justifyContent: "center", marginTop: "1%"}}><GameHistory></GameHistory></Col>

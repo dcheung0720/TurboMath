@@ -52,7 +52,7 @@ const GameHistory = () =>{
                     activityDataHolder.push({
                         count: dateMatch[0][1],
                         date: activityDate,
-                        level: dateMatch[0][1] >= 5? 5: dateMatch[0][1]  
+                        level: dateMatch[0][1] >= 4? 4: dateMatch[0][1]  
                     })
                 }
                 else{
@@ -68,6 +68,7 @@ const GameHistory = () =>{
         }
     }, [userGamedates]);
 
+    // https://grubersjoe.github.io/react-activity-calendar/?path=/story/react-activity-calendar--with-customized-look&args=blockSize:16
     return (
         <div className = "activityTracker" style = {{color: "black"}}>
                 <h3 style = {{textAlign:"left"}}>Your Game Activity:</h3>
