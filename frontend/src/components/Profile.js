@@ -23,10 +23,10 @@ const Profile = () =>{
                     <ProfileStatus></ProfileStatus>
                 </Col>
                 <Col xs={8} style={{height: "50vh"}}>
-                    <Row style = {{ marginBottom: '2vh', height: "20vh"}}>
+                    <Row style = {{ marginBottom: '2vh', height: "22vh"}}>
                         <ProfileStats/>
                     </Row>
-                    <Row style={{height: "28vh"}}> 
+                    <Row style={{height: "26vh"}}> 
                         <ProfileGraph/>
                     </Row>
                 </Col>
