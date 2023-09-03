@@ -12,11 +12,15 @@ import {
     scaleTime,
     scaleBand,
     max,
-    min
+    min,
+    easeLinear
   } from "d3";
 
 import { useParams } from 'react-router';
 import { useData } from '../utilities/firebase';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const ProfileGraph = () =>{
 
@@ -49,6 +53,7 @@ const ProfileGraph = () =>{
                 game.GameType === selectedGameType &&
                 game.Difficulty === selectedDifficulty
             )
+
             
             let dates = data.map(game => {
                 const date = new Date(game.DateTime);
@@ -68,40 +73,40 @@ const ProfileGraph = () =>{
             })
 
 
-            if (dateAndScores.length > 0){
-                const svg = select(svgRef.current);
-                const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-                const width = 700 - margin.left - margin.right;
-                const height = 250 - margin.top - margin.bottom;
-          
-                // Clear existing content
-                svg.selectAll("*").remove();
-          
-                // Create a group for the chart content
-                const chart = svg
-                  .append("g")
-                  .attr("transform", `translate(${margin.left}, ${margin.top})`);
-          
+
+            const svg = select(svgRef.current);
+            const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+            const width = 700 - margin.left - margin.right;
+            const height = 250 - margin.top - margin.bottom;
+    
+            // Clear existing content
+            svg.selectAll("*").remove();
+            // Create a group for the chart content
+            const chart = svg
+            .append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+            if(dateAndScores.length > 0){
                 // Scales
                 const xScale = scaleBand()
-                  .domain(dateAndScores.map(d => d[0]))
-                  .range([0, width])
-                  .padding(0.1); // Adjust padding between bars if needed
-          
+                .domain(dateAndScores.map(d => d[0]))
+                .range([0, width])
+                .padding(0.1); // Adjust padding between bars if needed
+
                 const yScale = scaleLinear()
-                  .domain([0, max(dateAndScores, d => d[1])])
-                  .nice()
-                  .range([height, 0]);
-          
+                .domain([0, max(dateAndScores, d => d[1])])
+                .nice()
+                .range([height, 0]);
+
                 // Axes
                 const xAxis = axisBottom(xScale);
                 chart
-                  .append("g")
-                  .attr("class", "x-axis")
-                  .attr("transform", `translate(0, ${height})`)
-                  .style("font-size","20px")
-                  .style("font-family", "Bangers")
-                  .call(xAxis);
+                .append("g")
+                .attr("class", "x-axis")
+                .attr("transform", `translate(0, ${height})`)
+                .style("font-size","20px")
+                .style("font-family", "Bangers")
+                .call(xAxis);
 
                 // x label
                 chart.append("text")
@@ -110,14 +115,14 @@ const ProfileGraph = () =>{
                 .attr("x", width)
                 .attr("y", height - 6)
                 .text("Date");
-          
+
                 const yAxis = axisLeft(yScale);
                 chart
-                  .append("g")
-                  .attr("class", "y-axis")
-                  .style("font-size","20px")
-                  .style("font-family", "Bangers")
-                  .call(yAxis);
+                .append("g")
+                .attr("class", "y-axis")
+                .style("font-size","20px")
+                .style("font-family", "Bangers")
+                .call(yAxis);
 
                 // y label
                 chart.append("text")
@@ -127,51 +132,102 @@ const ProfileGraph = () =>{
                 .attr("dy", ".75em")
                 .attr("transform", "rotate(-90)")
                 .text("Average Score");
-          
+
                 // Add dots for data points
                 chart.selectAll(".dot")
-                  .data(dateAndScores)
-                  .enter().append("circle")
-                  .attr("class", "dot")
-                  .attr("cx", d => xScale(d[0]) + xScale.bandwidth() / 2) // Center the dots on bars
-                  .attr("cy", d => yScale(d[1]))
-                  .attr("r", 4) // Adjust the radius of the dots as needed
-                  .on('mouseover', (event, d) => {
-                    // Show a tooltip with the score when hovering over a dot
-                    setHoveredData(d);
-                    // Calculate the tooltip position relative to the chart container
-                    const x = xScale(d[0]) + xScale.bandwidth() / 2;
-                    const y = yScale(d[1]);
-                    setTooltipPosition({ top: y, left: x });
-                    setTooltipContent(`Average Score: ${d[1]}`);
-                  })
-                  .on('mouseout', () => {
-                    // Hide the tooltip when mouseout
-                    setHoveredData(null);
-                  });
-          
-                // Line generator
-                const myLine = line()
-                  .x(d => xScale(d[0]) + xScale.bandwidth() / 2) // Center the line on bars
-                  .y(d => yScale(d[1]));
-          
+                .data(dateAndScores)
+                .enter().append("circle")
+                .transition() // Apply the transition
+                .duration(1000) // Set the transition duration in milliseconds
+                .attr("class", "dot")
+                .attr("cx", d => xScale(d[0]) + xScale.bandwidth() / 2) // Center the dots on bars
+                .attr("cy", d => yScale(d[1]))
+                .attr("r", 4) // Adjust the radius of the dots as needed
+
+
                 // Drawing the line
-                chart
-                  .append("path")
-                  .datum(dateAndScores)
-                  .attr("class", "line")
-                  .attr("d", myLine)
-                  .attr("fill", "none")
-                  .attr("stroke", "#00bfa6");
-        }
+                const myLine = line()
+                .x(d => xScale(d[0]) + xScale.bandwidth() / 2) // Center the line on bars
+                .y(d => yScale(d[1]));
+
+                const path = chart
+                .append("path")
+                .datum(dateAndScores)
+                .attr("class", "line")
+                .attr("fill", "none")
+                .attr("stroke", "#00bfa6")
+                .attr("d", myLine); // Initial path
+
+                // Calculate the total length of the path
+                const totalLength = path.node().getTotalLength();
+
+                // Apply CSS to create the drawing animation
+                path
+                .attr("stroke-dasharray", totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .transition()
+                .duration(1000)
+                .ease(easeLinear)
+                .attr("stroke-dashoffset", 0); // Draw the line
+
             }
-            
+            else{
+                chart.append("text")
+                .attr("class", "No Data")
+                .attr("text-anchor", "middle")
+                .attr("x", width / 2)
+                .attr("y", height/2)
+                .style("font-size", "150px")
+                .text("No Data");
+            }
+
+        }     
       }, [gameData, selectedDifficulty, selectedGameType]);
 
+
+    
+    const handleSelectDifficulty = (ekey) =>{
+        setSelectedDifficulty(ekey);
+    }
+
+    const handleSelectGameType = (ekey) =>{
+        setSelectedGameType(ekey);
+    }
+
     return(
-        <Card style={{ width: '47vw', height: "100%"}}>
+        <Card style={{ width: '47vw', height: "100%", display:"flex", justifyContent: "center"}}>
            <Card.Body>
-               <Card.Title>Avevrage Score Over Time</Card.Title>
+                <div style = {{display: "flex", justifyContent: "center"}}>
+                    <Card.Title>Average Score Over Time</Card.Title>
+                        <DropdownButton
+                                as={ButtonGroup}
+                                size="sm"
+                                variant="secondary"
+                                title= {`Difficulty: ${selectedDifficulty}`}
+                                style={{textAlign:"center", position: 'absolute', top: "3px", right: "3px"}}
+                                onSelect={(ekey) => handleSelectDifficulty(ekey)}
+                                >
+                                <Dropdown.Item eventKey="1x1" className="text-center">1x1</Dropdown.Item>
+                                <Dropdown.Item eventKey="2x1" className="text-center">2x1</Dropdown.Item>
+                                <Dropdown.Item eventKey="3x1" className="text-center">3x1</Dropdown.Item>
+                                <Dropdown.Item eventKey="2x2" className="text-center">2x2</Dropdown.Item>
+                                <Dropdown.Item eventKey="3x2" className="text-center">3x2</Dropdown.Item>
+                                <Dropdown.Item eventKey="3x3" className="text-center">3x3</Dropdown.Item>
+                        </DropdownButton>
+                        <DropdownButton
+                                as={ButtonGroup}
+                                size="sm"
+                                variant="secondary"
+                                title= {`GameType: ${selectedGameType}`}
+                                style={{textAlign:"center", position: 'absolute', top: "3px", left: "3px"}}
+                                onSelect={(ekey) => handleSelectGameType(ekey)}
+                                >
+                                <Dropdown.Item eventKey="Addition" className="text-center">Addition</Dropdown.Item>
+                                <Dropdown.Item eventKey="Subtraction" className="text-center">Subtraction</Dropdown.Item>
+                                <Dropdown.Item eventKey="Multiplication" className="text-center">Multiplication</Dropdown.Item>
+                                <Dropdown.Item eventKey="Division" className="text-center">Division</Dropdown.Item>
+                        </DropdownButton>
+               </div>
                <svg width={700} height={250} ref = {svgRef}
                transform={`translate(40, 20)`}
 >
