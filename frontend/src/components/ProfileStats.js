@@ -54,6 +54,7 @@ const ProfileStats = () =>{
                         <Card className = {`${idx}`} style={{ width: '25%', height: "100%", marginRight: "20px"}}>
                             <Card.Body>
                             <Card.Title style = {{fontSize: "100%"}}>{gm}</Card.Title>
+                            <p>{selectedDifficulty}</p>
                             <p>Best Score: {userData[gm]["Turbo"][selectedDifficulty].HS} <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08"}} /> </p>
                             </Card.Body>
                     </Card>)
