@@ -9,6 +9,7 @@ import {
     scaleLinear,
     axisBottom,
     axisLeft,
+    scaleTime,
   } from "d3";
 
 import { useParams } from 'react-router';
@@ -58,48 +59,72 @@ const ProfileGraph = () =>{
                 return [date, gamesWithDate.length > 0? scoreCount/ gamesWithDate.length:0]
             })
 
-            const svg = select(svgRef.current);
-        
-            //scales
-            const xScale = scaleLinear()
-            .domain([0, data.length - 1])
-            .range([0, 300]);
-        
-            const yScale = scaleLinear().domain([0, 100]).range([100, 0]);
-        
-            //axes
-            const xAxis = axisBottom(xScale).ticks(data.length);
-            svg.select(".x-axis").style("transform", "translateY(100px)").call(xAxis);
-        
-            const yAxis = axisLeft(yScale);
-            svg.select(".y-axis").style("transform", "translateX(0px)").call(yAxis);
-        
-            //line generator
-            const myLine = line()
-            .x((d, i) => xScale(i))
-            .y((d) => yScale(d.y))
-            .curve(curveCardinal);
-        
-            //drawing the line
-            svg
-            .selectAll(".line")
-            .data([data])
-            .join("path")
-            .attr("class", "line")
-            .attr("d", myLine)
-            .attr("fill", "none")
-            .attr("stroke", "#00bfa6");
+            console.log(dateAndScores)
+
+            if (dateAndScores.length > 0){
+                const svg = select(svgRef.current);
+                const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+                const width = 700 - margin.left - margin.right;
+                const height = 250 - margin.top - margin.bottom;
+
+                // Clear existing content
+                svg.selectAll("*").remove();
+            
+                // Create a group for the chart content
+                const chart = svg
+                .append("g")
+                .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+                //scales
+                const xScale = scaleTime()
+                .domain([new Date (dateAndScores[0][0]), new Date (dateAndScores[dateAndScores.length - 1][0])])
+                .range([0, width]);
+
+            
+                const yScale = scaleLinear().domain([0, 10]).range([height, 0]);
+            
+                //axes
+                const xAxis = axisBottom(xScale).ticks(5);
+                chart
+                .append("g")
+                .attr("class", "x-axis")
+                .attr("transform", `translate(0, ${height})`)
+                .call(xAxis);
+            
+                const yAxis = axisLeft(yScale);
+                chart
+                .append("g")
+                .attr("class", "y-axis")
+                .call(yAxis);
+
+
+                //line generator
+                const myLine = line()
+                .x((d) => xScale(new Date(d[0])))
+                .y((d) => yScale(d[1]))
+                .curve(curveCardinal);
+            
+                //drawing the line
+                svg
+                .selectAll(".line")
+                .data([dateAndScores])
+                .join("path")
+                .attr("class", "line")
+                .attr("d", myLine)
+                .attr("fill", "none")
+                .attr("stroke", "#00bfa6");
         }
+            }
+            
       }, [gameData]);
 
     return(
         <Card style={{ width: '47vw', height: "100%"}}>
            <Card.Body>
                <Card.Title>History</Card.Title>
-               <svg ref = {svgRef}>
-
+               <svg width={700} height={250} ref = {svgRef} transform={`translate(40, 20)`}>
+                
                </svg>
-
            </Card.Body>
        </Card>)
 };
