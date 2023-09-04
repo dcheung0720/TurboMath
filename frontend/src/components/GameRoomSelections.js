@@ -29,7 +29,7 @@ function GameRoomsSelections() {
                     <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "20%", height: "90%"}}/>
                  </div>
                 <Card.Body style = {{height: "100%", width: "100%"}}>
-                    <Card.Title style = {{fontSize: "1.5vw"}}>{Title}</Card.Title>
+                    <Card.Title style = {{fontSize: "100%"}}>{Title}</Card.Title>
                     <Card.Text>
                     Some quick example text to build on the card title 
                     </Card.Text>

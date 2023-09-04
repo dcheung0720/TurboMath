@@ -8,12 +8,10 @@ const HomePage = () =>{
 
     return(
         user?
-        <div style={{marginTop: "12vh"}}>
+        <div style={{height: "100%"}}>
             {/* <h1 style = {{marginBottom: 0, marginTop: "1vh"}}>Game Selections</h1> */}
-            <div style={{display: "flex", justifyContent: "center", flexWrap : "wrap", height: "50%"}}>
-                <div className = "selectionContainer">
-                    <GameRoomsSelections/>
-                </div>
+            <div className = "selectionContainer">
+                <GameRoomsSelections/>
             </div>
         </div>:
         <></>
