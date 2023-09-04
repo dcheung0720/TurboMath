@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import "./WaitingRoom.css"
 
 
 const WaitingRoom = ({id, delay, setDelay}) =>{
@@ -76,7 +77,7 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         :
 
         <div className="d-flex justify-content-around align-content-center" >
-            <Card style={{ width: '35rem', fontSize: "25px", color: "black", borderRadius: "10%" }}>
+            <Card style={{ width: '100%', fontSize: "25px", color: "black", borderRadius: "10%" }}>
                 <Card.Body>
                 <Card.Title style={{ fontSize: "35px" }}>Welcome to the {room.GameType} room !</Card.Title>
                 <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>

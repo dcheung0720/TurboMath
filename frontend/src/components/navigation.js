@@ -3,11 +3,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { setData, signInWithGoogle, signOut, useData, useUserState} from '../utilities/firebase';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import "./Navigation.css"
+
 
 const Navigation = () =>{
 
@@ -16,6 +18,10 @@ const Navigation = () =>{
 
     // get users data
     const [data, error] = useData('/Users');
+
+    const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+    const [navToggled, setNavToggled] = useState(false);
 
     // when user logs in
     useEffect(() =>{
@@ -373,21 +379,46 @@ const Navigation = () =>{
         Sign In
       </button>
     );
+
+    // get screen size resize
+    function getCurrentDimension(){
+      return {
+          width: window.innerWidth,
+          height: window.innerHeight
+      }
+    }
+
+    useEffect(() => {
+      const updateDimension = () => {
+        setScreenSize(getCurrentDimension())
+      }
+      window.addEventListener('resize', updateDimension);
+      
+      return(() => {
+          window.removeEventListener('resize', updateDimension);
+      })
+    }, [screenSize])
+
+    console.log(navToggled)
+  
   
     const SignOutButton = () => (
       <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "10vh"}}>
         {/* dropdown button */}
-        {user && data? <Image src = {`${data[user.uid].Profile.Image}`} style = {{height: "70%"}}  roundedCircle />: <></>}
-        <Navbar.Toggle aria-controls="navbar-dark-example" />
+        {user && data? 
+        (!navToggled && screenSize.width > 680) || (navToggled && screenSize.width) > 1000?
+          <Image src = {`${data[user.uid].Profile.Image}`} style = {{height: "70%"}}  roundedCircle /> 
+          : <></>
+        : <></>}
+        <Navbar.Toggle onClick = {(e) => setNavToggled(!e.target.value)}aria-controls="navbar-dark-example" style={{backgroundColor: !navToggled || screenSize.width > 860? "none": "black"}} />
         <Navbar.Collapse id="navbar-dark-example">
-          <Nav>
+          <Nav style = {{backgroundColor: navToggled && screenSize.width < 860? "black": "none"}}>
             <NavDropdown
               align="right"
               id="nav-dropdown-dark-example"
               title={"Welcome, " + user.displayName}
               menuVariant="dark"
               style={{
-                color: "white",
                 fontSize: "1.5em",
                 width: "100%", // Allow the width to adjust based on content
                 display: "flex", // Change to flex to center the dropdown
@@ -398,7 +429,7 @@ const Navigation = () =>{
               }}
             >
                 {/* Dropdown items */}
-                <NavDropdown.Item style={{width: "13vw", fontSize: "1.5em", textAlign: "left"}} href={`/Profile/${user.uid}`} className="text-success">
+                <NavDropdown.Item  href={`/Profile/${user.uid}`} className="text-success">
                     <Link to = {`/Profile/${user.uid}`}><FontAwesomeIcon icon={faUser} /> Your Profile</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />

@@ -16,3 +16,13 @@
         margin-right: 10px;
     }
 }
+
+@media (max-height: 780px){
+    .selectionContainer{
+        margin-top: 100px;
+        height: auto;
+    }
+}
+
+
+

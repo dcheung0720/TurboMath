@@ -151,8 +151,8 @@ const GameRoom = () => {
                     </div>: <></>}
                     {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                 </div> 
-                <div style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
-                    height: "85vh", top: "10vh", width: "100vw", fontSize: "70px",
+                <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
+                    height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
                     transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
                         <WaitingRoom id = {id} delay = {delay} setDelay={setDelay}></WaitingRoom> 
                 </div>
