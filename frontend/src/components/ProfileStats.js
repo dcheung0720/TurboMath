@@ -34,16 +34,17 @@ const ProfileStats = () =>{
                     <div>Difficulty: </div>
                     <DropdownButton  key="secondary" 
                     id="dropdown-variants-Secondary" 
+                    size="sm"
                     title= {`${selectedDifficulty}`}
                     style ={{margin:"5px"}}
                     onSelect = {(eKey) => handleSelectDifficulty(eKey)}
                     >
-                        <Dropdown.Item href="#/action-1" eventKey="1x1">1x1</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" eventKey="2x1">2x1</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="3x1">3x1</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="2x2">2x2</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="3x2">3x2</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" eventKey="3x3">3x3</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1" className = "text-center" eventKey="1x1">1 x 1</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2" className = "text-center" eventKey="2x1">2 x 1</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3" className = "text-center" eventKey="3x1">3 x 1</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3" className = "text-center" eventKey="2x2">2 x 2</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3" className = "text-center" eventKey="3x2">3 x 2</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3" className = "text-center" eventKey="3x3">3 x 3</Dropdown.Item>
                     </DropdownButton>
                 </span>
             </div>

@@ -1,6 +1,7 @@
 import MathProblems from "./GameRoom";
 import { useUserState } from "../utilities/firebase";
 import GameRoomsSelections from "./GameRoomSelections";
+import "./HomePage.css"
 
 const HomePage = () =>{
     const [user] = useUserState();
@@ -9,9 +10,8 @@ const HomePage = () =>{
         user?
         <div style={{marginTop: "12vh"}}>
             {/* <h1 style = {{marginBottom: 0, marginTop: "1vh"}}>Game Selections</h1> */}
-            <div style={{display: "flex", justifyContent: "center", flexWrap : "wrap", height: "88vh"}}>
-                <div className = "SelectionContainer" style = {{width: "100%", height: "100%", display: "flex",
-                 flexWrap : "wrap", justifyContent: "center"}}>
+            <div style={{display: "flex", justifyContent: "center", flexWrap : "wrap", height: "50%"}}>
+                <div className = "selectionContainer">
                     <GameRoomsSelections/>
                 </div>
             </div>

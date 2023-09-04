@@ -1,5 +1,5 @@
 button{
-    width: 6vw;
+    width: 100px;
 }
 
 .btn-group{
@@ -7,3 +7,29 @@ button{
     justify-content: center;
     justify-content: space-evenly;
 }
+
+.border-primary.mt-3.ml-3 {
+    /* Your styles here */
+    background-color: #32386D;
+    font-size: 100%;
+    width: 25%;
+    height: 40%;
+    flex-shrink: 0;
+    display: flex;
+    align-content: center;
+  }
+  
+
+@media (max-width: 768px) {
+    /* CSS styles for screens smaller than 768px wide */
+    .border-primary.mt-3.ml-3 {
+        /* Your styles here */
+        width: 100%;
+        height: 40%;
+        flex-shrink: 0;
+      }
+  }
+  
+  @media (max-width: 576px) {
+    /* CSS styles for screens smaller than 576px wide */
+  }
