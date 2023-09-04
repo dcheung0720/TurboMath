@@ -12,5 +12,7 @@
     .selectionContainer {
         display:block;
         margin-top: 100px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }

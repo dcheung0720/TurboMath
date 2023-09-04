@@ -24,7 +24,7 @@ function GameRoomsSelections() {
   return (<>
     {gameRoomNames.map((Title, idx) =>{
         return(
-            <Card border="primary"  className='mt-3 ml-3'>
+            <Card border="primary">
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "20%", height: "90%"}}/>
                  </div>
