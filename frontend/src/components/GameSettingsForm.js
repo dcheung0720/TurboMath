@@ -49,7 +49,7 @@ const GameSettingsForm = ({gameType}) =>{
             }, 
             "GameType": gameType,
             "Started": false,
-            "TimeLeft": 3
+            "TimeLeft": 60
         }
         
         //upload to firebase

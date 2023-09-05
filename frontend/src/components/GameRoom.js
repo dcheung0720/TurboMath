@@ -131,9 +131,8 @@ const GameRoom = () => {
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
             room.TimeLeft > 0?
-            <div style={{height: "97.25vh"}}>   
-                <div className = "PageContainer" style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%"    ,
-                 marginTop: "20px", opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
+            <div className = "game-content" style={{height: "100%"}}>   
+                <div className = "PageContainer" style={{ opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
                     <div className = "MathProblem" style={{fontSize: "5vw"}}>
                         <div style={{position:"fixed", width: "100vw", top: "10vh"}}>Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
@@ -142,7 +141,7 @@ const GameRoom = () => {
                     {delay <= 0?  <div className="timer-wrapper">
                         <CountdownCircleTimer
                         isPlaying
-                        duration={3}
+                        duration={60}
                         colors="#A30000"
                         colorsTime={[10, 6, 3, 0]}
                         >

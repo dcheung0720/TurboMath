@@ -1,25 +1,26 @@
 /* waiting room card */
-.waiting-panel{
+.card.waiting-panel{
     width: 35rem;
     font-size: 25px;
-    color: black;
+    color: white;
     border-radius: 10%;
+    display: flex;
+    justify-content: center;
 }
+
+.table.primary{
+    color:white
+}
+
 
 
 
 @media (max-width: 640px) {
-    .waiting-panel{
+    .card.waiting-panel{
         width: 100%;
+        margin: 0;
     }
 }
-
-@media (max-height: 500px){
-    /* .waiting-panel{
-        margin-top: 100px;
-    } */
-}
-
 
 @media (max-height: 600px){
     .waiting-panel-container{

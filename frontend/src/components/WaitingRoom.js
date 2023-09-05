@@ -104,7 +104,7 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
                 <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                     Game Settings
                 </div>
-                <Table striped bordered hover style={{ textAlign: 'center' }}>
+                <Table className = "primary" striped bordered hover style={{ textAlign: 'center' }}>
                     <tbody>
                         <tr>
                         <td>Player Mode</td>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { setData, useData, useUserState } from '../utilities/firebase';
 import { useParams } from 'react-router-dom';
-
+import "./AnswerSubmission.css"
 
 // Sound
 // https://mixkit.co/free-sound-effects/game-show/
@@ -32,6 +32,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
 
   //get current score
   const [score, error] = useData(scorePath);
+  
 
   const handleChange = (e) => {
     setFormData(e.target.value);
@@ -214,10 +215,10 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
             {/* input group for answer submission */}
             <input ref = {inputRef} disabled = {!canSubmit} type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value={formData}
               onChange={handleChange} placeholder='Input Your Answer Here'/>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary answer-submit">Submit</button>
           </div>
         </form>
-        {feedbackVis? (correct ? <div> Good Job! You got it correct!</div> : <div> Not Quite... You got it wrong!</div>) : <></> }
+        {feedbackVis? (correct ? <div style={{fontSize: "100%"}}> Good Job! You got it correct!</div> : <div style={{fontSize: "100%"}}> Not Quite... You got it wrong!</div>) : <></> }
       </div>
     </div>
   );

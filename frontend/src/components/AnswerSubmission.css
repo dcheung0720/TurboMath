@@ -1,0 +1,9 @@
+.input-group.mb-3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn.btn-primary.answer-submit{
+    width: 100px
+}

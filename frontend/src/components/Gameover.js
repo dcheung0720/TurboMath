@@ -291,11 +291,12 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
             <div className='gameOver-block' style = {{marginTop: "10vh",opacity: gameOverTimer > 0? "1": "0", transition: "all 1s"}}>
                 <h1>TIMES UP!</h1>
             </div>
-            {room && player? <div className='gameOver-content' style = {{opacity: gameOverTimer > 0? "0": "1", transition: "all 1s"}}>
-                <Card style={{width: '25vw', height: '60vh', backgroundColor: "#32386D", borderColor: "white", borderWidth: "10px"}}>
+            {room && player? 
+            <div className='gameOver-content' style = {{opacity: gameOverTimer > 0? "0": "1", transition: "all 1s"}}>
+                <Card>
                     <Card.Body>
-                        <Card.Title style={{fontSize: "2vw"}}>Game Results</Card.Title>
-                        <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1.5vw" }}>
+                        <Card.Title style={{fontSize: "2rem"}}>Game Results</Card.Title>
+                        <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1rem" }}>
                             <tbody>
                                 <tr>
                                     <td>Player Mode: </td>
