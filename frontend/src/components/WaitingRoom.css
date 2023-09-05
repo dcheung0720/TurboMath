@@ -1,7 +1,31 @@
-@media (max-height: 640px) {
-    .card{
-        margin-top: 100px;
-        height: 420px;
+/* waiting room card */
+.waiting-panel{
+    width: 35rem;
+    font-size: 25px;
+    color: black;
+    border-radius: 10%;
+}
+
+
+
+@media (max-width: 640px) {
+    .waiting-panel{
+        width: 100%;
     }
 }
+
+@media (max-height: 500px){
+    /* .waiting-panel{
+        margin-top: 100px;
+    } */
+}
+
+
+@media (max-height: 600px){
+    .waiting-panel-container{
+        margin-top: 100px;
+    }
+}
+
+
 

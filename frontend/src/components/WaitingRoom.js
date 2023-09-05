@@ -11,8 +11,29 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
 
     const [room, error] = useData(`GameRooms/${id}`);
     const [countDown, setCountDownVisibility] =  useState(false);
+    const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     const intervalId = useRef();
+
+    // get screen size resize
+    function getCurrentDimension(){
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        }
+        }
+    
+    useEffect(() => {
+        const updateDimension = () => {
+            setScreenSize(getCurrentDimension())
+        }
+        window.addEventListener('resize', updateDimension);
+        
+        return(() => {
+            window.removeEventListener('resize', updateDimension);
+        })
+    }, [screenSize])
+    
 
     const handleStart = () =>{
         setCountDownVisibility(!countDown);
@@ -76,8 +97,8 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         </CountdownCircleTimer>
         :
 
-        <div className="d-flex justify-content-around align-content-center" >
-            <Card style={{ width: '100%', fontSize: "25px", color: "black", borderRadius: "10%" }}>
+        <div className = "waiting-panel-container">
+            <Card className = "waiting-panel">
                 <Card.Body>
                 <Card.Title style={{ fontSize: "35px" }}>Welcome to the {room.GameType} room !</Card.Title>
                 <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
