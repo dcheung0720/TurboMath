@@ -133,8 +133,8 @@ const GameRoom = () => {
             room.TimeLeft > 0?
             <div className = "game-content" style={{height: "100%"}}>   
                 <div className = "PageContainer" style={{ opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
-                    <div className = "MathProblem" style={{fontSize: "5vw"}}>
-                        <div style={{position:"fixed", width: "100vw", top: "10vh"}}>Score: {room.Players[user.uid].score}</div>
+                    <div className = "MathProblem" style={{fontSize: "50px"}}>
+                        <div style={{position:"fixed", width: "100vw", top: "100px"}}>Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
                     </div>
                     {/* only have the leader for multiplayer */}

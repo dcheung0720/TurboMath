@@ -76,7 +76,7 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
     return(
         room?
         countDown?
-        <CountdownCircleTimer style = {{fontSize: "100px"}}
+        <CountdownCircleTimer style = {{fontSize: "100px", marginTop: "100px"}}
             isPlaying
             duration={3}
             colors={['#004777', '#F7B801', '#A30000', '#A30000']}

@@ -218,7 +218,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
             <button type="submit" className="btn btn-primary answer-submit">Submit</button>
           </div>
         </form>
-        {feedbackVis? (correct ? <div style={{fontSize: "100%"}}> Good Job! You got it correct!</div> : <div style={{fontSize: "100%"}}> Not Quite... You got it wrong!</div>) : <></> }
+        {feedbackVis? (correct ? <div className = "feedback"> Good Job! You got it correct!</div> : <div className = "feedback"> Not Quite... You got it wrong!</div>) : <></> }
       </div>
     </div>
   );

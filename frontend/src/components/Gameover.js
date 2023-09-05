@@ -295,8 +295,8 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
             <div className='gameOver-content' style = {{opacity: gameOverTimer > 0? "0": "1", transition: "all 1s"}}>
                 <Card>
                     <Card.Body>
-                        <Card.Title style={{fontSize: "2rem"}}>Game Results</Card.Title>
-                        <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1rem" }}>
+                        <Card.Title style={{fontSize: "2.5rem"}}>Game Results</Card.Title>
+                        <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1.5rem" }}>
                             <tbody>
                                 <tr>
                                     <td>Player Mode: </td>
