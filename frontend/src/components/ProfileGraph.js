@@ -34,11 +34,24 @@ const ProfileGraph = () =>{
 
     const [selectedGameType, setSelectedGameType] = useState("Multiplication");
 
-    const [hoveredData, setHoveredData] = useState(null);
+    const [svgSize, setSVGSize] = useState(0);
 
-    // Define tooltip position and content
-    const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
-    const [tooltipContent, setTooltipContent] = useState('');
+
+    useEffect(()=>{
+        const getSVGSize = () =>{
+            const svg = select(svgRef.current);
+            if(svg){
+                const svgRect = svg["_groups"][0][0].getBoundingClientRect();
+                setSVGSize(svgRect);
+            }
+        }
+
+        window.addEventListener("resize", getSVGSize);
+
+        return(() => {
+            window.removeEventListener('resize', getSVGSize);
+        })
+    }, [svgSize])
 
     // when data loads
     useEffect(() => {
@@ -75,8 +88,8 @@ const ProfileGraph = () =>{
 
 
             const svg = select(svgRef.current);
-            const svgRect = svg["_groups"][0][0].getBoundingClientRect();
             const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+            const svgRect = svg["_groups"][0][0].getBoundingClientRect();
             const width = svgRect.width - margin.left - margin.right;
             const height = svgRect.height - margin.top - margin.bottom;
     
@@ -183,7 +196,7 @@ const ProfileGraph = () =>{
             }
 
         }     
-      }, [gameData, selectedDifficulty, selectedGameType]);
+      }, [gameData, selectedDifficulty, selectedGameType, svgSize]);
 
 
     
