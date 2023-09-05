@@ -75,9 +75,10 @@ const ProfileGraph = () =>{
 
 
             const svg = select(svgRef.current);
+            const svgRect = svg["_groups"][0][0].getBoundingClientRect();
             const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-            const width = 700 - margin.left - margin.right;
-            const height = 250 - margin.top - margin.bottom;
+            const width = svgRect.width - margin.left - margin.right;
+            const height = svgRect.height - margin.top - margin.bottom;
     
             // Clear existing content
             svg.selectAll("*").remove();
@@ -195,8 +196,8 @@ const ProfileGraph = () =>{
     }
 
     return(
-        <Card style={{ width: '47vw', height: "100%", display:"flex", justifyContent: "center"}}>
-           <Card.Body>
+        <Card style={{ width: '100%', height: "100%", display:"flex", justifyContent: "center"}}>
+           <Card.Body style={{display: "flex", flexDirection: "column", justifyContent:"center", alignItems: "center"}}>
                 <div style = {{display: "flex", justifyContent: "center"}}>
                     <Card.Title>Average Score Over Time</Card.Title>
                         <DropdownButton
@@ -228,27 +229,9 @@ const ProfileGraph = () =>{
                                 <Dropdown.Item eventKey="Division" className="text-center">Division</Dropdown.Item>
                         </DropdownButton>
                </div>
-               <svg width={700} height={250} ref = {svgRef}
-               transform={`translate(40, 20)`}
->
+               <svg width={"100%"} height={250} ref = {svgRef}>
 
                </svg>
-               {hoveredData && (
-            <div
-              className="tooltip"
-              style={{
-                position: 'absolute',
-                top: `${tooltipPosition.top}px`,
-                left: `${tooltipPosition.left}px`,
-                backgroundColor: 'white',
-                padding: '5px',
-                borderRadius: '5px',
-                boxShadow: '0px 0px 5px 2px rgba(0, 0, 0, 0.2)',
-              }}
-            >
-              {tooltipContent}
-            </div>
-          )}
            </Card.Body>
        </Card>)
 };

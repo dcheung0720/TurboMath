@@ -7,6 +7,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faFire } from '@fortawesome/free-solid-svg-icons';
+import "./ProfileStats.css"
 
 const ProfileStats = () =>{
 
@@ -18,13 +19,12 @@ const ProfileStats = () =>{
 
     const [selectedDifficulty, setSelectedDifficulty] = useState("1x1");
 
-
     const handleSelectDifficulty = (eKey) =>{
         setSelectedDifficulty(eKey);
     };
 
     return(
-     <Card style={{ width: '47vw', height: "100%", marginBottom: '10px'}}>
+     <Card className = "profile-stats">
         <Card.Body >
             <div className = "header" style = {{display: "flex", justifyContent:"space-between", alignItems: "center" }}>
                 <div style={{ flex: 1, textAlign: "center" }}>
@@ -49,14 +49,14 @@ const ProfileStats = () =>{
                 </span>
             </div>
             {userData?
-            <div style = {{display: "flex", justifyContent: "center", alignItems: "center",  height: '80%'}}>
+            <div className = "stats-container">
                 {gameMode.map((gm, idx) => {
                     return(
-                        <Card className = {`${idx}`} style={{ width: '25%', height: "100%", marginRight: "20px"}}>
-                            <Card.Body>
-                            <Card.Title style = {{fontSize: "100%"}}>{gm}</Card.Title>
-                            <p>{selectedDifficulty}</p>
-                            <p>Best Score: {userData[gm]["Turbo"][selectedDifficulty].HS} <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08"}} /> </p>
+                        <Card className = {`${idx}`} style={{width: '25%', height: "70%", marginRight: "20px"}}>
+                            <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                <Card.Title style = {{fontSize: "100%"}}>{gm}</Card.Title>
+                                <p>{selectedDifficulty}</p>
+                                <p>Best Score: {userData[gm]["Turbo"][selectedDifficulty].HS} <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08"}} /> </p>
                             </Card.Body>
                     </Card>)
                 })}

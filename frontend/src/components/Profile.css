@@ -1,11 +1,13 @@
 .profilePage{
-    height: 88vh;
-    margin-top: 12vh;
+    height: 88%;
+    margin-top: 120px;
     color: black;
 }
 
 .container{
     height: 100%;
-    display:grid;
-    align-items: center;
+
 }
+
+
+
