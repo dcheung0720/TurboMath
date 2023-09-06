@@ -118,7 +118,6 @@ const ProfileGraph = () =>{
                 .append("g")
                 .attr("class", "x-axis")
                 .attr("transform", `translate(0, ${height})`)
-                .style("font-size","20px")
                 .style("font-family", "Bangers")
                 .call(xAxis);
 
@@ -134,7 +133,6 @@ const ProfileGraph = () =>{
                 chart
                 .append("g")
                 .attr("class", "y-axis")
-                .style("font-size","20px")
                 .style("font-family", "Bangers")
                 .call(yAxis);
 
