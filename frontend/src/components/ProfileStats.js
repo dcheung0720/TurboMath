@@ -30,12 +30,11 @@ const ProfileStats = () =>{
                 <div style={{ flex: 1, textAlign: "center" }}>
                     <Card.Title style={{marginBottom: "5px"}}>Personal High Scores <FontAwesomeIcon icon={faFire} style={{color: "#ff0000"}} /></Card.Title>
                 </div>
-                <span className = "selection" style = {{display: "flex", alignItems: "center", position: "absolute", right: "3px", top: "3px", zIndex: "60" }}>
-                    <div>Difficulty: </div>
+                <span className = "selection">
                     <DropdownButton  key="secondary" 
                     id="dropdown-variants-Secondary" 
                     size="sm"
-                    title= {`${selectedDifficulty}`}
+                    title= {`Difficulty: ${selectedDifficulty}`}
                     style ={{margin:"5px"}}
                     onSelect = {(eKey) => handleSelectDifficulty(eKey)}
                     >
