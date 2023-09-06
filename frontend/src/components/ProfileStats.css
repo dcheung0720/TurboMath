@@ -8,13 +8,6 @@
 }
 
 
-.stats-container{
-    display: flex;
-    justify-content: center;
-    align-items: center ;
-    height: 100%;
-}
-
 .card-title{
     font-size: 40px;
 }

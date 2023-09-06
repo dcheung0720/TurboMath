@@ -4,10 +4,25 @@ import { useData } from '../utilities/firebase';
 import { useParams } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faFire } from '@fortawesome/free-solid-svg-icons';
 import "./ProfileStats.css"
+import { useRef } from 'react';
+import {
+    select,
+    line,
+    curveCardinal,
+    scaleLinear,
+    axisBottom,
+    axisLeft,
+    scaleTime,
+    scaleBand,
+    max,
+    min,
+    easeLinear,
+    csvFormat
+  } from "d3";
 
 const ProfileStats = () =>{
 
@@ -19,9 +34,87 @@ const ProfileStats = () =>{
 
     const [selectedDifficulty, setSelectedDifficulty] = useState("1x1");
 
+    const svgRef = useRef();
+
+    const [svgSize, setSVGSize] = useState(0);
+
     const handleSelectDifficulty = (eKey) =>{
         setSelectedDifficulty(eKey);
     };
+
+    // window resizing
+    useEffect(() =>{
+        const getSVGSize = () =>{
+            const svg = select(svgRef.current);
+            if(svg){
+                const svgRect = svg["_groups"][0][0].getBoundingClientRect();
+                setSVGSize(svgRect);
+            }
+        }
+
+        window.addEventListener("resize", getSVGSize);
+
+        return(()=> window.removeEventListener("resize", getSVGSize));
+
+    }, [svgSize])
+
+    useEffect(()=>{
+
+        if(userData){
+            const x = ["Addition", "Subtraction", "Multiplication", "Division"];
+
+            const y = x.map(gm => userData[gm]["Turbo"][selectedDifficulty].HS);
+
+            const data = x.map((gm, i) => [gm, y[i]]);
+
+            //get the SVG reference
+            const svg = select(svgRef.current);
+
+            const svgRect = svg["_groups"][0][0].getBoundingClientRect();
+
+            const margin = {top: 20, right: 30, bottom: 20,  left : 40 };
+
+            const width =  svgRect.width - margin.left - margin.right;
+
+            const height = svgRect.height - margin.top - margin.bottom;
+
+            svg.selectAll("*").remove();
+
+            // append the group for the bar graph.
+            let chart = svg
+            .append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})` )
+
+            const xScale = scaleBand().domain(x).range([0, width]).padding(0.1);
+
+            const yScale = scaleLinear().domain([0, max(y)]).nice().range([height, 0]);
+
+            //draw bar x axis
+            chart
+            .append("g")
+            .attr("class", "x-axis")
+            .attr("transform", `translate(0, ${height})`)
+            .call(axisBottom(xScale));
+
+            //draw bar y axis
+            chart.
+            append("g")
+            .attr("class", "y-axis")
+            .call(axisLeft(yScale));
+
+            chart
+            .selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", (d) => xScale(d[0]))
+            .attr("y", (d) => yScale(d[1]))
+            .attr("width", xScale.bandwidth())
+            .attr("height", function(d) { return height - yScale(d[1])});
+        }
+
+    }, [userData, selectedDifficulty, svgSize])
 
     return(
      <Card className = "profile-stats">
@@ -47,21 +140,9 @@ const ProfileStats = () =>{
                     </DropdownButton>
                 </span>
             </div>
-            {userData?
-            <div className = "stats-container">
-                {gameMode.map((gm, idx) => {
-                    return(
-                        <Card className = {`${idx}`} style={{width: '25%', height: "70%", marginRight: "20px"}}>
-                            <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <Card.Title style = {{fontSize: "100%"}}>{gm}</Card.Title>
-                                <p>{selectedDifficulty}</p>
-                                <p>Best Score: {userData[gm]["Turbo"][selectedDifficulty].HS} <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08"}} /> </p>
-                            </Card.Body>
-                    </Card>)
-                })}
-            </div>:
-            <></>
-             }
+            <svg ref = {svgRef} width = {"100%"} height = {250}>
+
+            </svg>
         </Card.Body>
     </Card>)
 
