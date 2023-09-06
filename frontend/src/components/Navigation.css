@@ -1,0 +1,13 @@
+.dropdown-menu .dropdown-item{
+    width: 100%;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+
+@media (max-width: 860px){
+    .nav-item.show.dropdown{
+        background-color: white;
+    }
+    
+}

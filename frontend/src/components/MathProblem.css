@@ -1,4 +1,19 @@
 div.problem{
     font-family: 'Bangers', cursive;
     font-family: 'Roboto', sans-serif;
+    font-size: 150px;
+}
+
+
+@media(max-width: 900px){
+    div.problem{
+        font-size: 100px;
+    }
+}
+
+
+@media(max-width: 600px){
+    div.problem{
+        font-size: 50px;
+    }
 }

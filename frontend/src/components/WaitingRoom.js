@@ -4,14 +4,36 @@ import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import "./WaitingRoom.css"
 
 
 const WaitingRoom = ({id, delay, setDelay}) =>{
 
     const [room, error] = useData(`GameRooms/${id}`);
     const [countDown, setCountDownVisibility] =  useState(false);
+    const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     const intervalId = useRef();
+
+    // get screen size resize
+    function getCurrentDimension(){
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        }
+        }
+    
+    useEffect(() => {
+        const updateDimension = () => {
+            setScreenSize(getCurrentDimension())
+        }
+        window.addEventListener('resize', updateDimension);
+        
+        return(() => {
+            window.removeEventListener('resize', updateDimension);
+        })
+    }, [screenSize])
+    
 
     const handleStart = () =>{
         setCountDownVisibility(!countDown);
@@ -54,7 +76,7 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
     return(
         room?
         countDown?
-        <CountdownCircleTimer style = {{fontSize: "100px"}}
+        <CountdownCircleTimer style = {{fontSize: "100px", marginTop: "100px"}}
             isPlaying
             duration={3}
             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
@@ -75,14 +97,14 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         </CountdownCircleTimer>
         :
 
-        <div className="d-flex justify-content-around align-content-center" >
-            <Card style={{ width: '35rem', fontSize: "25px", color: "black", borderRadius: "10%" }}>
+        <div className = "waiting-panel-container">
+            <Card className = "waiting-panel">
                 <Card.Body>
                 <Card.Title style={{ fontSize: "35px" }}>Welcome to the {room.GameType} room !</Card.Title>
                 <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
                     Game Settings
                 </div>
-                <Table striped bordered hover style={{ textAlign: 'center' }}>
+                <Table className = "primary" striped bordered hover style={{ textAlign: 'center' }}>
                     <tbody>
                         <tr>
                         <td>Player Mode</td>

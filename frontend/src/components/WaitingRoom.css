@@ -1,0 +1,32 @@
+/* waiting room card */
+.card.waiting-panel{
+    width: 35rem;
+    font-size: 25px;
+    color: white;
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.table.primary{
+    color:white
+}
+
+
+
+
+@media (max-width: 640px) {
+    .card.waiting-panel{
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media (max-height: 600px){
+    .waiting-panel-container{
+        margin-top: 100px;
+    }
+}
+
+
+

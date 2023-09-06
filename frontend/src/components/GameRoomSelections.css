@@ -1,5 +1,5 @@
 button{
-    width: 6vw;
+    width: 100%;
 }
 
 .btn-group{
@@ -7,3 +7,30 @@ button{
     justify-content: center;
     justify-content: space-evenly;
 }
+
+.card.border-primary {
+    /* Your styles here */
+    background-color: #32386D;
+    font-size: 100%;
+    width: 25%;
+    flex-shrink: 0;
+    display: flex;
+    align-content: center;
+    margin: 10px;
+  }
+  
+
+@media (max-width: 960px) {
+    /* CSS styles for screens smaller than 768px wide */
+    .card.border-primary{
+        /* Your styles here */
+        width: 100%;
+        flex-shrink: 0;
+        margin: 0;
+        margin-top: 10px;
+      }
+  }
+  
+  @media (max-width: 576px) {
+    /* CSS styles for screens smaller than 576px wide */
+  }

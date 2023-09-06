@@ -4,10 +4,12 @@
   background-color:#32386D ;
   color:white;
   height: 100%;
+  width: 100%;
   font-size: 100%;
+  position: fixed;
+  overflow: scroll;
 }
 
 div.card{
   border: 5px solid black;
 }
-

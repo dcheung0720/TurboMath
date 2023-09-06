@@ -1,10 +1,11 @@
+import "./GameRoomSelections.css"
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import GameRoom from './GameRoom';
 import CreateModal from "./CreateModal";
 import { Routes,Route, Link } from "react-router-dom";
 import { useState } from 'react';
-import "./GameRoomSelections.css"
+
 
 function GameRoomsSelections() {
 
@@ -23,13 +24,12 @@ function GameRoomsSelections() {
   return (<>
     {gameRoomNames.map((Title, idx) =>{
         return(
-            <Card border="primary"  className='mt-3 ml-3' style={{backgroundColor: "#32386D", fontSize: "100%", width: '25%',
-             height: "40%", flexShrink: 0}}>
+            <Card border="primary">
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "20%", height: "90%"}}/>
                  </div>
                 <Card.Body style = {{height: "100%", width: "100%"}}>
-                    <Card.Title style = {{fontSize: "1.5vw"}}>{Title}</Card.Title>
+                    <Card.Title style = {{fontSize: "100%"}}>{Title}</Card.Title>
                     <Card.Text>
                     Some quick example text to build on the card title 
                     </Card.Text>

@@ -18,17 +18,17 @@ const Profile = () =>{
 
     return(<div className="profilePage">
         <Container className = "container">
-            <Row style={{width: "100%"}}>
-                <Col xs={4}>
+            <Row>
+                <Col xs={12} lg={4}>
                     <ProfileStatus></ProfileStatus>
                 </Col>
-                <Col xs={8} style={{height: "50vh"}}>
-                    <Row style = {{ marginBottom: '2vh', height: "22vh"}}>
-                        <ProfileStats/>
-                    </Row>
-                    <Row style={{height: "26vh"}}> 
-                        <ProfileGraph/>
-                    </Row>
+                <Col xs={12} lg={8}>
+                    <ProfileStats/>
+                </Col>
+            </Row>
+            <Row> 
+                <Col xs={12}>
+                    <ProfileGraph/>
                 </Col>
             </Row>
             <Row style={{backgroundColor: "white", borderRadius: "25px", width: "100%", border: "5px solid black" }} >

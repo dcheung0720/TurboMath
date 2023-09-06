@@ -18,18 +18,57 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 85vh;
+    height: 85vh; 
 }
 
 .gameOver-block h1{
     font-size: 10.2vw;
 }
 
+/* buttonstyles */
+
 .btn-group{
     display: flex;
-
+    justify-content: center;
+    align-items: center;
 }
 
-.btn-group button{
-    margin: .5vw;
+
+.btn-primary{
+    margin: 10px;
 }
+
+
+@media(max-width: 740px){
+    .btn-group{
+        flex-wrap: wrap;
+    }
+    .btn-primary{
+        margin: 10px !important;
+    }
+}
+
+
+/* card styles */
+.card{
+    width: 30%;
+    background-color: #32386D;
+    border-color: white;
+    border-width: 10px;
+}
+
+@media (max-width: 960px){
+    .card{
+        width: 100%;
+        margin: 10px;
+    }
+}
+
+@media(max-height: 600px){
+    .card{
+        height: 100%;
+        margin-top: 100px;
+    }
+}
+
+
