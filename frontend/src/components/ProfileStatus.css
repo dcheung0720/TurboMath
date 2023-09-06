@@ -8,3 +8,8 @@
     width: 65%;
 }
 
+@media (max-width: 992px){
+    .profileStatus{
+        margin-bottom: 20px;
+    }
+}

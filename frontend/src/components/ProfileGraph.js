@@ -217,7 +217,7 @@ const ProfileGraph = () =>{
                                 as={ButtonGroup}
                                 size="sm"
                                 variant="secondary"
-                                title= {`Difficulty: ${selectedDifficulty}`}
+                                title= {`Difficulty : ${selectedDifficulty}`}
                                 style={{textAlign:"center", position: 'absolute', top: "3px", right: "3px"}}
                                 onSelect={(ekey) => handleSelectDifficulty(ekey)}
                                 >
