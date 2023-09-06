@@ -28,12 +28,15 @@
     z-index: "60" ;
 }
 
-@media (max-width: 740px){
+@media (max-width: 770px){
     .selection{
         left: 50%;
         top: 26%;
-        right: 15%;
+        right: 20%;
         transform: translate(-50%,-50%);
     }
 }
+
+
+
 
