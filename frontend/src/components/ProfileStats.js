@@ -9,22 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faFire } from '@fortawesome/free-solid-svg-icons';
 import "./ProfileStats.css"
 import { useRef } from 'react';
-import {
-    select,
-    line,
-    curveCardinal,
-    scaleLinear,
-    axisBottom,
-    axisLeft,
-    scaleTime,
-    scaleBand,
-    max,
-    min,
-    easeLinear,
-    csvFormat,
-    scaleOrdinal,
-    transition
-  } from "d3";
+import * as d3 from 'd3';
+  
 
 const ProfileStats = () =>{
 
@@ -47,7 +33,7 @@ const ProfileStats = () =>{
     // window resizing
     useEffect(() =>{
         const getSVGSize = () =>{
-            const svg = select(svgRef.current);
+            const svg = d3.select(svgRef.current);
             if(svg){
                 const svgRect = svg["_groups"][0][0].getBoundingClientRect();
                 setSVGSize(svgRect);
@@ -70,7 +56,7 @@ const ProfileStats = () =>{
             const data = x.map((gm, i) => [gm, y[i]]);
 
             //get the SVG reference
-            const svg = select(svgRef.current);
+            const svg = d3.select(svgRef.current);
 
             const svgRect = svg["_groups"][0][0].getBoundingClientRect();
 
@@ -87,12 +73,13 @@ const ProfileStats = () =>{
             .append("g")
             .attr("transform", `translate(${margin.left}, ${margin.top})` )
 
-            const xScale = scaleBand().domain(x).range([0, width]).padding(.5);
+            const xScale = d3.scaleBand().domain(x).range([0, width]).padding(.5);
 
-            const yScale = scaleLinear().domain([0, max(y)]).nice().range([height, 0]);
+            const yScale = d3.scaleLinear().domain([0, d3.max(y)]).nice().range([height, 0]);
 
             const customColors = ['#FF5733', '#33FF57', '#337FFF', '#FF33E1'];
-            const colorScale = scaleOrdinal().range(customColors);
+            const colorScale = d3.scaleOrdinal().range(customColors);
+            
 
             //draw bar x axis
             chart
@@ -100,14 +87,32 @@ const ProfileStats = () =>{
             .attr("class", "x-axis")
             .attr("transform", `translate(0, ${height})`)
             .style("font-family", "Bangers")
-            .call(axisBottom(xScale));
+            .style("font-size", `${svgSize.width > 610? 15 : 10}px`)
+            .call(d3.axisBottom(xScale));
+
+            chart
+            .append("text")
+            .attr("class", "x-label")
+            .attr("text-anchor", "end")
+            .attr("x", width)
+            .attr("y", height - 6)
+            .text("Game Type")
 
             //draw bar y axis
             chart.
             append("g")
             .attr("class", "y-axis")
             .style("font-family", "Bangers")
-            .call(axisLeft(yScale));
+            .call(d3.axisLeft(yScale));
+
+            // y label
+            chart.append("text")
+            .attr("class", "y-label")
+            .attr("text-anchor", "end")
+            .attr("y", 6)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text("Score");
 
             const bars = chart
             .selectAll('.bar')
@@ -123,10 +128,8 @@ const ProfileStats = () =>{
             .attr("y", (d) => yScale(d[1]))
             .attr("width", xScale.bandwidth())
             .attr("height", function(d) { return height - yScale(d[1])})
-            .attr('fill', (d, i) => colorScale(i)); // Assign a color based on the index or data value
-                        
+            .attr('fill', (d, i) => colorScale(i)) // Assign a color based on the index or data value                       
         }
-
     }, [userData, selectedDifficulty, svgSize])
 
     return(
@@ -153,6 +156,7 @@ const ProfileStats = () =>{
                     </DropdownButton>
                 </span>
             </div>
+
             <svg ref = {svgRef} width = {"100%"} height = {250}>
 
             </svg>

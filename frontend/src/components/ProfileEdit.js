@@ -1,5 +1,4 @@
 import { useData, useImages } from "../utilities/firebase";
-import "./ProfileEdit.css"
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { setData } from "../utilities/firebase";
@@ -8,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import { text } from "@fortawesome/fontawesome-svg-core";
+import "./ProfileEdit.css"
 
 
 const ProfileEdit = ({handleModalVisibility}) =>{
@@ -66,25 +66,25 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     };
     
     return(<div className = "profileEditModal" onClick={()=> handleModalVisibility()}>
-        <Card className = "profileEdit" style = {{width: "40%"}} onClick={(e)=>{e.stopPropagation()}}>
+        <Card className = "profileEdit"  onClick={(e)=>{e.stopPropagation()}}>
             <Card.Body>
-                <Card.Title style = {{fontSize: "2.5vw"}}>Profile Edit</Card.Title>
-                <div className = "Pfp" style={{display: "flex", alignItems: "center", width: "100%"}}>
-                    <div className = "currentSelection" style={{width: "50%", height:"100%"}}>
+                <Card.Title style = {{fontSize: "40px"}}>Profile Edit</Card.Title>
+                <div className = "Pfp" style={{display: "flex", justifyContent: "center", width: "100%"}}>
+                    <div className = "currentSelection" style={{height: "100%"}}>
                         <Card.Title>Profile Picture</Card.Title>
-                        <Card style={{ width: '18vw', height: "50%", borderRadius: "50%", overflow: "hidden"}} >
+                        <Card style={{ width: '18rem', height: "50%", borderRadius: "50%", overflow: "hidden"}} >
                                 <Image className = "pfpSrc" src= {`${pfpSelected}`} 
                                     style={{width: "100%", height:"100%"}}
                                     roundedCircle />
                             </Card>
                     </div>
-                    <div className="imageSelections">
+                    <div className="imageSelections" style={{height: "100%"}}>
                         <Card.Title>Image Selection</Card.Title>
-                        <Card style={{ width: '18vw', height: "50%"}}>
-                            <div style = {{overflow: "scroll", height: "100%" }}>
+                        <Card style={{ width: '100%', height: "100%"}}>
+                            <div style = {{display: "flex", flexWrap: "wrap", overflow: "scroll", width: "100%", height: "100%"}}>
                                 {pfpList.length >= 4? pfpList.sort((a,b) => a - b).map(pfpSrc => 
                                     <Image className = "pfpSrc" src= {`${pfpSrc}`} 
-                                    style={{width: "30%", height:"30%", border: pfpSelected === pfpSrc? "2px solid blue": "None"}}
+                                    style={{width: "70px", height:"70px", border: pfpSelected === pfpSrc? "2px solid blue": "None"}}
                                     onClick={(e)=>selectPfp(e)}
                                     roundedCircle />
                                     ) : <></>}

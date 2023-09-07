@@ -12,3 +12,14 @@
 
     color:black;
 };  
+
+.profileEditModal .card.profileEdit{
+    width: 100%;
+}
+
+
+@media(max-width: 800px){
+    .card.profileEdit{
+        width: 100%;
+    }
+} 
