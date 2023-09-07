@@ -2,14 +2,14 @@
 .card.waiting-panel{
     width: 35rem;
     font-size: 25px;
-    color: white;
+    color: black;
     border-radius: 10%;
     display: flex;
     justify-content: center;
 }
 
 .table.primary{
-    color:white
+    color: black
 }
 
 

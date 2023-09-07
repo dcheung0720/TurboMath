@@ -1,10 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import "./GameOver.css"
 import { useEffect, useState, useRef } from 'react';
 import { removeData, setData, useData } from '../utilities/firebase';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
+import "./GameOver.css"
 
 
 

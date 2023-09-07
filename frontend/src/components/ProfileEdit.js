@@ -1,5 +1,4 @@
 import { useData, useImages } from "../utilities/firebase";
-import "./ProfileEdit.css"
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { setData } from "../utilities/firebase";
@@ -8,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import { text } from "@fortawesome/fontawesome-svg-core";
+import "./ProfileEdit.css"
 
 
 const ProfileEdit = ({handleModalVisibility}) =>{
@@ -66,25 +66,25 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     };
     
     return(<div className = "profileEditModal" onClick={()=> handleModalVisibility()}>
-        <Card className = "profileEdit" style = {{width: "40%"}} onClick={(e)=>{e.stopPropagation()}}>
+        <Card className = "profileEdit"  onClick={(e)=>{e.stopPropagation()}}>
             <Card.Body>
-                <Card.Title style = {{fontSize: "2.5vw"}}>Profile Edit</Card.Title>
-                <div className = "Pfp" style={{display: "flex", alignItems: "center", width: "100%"}}>
-                    <div className = "currentSelection" style={{width: "50%", height:"100%"}}>
+                <Card.Title style = {{fontSize: "40px"}}>Profile Edit</Card.Title>
+                <div className = "Pfp" style={{display: "flex", justifyContent: "space-evenly", width: "100%"}}>
+                    <div className = "currentSelection" style={{height: "100%"}}>
                         <Card.Title>Profile Picture</Card.Title>
-                        <Card style={{ width: '18vw', height: "50%", borderRadius: "50%", overflow: "hidden"}} >
+                        <Card style={{ width: '18rem', height: "50%", borderRadius: "50%", overflow: "hidden"}} >
                                 <Image className = "pfpSrc" src= {`${pfpSelected}`} 
                                     style={{width: "100%", height:"100%"}}
                                     roundedCircle />
                             </Card>
                     </div>
-                    <div className="imageSelections">
+                    <div className="imageSelections" style={{height: "100%"}}>
                         <Card.Title>Image Selection</Card.Title>
-                        <Card style={{ width: '18vw', height: "50%"}}>
-                            <div style = {{overflow: "scroll", height: "100%" }}>
+                        <Card style={{ width: '100%', height: "100%"}}>
+                            <div style = {{display: "flex", flexWrap: "wrap", overflow: "scroll", width: "100%", height: "100%"}}>
                                 {pfpList.length >= 4? pfpList.sort((a,b) => a - b).map(pfpSrc => 
                                     <Image className = "pfpSrc" src= {`${pfpSrc}`} 
-                                    style={{width: "30%", height:"30%", border: pfpSelected === pfpSrc? "2px solid blue": "None"}}
+                                    style={{width: "70px", height:"70px", border: pfpSelected === pfpSrc? "2px solid blue": "None"}}
                                     onClick={(e)=>selectPfp(e)}
                                     roundedCircle />
                                     ) : <></>}
@@ -101,17 +101,17 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                                 style={{resize: "none"}}/>
                             {textAreaDisabled?
                             <Button variant="primary"  onClick = {handleCaptionEdit} 
-                                style={{width: "10%", height: "50%", marginLeft: "1vw"}}
+                                style={{width: "15%", height: "50%", marginLeft: "1vw"}}
                             > Edit</Button>
                             : <Button  variant="secondary" onClick = {handleCancelCaptionEdit}
-                            style={{width: "10%", height: "50%", marginLeft: "1vw"}}
+                            style={{width: "15%", height: "50%", marginLeft: "1vw"}}
                             > Cancel</Button>
                             }
                         </div>
                     </Form.Group>
                 </Form>
                 <div className= "buttonControlGroup" style = {{display: "flex", justifyContent: "space-evenly"}}>
-                    <Button variant="secondary" onClick={handleModalVisibility}> Cancel </Button>
+                    <Button variant="secondary" style = {{padding: 0, margin: "10px"}} onClick={handleModalVisibility}> Cancel </Button>
                     <Button variant="primary" style = {{whiteSpace: "nowrap", textAlign: "center", paddingLeft: 0, paddingRight: 0 }} onClick = {handleSubmit}> Save Changes</Button>
                 </div>
             </Card.Body>
