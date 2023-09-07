@@ -8,7 +8,7 @@
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
     .selectionContainer {
         display:block;
         margin-top: 100px;
@@ -17,7 +17,7 @@
     }
 }
 
-@media (max-height: 780px){
+@media (max-height: 1000px){
     .selectionContainer{
         margin-top: 100px;
         height: auto;

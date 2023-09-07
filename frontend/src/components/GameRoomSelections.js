@@ -24,12 +24,12 @@ function GameRoomsSelections() {
   return (<>
     {gameRoomNames.map((Title, idx) =>{
         return(
-            <Card border="primary">
+            <Card className = "gameroom-selections">
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "20%", height: "90%"}}/>
                  </div>
                 <Card.Body style = {{height: "100%", width: "100%"}}>
-                    <Card.Title style = {{fontSize: "100%"}}>{Title}</Card.Title>
+                    <Card.Title >{Title}</Card.Title>
                     <Card.Text>
                     Some quick example text to build on the card title 
                     </Card.Text>
