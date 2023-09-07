@@ -69,7 +69,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
         <Card className = "profileEdit"  onClick={(e)=>{e.stopPropagation()}}>
             <Card.Body>
                 <Card.Title style = {{fontSize: "40px"}}>Profile Edit</Card.Title>
-                <div className = "Pfp" style={{display: "flex", justifyContent: "center", width: "100%"}}>
+                <div className = "Pfp" style={{display: "flex", justifyContent: "space-evenly", width: "100%"}}>
                     <div className = "currentSelection" style={{height: "100%"}}>
                         <Card.Title>Profile Picture</Card.Title>
                         <Card style={{ width: '18rem', height: "50%", borderRadius: "50%", overflow: "hidden"}} >
@@ -101,17 +101,17 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                                 style={{resize: "none"}}/>
                             {textAreaDisabled?
                             <Button variant="primary"  onClick = {handleCaptionEdit} 
-                                style={{width: "10%", height: "50%", marginLeft: "1vw"}}
+                                style={{width: "15%", height: "50%", marginLeft: "1vw"}}
                             > Edit</Button>
                             : <Button  variant="secondary" onClick = {handleCancelCaptionEdit}
-                            style={{width: "10%", height: "50%", marginLeft: "1vw"}}
+                            style={{width: "15%", height: "50%", marginLeft: "1vw"}}
                             > Cancel</Button>
                             }
                         </div>
                     </Form.Group>
                 </Form>
                 <div className= "buttonControlGroup" style = {{display: "flex", justifyContent: "space-evenly"}}>
-                    <Button variant="secondary" onClick={handleModalVisibility}> Cancel </Button>
+                    <Button variant="secondary" style = {{padding: 0, margin: "10px"}} onClick={handleModalVisibility}> Cancel </Button>
                     <Button variant="primary" style = {{whiteSpace: "nowrap", textAlign: "center", paddingLeft: 0, paddingRight: 0 }} onClick = {handleSubmit}> Save Changes</Button>
                 </div>
             </Card.Body>

@@ -1,10 +1,23 @@
 div.profileEdit.card{
-    width: 60%;
+    width: 700px;
 }
+
+@media(max-width: 1900px){
+    div.profileEdit.card{
+
+        font-size: 30px;
+    }
+} 
+
+@media(max-width: 1400px){
+    div.profileEdit.card{
+        font-size: 25px;
+    }
+} 
 
 @media(max-width: 800px){
     div.profileEdit.card{
-        width: 100%;
+        font-size: 20px;
     }
 } 
 
@@ -20,6 +33,7 @@ div.profileEdit.card{
     align-items: center;
     z-index: 1000;
     color:black;
+    overflow-y: scroll
 };  
 
 
