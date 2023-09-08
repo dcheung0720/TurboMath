@@ -21,6 +21,11 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     const [caption, setCaption] = useState(null);
     const [origCaption, setOrigCaption] = useState(null);
     const [textAreaDisabled, setTextAreaDisabled] = useState(true);
+
+    const [numChars, setNumChars] = useState(0);
+    const charLimit = 150;
+    const [charOverFlow, setCharOverFlow] = useState(false);
+    const [shake, setShake] = useState(false);
     
     //once userData is loaded
     useEffect(()=>{
@@ -28,6 +33,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
             setPfpSelected(userData.Profile.Image); 
             setCaption(userData.Profile.Caption);
             setOrigCaption(userData.Profile.Caption);
+            setNumChars(userData.Profile.Caption.length);
         }
     }, [userData])
 
@@ -47,6 +53,8 @@ const ProfileEdit = ({handleModalVisibility}) =>{
 
     const handleCaptionChange = (e)=>{   
         setCaption(e.target.value);
+        setNumChars(e.target.value.length);
+        console.log(numChars)
     };
 
     const handleCaptionEdit = ()=>{
@@ -54,19 +62,38 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     };
 
     const handleSubmit = () =>{
-        // set the new profile src
-        setData(`Users/${id}/Profile/Image`, pfpSelected);
+        console.log(numChars)
+        // only permit user to have 
+        if(numChars <= charLimit){
+            // set the new profile src
+            setData(`Users/${id}/Profile/Image`, pfpSelected);
 
-        // set the new profile caption
-        setData(`Users/${id}/Profile/Caption`, caption);
+            // set the new profile caption
+            setData(`Users/${id}/Profile/Caption`, caption);
 
-        // close the modal
-        handleModalVisibility();
+            // close the modal
+            handleModalVisibility();
 
+            //remove char overflow overflow
+            setCharOverFlow(false);
+        }
+        else{
+            // char overflow
+            setCharOverFlow(true);
+
+            // shake the form (animate)
+            setShake(true);
+
+            // stop shake after 1 second
+            setTimeout(()=>{
+                setShake(false);
+            }, 500);
+        }
     };
+
     
     return(<div className = "profileEditModal" onClick={()=> handleModalVisibility()}>
-        <Card className = "profileEdit"  onClick={(e)=>{e.stopPropagation()}}>
+        <Card id = {shake ? "shake" : null} className = "profileEdit" onClick={(e)=>{e.stopPropagation()}}>
             <Card.Body>
                 <Card.Title style = {{fontSize: "40px"}}>Profile Edit</Card.Title>
                 <div className = "Pfp" style={{display: "flex", justifyContent: "space-evenly", width: "100%"}}>
@@ -96,9 +123,15 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label style={{width: "100%", textAlign: "left"}}>Your Caption:</Form.Label>
                         <div style={{display: "flex", alignItems: "center"}}>
-                            <Form.Control ref = {textAreaRef} disabled = {textAreaDisabled} as="textarea" rows={3} 
-                                value = {caption} onChange = {(e) => handleCaptionChange(e)}
-                                style={{resize: "none"}}/>
+                            <div className = "text-area-controls"style = {{width: "100%"}}>
+                                <Form.Control ref = {textAreaRef} disabled = {textAreaDisabled} as="textarea" rows={3} 
+                                    value = {caption} onChange = {(e) => handleCaptionChange(e)}
+                                    style={{resize: "none"}}/>
+                                <div style = {{color: charLimit - numChars < 0? "red": "black"}}>
+                                    {Math.max(charLimit - numChars, 0)}/{charLimit} Characters remaining.
+                                    {charOverFlow && charLimit - numChars < 0? <span style={{color: "red"}}> Your caption exceeded the character max count by {(charLimit - numChars) * -1}!</span> : <></>}
+                                </div>
+                            </div>
                             {textAreaDisabled?
                             <Button variant="primary"  onClick = {handleCaptionEdit} 
                                 style={{width: "15%", height: "50%", marginLeft: "1vw"}}

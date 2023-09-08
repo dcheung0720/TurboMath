@@ -8,8 +8,9 @@ button{
     justify-content: space-evenly;
 }
 
-.card.border-primary {
+.card.gameroom-selections {
     /* Your styles here */
+    border: 5px solid black;
     background-color: #32386D;
     font-size: 100%;
     width: 25%;
@@ -22,7 +23,7 @@ button{
 
 @media (max-width: 960px) {
     /* CSS styles for screens smaller than 768px wide */
-    .card.border-primary{
+    .card.gameroom-selections{
         /* Your styles here */
         width: 100%;
         flex-shrink: 0;
