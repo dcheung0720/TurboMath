@@ -3,20 +3,31 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
+import { useData } from "../utilities/firebase";
 
-const JoinModal = ({handleJoinModal}) =>{
+const JoinModal = ({handleJoinModal, gameType}) =>{
 
     const ContentClick = (e) =>{
         e.stopPropagation();
     }
 
+    //get room data from firebase
+    const [rooms, error] = useData("/GameRooms");
+
     const [roomInput, setRoomInput] = useState("");
     const [isNumbers, setIsNumbers] = useState(true);
 
+    const [isShake, setIsShake] = useState(false);
+    const [roomExistError, setRoomExistError] = useState(true);
+    const [roomMultiplayerError, setRoomMultiplayerError] = useState(true);
+
     const handleInputChange = (e) =>{
+        setRoomMultiplayerError(true);
+        setRoomMultiplayerError(true);
+
         setRoomInput((prev) =>{
             //regex for numbers only
-            let reg = new RegExp('^[0-9]+$');
+            let reg = new RegExp('^[0-9]*$');
 
             if (!reg.test(e.target.value)){
                 setIsNumbers(false);
@@ -27,27 +38,57 @@ const JoinModal = ({handleJoinModal}) =>{
 
             return e.target.value
         });
+    };
 
 
-    }
+    const handleSubmit = () =>{
+
+        const ids = Object.keys(rooms).filter(id => id === roomInput);
+
+        if(!isNumbers 
+            && ids.length !== 0 
+            && rooms[ids[0]].PlayerMode === "Multiplayer"){
+                
+        }
+        else{
+            // the room exist and room multiplayer errors are mutally exclusive.
+            if(ids.length === 0){
+                setRoomExistError(false);
+                setRoomMultiplayerError(true);
+            }
+            else{
+                setRoomExistError(true);
+                setRoomMultiplayerError(false);
+            }
+
+            // error shake
+            setIsShake(true);
+
+            setTimeout(()=>{
+                setIsShake(false);
+            }, 500);
+        }
+    };
 
     return(
         <div className = "join-modal" onClick = {handleJoinModal}>
-            <Card className = "join-content" onClick={(e)=>{ContentClick(e)}}>
+            <Card id = {isShake? "shake" : "null"} className = "join-content" onClick={(e)=>{ContentClick(e)}}>
                 <Card.Body>
                     <Card.Title>Join Room</Card.Title>
                     <Form >
                         <fieldset>
-                            <Form.Group className="mb-3">
-                                <Form.Label htmlFor="disabledTextInput">{"GameType"}</Form.Label>
-                                <Form.Control id="disabledTextInput" placeholder="Disabled input" disabled />
+                            <Form.Group style = {{display: "flex" , alignItems: "center"}} className="mb-3">
+                                <Form.Label style = {{margin: "10px"}} htmlFor="disabledTextInput">{"GameType: "}</Form.Label>
+                                <Form.Control style={{textAlign: "center"}} id="disabledTextInput" placeholder= {gameType} disabled />
                             </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label htmlFor="disabledTextInput">Room ID: </Form.Label>
-                                <Form.Control id="disabledTextInput" placeholder="Enter Room ID Here" onChange={handleInputChange}/>
-                                {!isNumbers?<p style = {{color: "red"}}> Please enter a number!</p> : <></>}
+                            <Form.Group  style = {{display: "flex" , alignItems: "center"}} lassName="mb-3">
+                                <Form.Label style = {{width : "70px", margin: "10px"}} htmlFor="disabledTextInput">Room-ID: </Form.Label>
+                                <Form.Control style={{textAlign: "center"}} id="disabledTextInput" placeholder="Enter Room ID Here" onChange={handleInputChange}/>
                             </Form.Group>
-                            <Button type="submit">Join</Button>
+                            {!isNumbers?<p className = "warning"> Please enter a number!</p> : <></>}
+                            {!roomExistError? <p className = "warning">Room does not exist!</p> : <></>}
+                            {!roomMultiplayerError? <p className = "warning">The room exists, but it's not multiplayer!</p> : <></>}
+                            <Button onClick={handleSubmit}>Join</Button>
                         </fieldset>
                     </Form>
                 </Card.Body>

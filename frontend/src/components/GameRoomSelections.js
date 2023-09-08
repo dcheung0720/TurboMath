@@ -61,7 +61,7 @@ function GameRoomsSelections() {
     {/* open modal if the modal is true */}
     {openModal === true? <CreateModal gameType = {gameType} ChangeModal = {ChangeModal}/> : <></>}  
     {/* open joinmodal if the modal is true */}
-    {joinModal === true? <JoinModal handleJoinModal = {handleJoinModal}/> : <></>}
+    {joinModal === true? <JoinModal handleJoinModal = {handleJoinModal} gameType = {gameType}/> : <></>}
   </>);
 
 }
