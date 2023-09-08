@@ -64,7 +64,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     const handleSubmit = () =>{
         console.log(numChars)
         // only permit user to have 
-        if(numChars < charLimit){
+        if(numChars <= charLimit){
             // set the new profile src
             setData(`Users/${id}/Profile/Image`, pfpSelected);
 
@@ -127,7 +127,10 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                                 <Form.Control ref = {textAreaRef} disabled = {textAreaDisabled} as="textarea" rows={3} 
                                     value = {caption} onChange = {(e) => handleCaptionChange(e)}
                                     style={{resize: "none"}}/>
-                                {charOverFlow? <p style={{color: "red"}}> Your caption exceeded the character max count!</p> : <></>}
+                                <div style = {{color: charLimit - numChars < 0? "red": "black"}}>
+                                    {Math.max(charLimit - numChars, 0)}/{charLimit} Characters remaining.
+                                    {charOverFlow && charLimit - numChars < 0? <span style={{color: "red"}}> Your caption exceeded the character max count by {(charLimit - numChars) * -1}!</span> : <></>}
+                                </div>
                             </div>
                             {textAreaDisabled?
                             <Button variant="primary"  onClick = {handleCaptionEdit} 

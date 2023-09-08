@@ -293,7 +293,7 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
             </div>
             {room && player? 
             <div className='gameOver-content' style = {{opacity: gameOverTimer > 0? "0": "1", transition: "all 1s"}}>
-                <Card>
+                <Card className = "gameover-panel">
                     <Card.Body>
                         <Card.Title style={{fontSize: "2.5rem"}}>Game Results</Card.Title>
                         <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1.5rem" }}>
