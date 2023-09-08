@@ -23,10 +23,11 @@ function GameRoomsSelections() {
     setOpenModal(!openModal);
   }  
 
-  const handleJoinModal = () =>{
+  const handleJoinModal = (e, gameType) =>{
+    setGameType(gameType);
     setJoinModal((prev) => !prev);
-    console.log(joinModal);
   };
+
 
 
   return (<>
@@ -47,11 +48,11 @@ function GameRoomsSelections() {
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button onClick={handleJoinModal} variant="success"> Join </Button>
+                            <Button onClick={(e) => handleJoinModal(e, Title)} variant="danger"> Join </Button>
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button onClick = {(e) => ChangeModal(e, Title)} variant="danger"> Create </Button>               
+                            <Button onClick = {(e) => ChangeModal(e, Title)} variant="success"> Create </Button>               
                         </Link>
                     </div>
                 </Card.Body>                           
@@ -61,7 +62,7 @@ function GameRoomsSelections() {
     {/* open modal if the modal is true */}
     {openModal === true? <CreateModal gameType = {gameType} ChangeModal = {ChangeModal}/> : <></>}  
     {/* open joinmodal if the modal is true */}
-    {joinModal === true? <JoinModal handleJoinModal = {handleJoinModal} gameType = {gameType}/> : <></>}
+    {joinModal === true? <JoinModal gameType = {gameType} handleJoinModal = {handleJoinModal}/> : <></>}
   </>);
 
 }

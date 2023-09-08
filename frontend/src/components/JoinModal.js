@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import { useData } from "../utilities/firebase";
 
-const JoinModal = ({handleJoinModal, gameType}) =>{
+const JoinModal = ({gameType, handleJoinModal}) =>{
 
     const ContentClick = (e) =>{
         e.stopPropagation();
@@ -70,12 +70,13 @@ const JoinModal = ({handleJoinModal, gameType}) =>{
         }
     };
 
+
     return(
         <div className = "join-modal" onClick = {handleJoinModal}>
             <Card id = {isShake? "shake" : "null"} className = "join-content" onClick={(e)=>{ContentClick(e)}}>
                 <Card.Body>
                     <Card.Title>Join Room</Card.Title>
-                    <Form >
+                    <Form style = {{margin: "10px"}}>
                         <fieldset>
                             <Form.Group style = {{display: "flex" , alignItems: "center"}} className="mb-3">
                                 <Form.Label style = {{margin: "10px"}} htmlFor="disabledTextInput">{"GameType: "}</Form.Label>
@@ -83,14 +84,14 @@ const JoinModal = ({handleJoinModal, gameType}) =>{
                             </Form.Group>
                             <Form.Group  style = {{display: "flex" , alignItems: "center"}} lassName="mb-3">
                                 <Form.Label style = {{width : "70px", margin: "10px"}} htmlFor="disabledTextInput">Room-ID: </Form.Label>
-                                <Form.Control style={{textAlign: "center"}} id="disabledTextInput" placeholder="Enter Room ID Here" onChange={handleInputChange}/>
+                                <Form.Control style={{textAlign: "center", color: "black"}} id="disabledTextInput" placeholder="Enter Room ID Here" onChange={handleInputChange}/>
                             </Form.Group>
                             {!isNumbers?<p className = "warning"> Please enter a number!</p> : <></>}
                             {!roomExistError? <p className = "warning">Room does not exist!</p> : <></>}
                             {!roomMultiplayerError? <p className = "warning">The room exists, but it's not multiplayer!</p> : <></>}
-                            <Button onClick={handleSubmit}>Join</Button>
                         </fieldset>
                     </Form>
+                    <Button variant = "danger" onClick={handleSubmit}>Join</Button>
                 </Card.Body>
             </Card>
         </div>

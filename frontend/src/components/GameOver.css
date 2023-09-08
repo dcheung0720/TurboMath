@@ -58,7 +58,7 @@
 
 
 @media (max-width: 960px){
-    .card{
+    .card.gameover-panel{
         width: 100%;
         margin: 10px;
     }
