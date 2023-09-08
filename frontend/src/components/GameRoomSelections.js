@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import GameRoom from './GameRoom';
 import CreateModal from "./CreateModal";
+import JoinModal from "./JoinModal";
 import { Routes,Route, Link } from "react-router-dom";
 import { useState } from 'react';
 
@@ -13,12 +14,19 @@ function GameRoomsSelections() {
   const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png", "./images/all.png"];
 
   const [openModal, setOpenModal] = useState(false);
+  const [joinModal, setJoinModal] = useState(false);
+
   const [gameType, setGameType] = useState("Addition"); 
 
   const ChangeModal = (e, gameType) =>{
     setGameType(gameType);
     setOpenModal(!openModal);
   }  
+
+  const handleJoinModal = () =>{
+    setJoinModal((prev) => !prev);
+    console.log(joinModal);
+  };
 
 
   return (<>
@@ -39,7 +47,7 @@ function GameRoomsSelections() {
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button variant="success"> Join </Button>
+                            <Button onClick={handleJoinModal} variant="success"> Join </Button>
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
@@ -52,6 +60,8 @@ function GameRoomsSelections() {
     })}
     {/* open modal if the modal is true */}
     {openModal === true? <CreateModal gameType = {gameType} ChangeModal = {ChangeModal}/> : <></>}  
+    {/* open joinmodal if the modal is true */}
+    {joinModal === true? <JoinModal handleJoinModal = {handleJoinModal}/> : <></>}
   </>);
 
 }
