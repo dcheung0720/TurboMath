@@ -8,14 +8,16 @@ import "./WaitingRoom.css"
 
 
 
-const WaitingRoom = ({id, delay, setDelay}) =>{
+const WaitingRoom = ({id}) =>{
 
     const [room, error] = useData(`GameRooms/${id}`);
+    const [delay, error3] = useData(`GameRooms/${id}/Delay`);
     const [countDownVis, error2] =  useData(`GameRooms/${id}/CountDownVis`);
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     const [playerCountError, setPlayerCountError] = useState(false);
     const [isShake, setIsShake] = useState(false);
+    let localDelay = 4;
 
     const intervalId = useRef();
 
@@ -51,10 +53,11 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         else{
             // Make Countdown visible for everyone
             setData(`GameRooms/${id}/CountDownVis`, !countDownVis);
-            setDelay(4);
+            setData(`GameRooms/${id}/Delay`, 4);
 
             intervalId.current = setInterval(()=>{
-                setDelay(delay => delay - 1);
+                setData(`GameRooms/${id}/Delay`, localDelay -1);;
+                localDelay --;
             }, 1000);
 
             // start the game after waiting 4 seconds
