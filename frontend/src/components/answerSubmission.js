@@ -26,9 +26,9 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
   const [user] = useUserState();
 
   //get room data
-  const [room, error2] = useData(`GameRooms/${id}`)
+  const [room, error2] = useData(`GameRooms/${id}`);
 
-  const scorePath = `GameRooms/${id}/Players/${user.uid}/score`
+  const scorePath = `GameRooms/${id}/Players/${user.uid}/score`;
 
   //get current score
   const [score, error] = useData(scorePath);
@@ -100,7 +100,6 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
 
       wrongQuestions[wrongID] = wrongObject
 
-      console.log(wrongQuestions);
       setWrongQuestions(wrongQuestions);
     }
   };

@@ -169,7 +169,6 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
         //get correct audio element and play the sound
         document.getElementById(id).volume = .2;
         document.getElementById(id).play();
-        console.log(document.getElementById(id))
     }
 
     const NewGame = (e) =>{
@@ -271,7 +270,6 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
     
 
     const GenerateNumbers = (numDigits) =>{
-        console.log(numDigits)
         switch(numDigits){
             case "1":
                 return Math.floor(Math.random() * 9 + 1);
