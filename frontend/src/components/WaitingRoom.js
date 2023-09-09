@@ -13,6 +13,9 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
     const [countDown, setCountDownVisibility] =  useState(false);
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
+    const [playerCountError, setPlayerCountError] = useState(false);
+    const [isShake, setIsShake] = useState(false);
+
     const intervalId = useRef();
 
     // get screen size resize
@@ -36,18 +39,28 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
     
 
     const handleStart = () =>{
-        setCountDownVisibility(!countDown);
-        setDelay(4);
+        if(room.PlayerMode === "Multiplayer" && Object.keys(room.Players).length < 2){
+            setPlayerCountError(true);
+            setIsShake(true);
 
-        intervalId.current = setInterval(()=>{
-            setDelay(delay => delay - 1);
-        }, 1000);
-
-        // start the game after waiting 4 seconds
-        setTimeout(() =>{
-            setData(`GameRooms/${id}/Started`, true);
+            setTimeout(()=>{
+                setIsShake(false);
+            }, 500);
+        }
+        else{
             setCountDownVisibility(!countDown);
-        }, 4000)      
+            setDelay(4);
+
+            intervalId.current = setInterval(()=>{
+                setDelay(delay => delay - 1);
+            }, 1000);
+
+            // start the game after waiting 4 seconds
+            setTimeout(() =>{
+                setData(`GameRooms/${id}/Started`, true);
+                setCountDownVisibility(!countDown);
+            }, 4000)      
+        }
     }
 
      // clear interval if delay is < 0
@@ -70,7 +83,6 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         //get correct audio element and play the sound
         document.getElementById(id).volume = .2;
         document.getElementById(id).play();
-        console.log(document.getElementById(id))
     }
 
     return(
@@ -98,34 +110,48 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
         :
 
         <div className = "waiting-panel-container">
-            <Card className = "waiting-panel">
+            <Card id = {isShake? "shake": "null"} className = "waiting-panel">
                 <Card.Body>
-                <Card.Title style={{ fontSize: "35px" }}>Welcome to the {room.GameType} room !</Card.Title>
-                <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                    Game Settings
-                </div>
-                <Table className = "primary" striped bordered hover style={{ textAlign: 'center' }}>
-                    <tbody>
-                        <tr>
-                        <td>Player Mode</td>
-                        <td>{room.PlayerMode}</td>
+                    <Card.Title style={{ fontSize: "35px" }}>Welcome to the {room.GameType} room !</Card.Title>
+                    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        Game Settings
+                    </div>
+                    <Table className = "primary" striped bordered hover style={{ textAlign: 'center' }}>
+                        <tbody>
+                            <tr>
+                            <td>Player Mode:</td>
+                            <td>{room.PlayerMode}</td>
 
-                        </tr>
-                        <tr>
-                        <td>Difficulty</td>
-                        <td>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
+                            </tr>
+                            <tr>
+                            <td>Difficulty:</td>
+                            <td>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
 
-                        </tr>
-                        <tr>
-                        <td>Game Mode</td>
-                        <td colSpan={2}> {room.GameMode}</td>
+                            </tr>
+                            <tr>
+                            <td>Game Mode: </td>
+                            <td colSpan={2}> {room.GameMode}</td>
 
-                        </tr>
-                    </tbody>
-                </Table>
-                <Card.Text>
-                    Start whenever you are ready to TURBO!        
-                </Card.Text>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <p>Player List: {Object.entries(room.Players).length}/8 </p>
+                    <div className = "player-list">
+                        <Table striped bordered hover>
+                            <tbody>
+                            {Object.entries(room.Players).map((player, idx) =>
+                                <tr>
+                                    <td>Player {idx+ 1}:</td>
+                                    <td> {player[1].name}</td>
+                                </tr>
+                            )}                  
+                            </tbody>
+                        </Table>
+                    </div>
+                    <Card.Text>
+                        Start whenever you are ready to TURBO!        
+                    </Card.Text>
+                    {playerCountError? <Card.Text className='warning'>You need at least 2 players to start</Card.Text> : <></>}
                     <Button variant="primary" onClick={()=> handleStart()}>Start</Button>
                 </Card.Body>
             </Card>

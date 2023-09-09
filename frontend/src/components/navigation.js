@@ -372,7 +372,7 @@ const Navigation = () =>{
 
         setData(`/Users/${user.uid}`, userData )
       }
-    }, [user])
+    }, [user, data])
 
     const SignInButton = () => (
       <button style={{ float: "right" }} className="btn btn-secondary btn-lg" onClick={signInWithGoogle}>
@@ -399,7 +399,7 @@ const Navigation = () =>{
       })
     }, [screenSize])
 
-    console.log(navToggled)
+
   
   
     const SignOutButton = () => (

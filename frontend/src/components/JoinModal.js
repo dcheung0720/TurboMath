@@ -4,12 +4,16 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import { useData } from "../utilities/firebase";
+import { useNavigate } from "react-router-dom";
+
 
 const JoinModal = ({gameType, handleJoinModal}) =>{
 
     const ContentClick = (e) =>{
         e.stopPropagation();
     }
+
+    let navigate = useNavigate();
 
     //get room data from firebase
     const [rooms, error] = useData("/GameRooms");
@@ -44,11 +48,15 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
     const handleSubmit = () =>{
 
         const ids = Object.keys(rooms).filter(id => id === roomInput);
+        console.log(rooms[ids[0]].PlayerMode === "Multiplayer")
 
-        if(!isNumbers 
+        // if the palyer entered a number, the id exists, the game mode is multiplayer
+        // and the game hasn't started
+        if(isNumbers 
             && ids.length !== 0 
-            && rooms[ids[0]].PlayerMode === "Multiplayer"){
-                
+            && rooms[ids[0]].PlayerMode === "Multiplayer"
+            && !rooms[ids[0]].started){
+               navigate(`/MathProblems/${ids[0]}`)
         }
         else{
             // the room exist and room multiplayer errors are mutally exclusive.

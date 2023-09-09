@@ -1,0 +1,12 @@
+.table.table-dark.table-hover{
+    width: 50%;
+    font-size: 40px;
+    
+}
+
+@media (max-width: 1000px){
+    .table.table-dark.table-hover{
+        width: 400px;
+        font-size: 20px;
+    }
+}
