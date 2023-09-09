@@ -12,7 +12,10 @@
     color: black
 }
 
-
+button.btn.btn-primary{
+    margin: 0;
+    width: 100px;
+}
 
 
 @media (max-width: 640px) {
@@ -27,6 +30,5 @@
         margin-top: 100px;
     }
 }
-
 
 

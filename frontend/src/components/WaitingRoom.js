@@ -7,10 +7,11 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./WaitingRoom.css"
 
 
+
 const WaitingRoom = ({id, delay, setDelay}) =>{
 
     const [room, error] = useData(`GameRooms/${id}`);
-    const [countDown, setCountDownVisibility] =  useState(false);
+    const [countDownVis, error2] =  useData(`GameRooms/${id}/CountDownVis`);
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     const [playerCountError, setPlayerCountError] = useState(false);
@@ -48,7 +49,8 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
             }, 500);
         }
         else{
-            setCountDownVisibility(!countDown);
+            // Make Countdown visible for everyone
+            setData(`GameRooms/${id}/CountDownVis`, !countDownVis);
             setDelay(4);
 
             intervalId.current = setInterval(()=>{
@@ -58,7 +60,8 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
             // start the game after waiting 4 seconds
             setTimeout(() =>{
                 setData(`GameRooms/${id}/Started`, true);
-                setCountDownVisibility(!countDown);
+                
+                setData(`GameRooms/${id}/CountDownVis`, !countDownVis);
             }, 4000)      
         }
     }
@@ -73,10 +76,10 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
 
     //play the race audio once the countdown starts
     useEffect(()=>{
-        if(countDown){
+        if(countDownVis){
             playAudio("race");
         }
-    },[countDown])
+    },[countDownVis])
 
     //play audio
     const playAudio = (id) =>{
@@ -87,7 +90,7 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
 
     return(
         room?
-        countDown?
+        countDownVis?
         <CountdownCircleTimer style = {{fontSize: "100px", marginTop: "100px"}}
             isPlaying
             duration={3}
@@ -118,11 +121,16 @@ const WaitingRoom = ({id, delay, setDelay}) =>{
                     </div>
                     <Table className = "primary" striped bordered hover style={{ textAlign: 'center' }}>
                         <tbody>
+                        <tr>
+                            <td>Room ID:</td>
+                                <td>{id}</td>
+                            </tr>
+
                             <tr>
                             <td>Player Mode:</td>
                             <td>{room.PlayerMode}</td>
-
                             </tr>
+
                             <tr>
                             <td>Difficulty:</td>
                             <td>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
