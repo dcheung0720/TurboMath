@@ -136,6 +136,7 @@ const GameRoom = () => {
                     <div className = "MathProblem" style={{fontSize: "100px"}}>
                         <div style={{position:"fixed", width: "100vw", top: "100px"}}>Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
+                        {room.PlayerMode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                     </div>
                     {/* only have the leader for multiplayer */}
                     {delay <= 0?  <div className="timer-wrapper">
@@ -148,7 +149,6 @@ const GameRoom = () => {
                         {RenderTime}
                         </CountdownCircleTimer>
                     </div>: <></>}
-                    {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                 </div> 
                 <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
                     height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
