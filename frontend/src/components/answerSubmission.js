@@ -18,8 +18,6 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
   //correct or not
   const [correct, setCorrect] = useState(false); 
 
-  //can submit? to prevent multiple submit
-  const [canSubmit, setCanSubmit] = useState(true);
   const inputRef = useRef(null); // Initialize inputRef
 
   //get user
@@ -32,6 +30,10 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
 
   //get current score
   const [score, error] = useData(scorePath);
+
+  //can submit? to prevent multiple submit
+  const canSubmitPath = `GameRooms/${id}/ProblemGate`;
+  const [canSubmit, error3] = useData(canSubmitPath);
   
 
   const handleChange = (e) => {
@@ -75,13 +77,18 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
       setData(scorePath, score + 1);
 
       const nums = handleProblemGeneration(difficulty1, difficulty2);
-      setCanSubmit(false);
+
+      //disable submit for everyone
+      setData(canSubmitPath, false);
+
+      // set round winner
+      setData(`GameRooms/${id}/RoundWinner`, room.Players[user.uid].name);
 
       setTimeout(()=>{
         setData(`GameRooms/${id}/Problems/number1`, nums[0]);
         setData(`GameRooms/${id}/Problems/number2`, nums[1]);
         setFeedbackVis(false);
-        setCanSubmit(true);
+        setData(canSubmitPath, true);
       }, 1000)
     }
     else{
@@ -217,6 +224,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
             <button type="submit" className="btn btn-primary answer-submit">Submit</button>
           </div>
         </form>
+        { room&& room.PlayerMode === "Multiplayer" && !room.ProblemGate? <p> {room.RoundWinner} Got it correct! </p> : <></>}
         {feedbackVis? (correct ? <div className = "feedback"> Good Job! You got it correct!</div> : <div className = "feedback"> Not Quite... You got it wrong!</div>) : <></> }
       </div>
     </div>

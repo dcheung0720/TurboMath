@@ -115,7 +115,7 @@ const GameRoom = () => {
         if (room && user){
             const playerStats = {
                 name: user.displayName,
-                score: 0
+                score: 0,
             }
 
             // add it to firebase if the user is not already in the gameroom
