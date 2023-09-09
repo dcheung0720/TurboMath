@@ -1,11 +1,12 @@
 import FlipMove from 'react-flip-move';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import "./LeaderBoard.css"
 
 const LeaderBoard = ({ room }) => {
   return (
-    <div className="LeaderBoard">
-        <table className="table table-hover table-dark" style = {{fontSize: "4em", right: "0"}}>
+    <div className="LeaderBoard"style = {{display: "flex", justifyContent: "center" }}  >
+        <table className="table table-hover table-dark">
           <thead>
             <tr>
               <th scope="col">#</th>

@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import GameRoom from './GameRoom';
 import CreateModal from "./CreateModal";
+import JoinModal from "./JoinModal";
 import { Routes,Route, Link } from "react-router-dom";
 import { useState } from 'react';
 
@@ -13,12 +14,20 @@ function GameRoomsSelections() {
   const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png", "./images/all.png"];
 
   const [openModal, setOpenModal] = useState(false);
+  const [joinModal, setJoinModal] = useState(false);
+
   const [gameType, setGameType] = useState("Addition"); 
 
   const ChangeModal = (e, gameType) =>{
     setGameType(gameType);
     setOpenModal(!openModal);
   }  
+
+  const handleJoinModal = (e, gameType) =>{
+    setGameType(gameType);
+    setJoinModal((prev) => !prev);
+  };
+
 
 
   return (<>
@@ -39,11 +48,11 @@ function GameRoomsSelections() {
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button variant="success"> Join </Button>
+                            <Button onClick={(e) => handleJoinModal(e, Title)} variant="danger"> Join </Button>
                         </Link>
                         &nbsp;
                         <Link to="" className="custom-link">
-                            <Button onClick = {(e) => ChangeModal(e, Title)} variant="danger"> Create </Button>               
+                            <Button onClick = {(e) => ChangeModal(e, Title)} variant="success"> Create </Button>               
                         </Link>
                     </div>
                 </Card.Body>                           
@@ -52,6 +61,8 @@ function GameRoomsSelections() {
     })}
     {/* open modal if the modal is true */}
     {openModal === true? <CreateModal gameType = {gameType} ChangeModal = {ChangeModal}/> : <></>}  
+    {/* open joinmodal if the modal is true */}
+    {joinModal === true? <JoinModal gameType = {gameType} handleJoinModal = {handleJoinModal}/> : <></>}
   </>);
 
 }

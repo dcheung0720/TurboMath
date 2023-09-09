@@ -59,7 +59,7 @@ const GameRoom = () => {
 
     const [ room, error ] = useData(gameRoomPath);
     const [started, error2] = useData(gameRoomPath.concat("/Started"));
-    const [delay, setDelay] = useState(4);
+    const [delay, error3] = useData(gameRoomPath.concat("/Delay"));
     const [user] = useUserState();
     const [wrongQuestions, setWrongQuestions] = useState({});
 
@@ -136,6 +136,7 @@ const GameRoom = () => {
                     <div className = "MathProblem" style={{fontSize: "100px"}}>
                         <div style={{position:"fixed", width: "100vw", top: "100px"}}>Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
+                        {room.PlayerMode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                     </div>
                     {/* only have the leader for multiplayer */}
                     {delay <= 0?  <div className="timer-wrapper">
@@ -148,12 +149,11 @@ const GameRoom = () => {
                         {RenderTime}
                         </CountdownCircleTimer>
                     </div>: <></>}
-                    {room.Mode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                 </div> 
                 <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
                     height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
                     transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
-                        <WaitingRoom id = {id} delay = {delay} setDelay={setDelay}></WaitingRoom> 
+                        <WaitingRoom id = {id}></WaitingRoom> 
                 </div>
             </div>
             :  <div style={{height: "90vh"}}><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>

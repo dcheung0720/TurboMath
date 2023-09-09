@@ -1,0 +1,48 @@
+.join-modal{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: rgba(50,50,50,.7);
+    position: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+}
+
+.card.join-content{
+    color: white;
+    background-color: #32386D;
+    width: 30%;
+    height: 300px;
+}
+
+p.warning{
+    color: red;
+}
+
+
+@media(max-width: 1200px){
+    .card.join-content{
+        width: 50%;
+    }
+
+}
+
+@media(max-width: 750px){
+    .card.join-content{
+        width: 70%;
+    }
+}
+
+@media(max-width: 500px){
+    .card.join-content{
+        width: 100%;
+        margin: 10px;
+    }
+}
