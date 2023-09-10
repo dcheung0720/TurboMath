@@ -224,7 +224,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
             <button type="submit" className="btn btn-primary answer-submit">Submit</button>
           </div>
         </form>
-        { room&& room.PlayerMode === "Multiplayer" && !room.ProblemGate? <p> {room.RoundWinner} Got it correct! </p> : <></>}
+        { room&& room.PlayerMode === "Multiplayer" && !room.ProblemGate? <p className = "feedback"> {room.RoundWinner} Got it correct! </p> : <></>}
         {feedbackVis? (correct ? <div className = "feedback"> Good Job! You got it correct!</div> : <div className = "feedback"> Not Quite... You got it wrong!</div>) : <></> }
       </div>
     </div>

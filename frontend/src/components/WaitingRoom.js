@@ -146,19 +146,22 @@ const WaitingRoom = ({id}) =>{
                             </tr>
                         </tbody>
                     </Table>
-                    <p>Player List: {Object.entries(room.Players).length}/8 </p>
-                    <div className = "player-list">
-                        <Table striped bordered hover>
-                            <tbody>
-                            {Object.entries(room.Players).map((player, idx) =>
-                                <tr>
-                                    <td>Player {idx+ 1}:</td>
-                                    <td> {player[1].name}</td>
-                                </tr>
-                            )}                  
-                            </tbody>
-                        </Table>
-                    </div>
+                    {room.PlayerMode === "Multiplayer" &&
+                    <>
+                        <p>Player List: {Object.entries(room.Players).length}/8 </p>
+                        <div className = "player-list">
+                            <Table striped bordered hover>
+                                <tbody>
+                                {Object.entries(room.Players).map((player, idx) =>
+                                    <tr>
+                                        <td>Player {idx+ 1}:</td>
+                                        <td> {player[1].name}</td>
+                                    </tr>
+                                )}                  
+                                </tbody>
+                            </Table>
+                        </div>
+                    </>}
                     <Card.Text>
                         Start whenever you are ready to TURBO!        
                     </Card.Text>
