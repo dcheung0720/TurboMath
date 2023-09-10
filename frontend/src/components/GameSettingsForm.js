@@ -53,6 +53,7 @@ const GameSettingsForm = ({gameType}) =>{
             "CountDownVis": false,
             "Delay": 4 ,
             "ProblemGate": true,
+            "HostID": user.uid, 
             "RoundWinner": "noOne"
         }
         
