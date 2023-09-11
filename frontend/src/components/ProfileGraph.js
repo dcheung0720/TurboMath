@@ -64,7 +64,8 @@ const ProfileGraph = () =>{
             // get all games with selected Difficulty and GameType 
             let data = gameData.filter(game =>
                 game.GameType === selectedGameType &&
-                game.Difficulty === selectedDifficulty
+                game.Difficulty === selectedDifficulty &&
+                game.PlayerMode === "Solo"
             )
 
             
@@ -85,6 +86,12 @@ const ProfileGraph = () =>{
                 return [date, gamesWithDate.length > 0? scoreCount/ gamesWithDate.length:0]
             })
 
+            let dateAndError = uniqueDates.map(date =>{
+                const gamesWithDate = data.filter(game => getFullDate(new Date(game.DateTime)) === date);
+                const errorCount = gamesWithDate.reduce((acc, cur) => acc += cur.WrongQuestions? Object.keys(cur.WrongQuestions).length : 0, 0);
+                return [date, gamesWithDate.length > 0? errorCount/ gamesWithDate.length : 0]
+            })
+
 
 
             const svg = select(svgRef.current);
@@ -99,6 +106,35 @@ const ProfileGraph = () =>{
             const chart = svg
             .append("g")
             .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+            // Adding legend
+            const legend = svg
+            .append("g")
+            .attr("class", "legend")
+            .attr("transform", `translate(${margin.right + 50}, ${margin.top})`);
+
+            const legendData = [
+                { label: "Average Score", color: "#00bfa6" },
+                { label: "Average #Error", color: "#880808" },
+                // Add more categories as needed
+            ];
+            
+            const legendItems = legend.selectAll(".legend-item")
+            .data(legendData)
+            .enter().append("g")
+                .attr("class", "legend-item")
+                .attr("transform", (d, i) => `translate(0,${i * 20})`); // Adjust spacing as needed
+
+            legendItems.append("rect")
+                .attr("width", 15)
+                .attr("height", 15)
+                .attr("fill", d => d.color);
+
+            legendItems.append("text")
+                .attr("x", 20)
+                .attr("y", 10)
+                .attr("dy", "0.35em")
+                .text(d => d.label);
 
             if(dateAndScores.length > 0){
                 // Scales
@@ -143,7 +179,7 @@ const ProfileGraph = () =>{
                 .attr("y", 6)
                 .attr("dy", ".75em")
                 .attr("transform", "rotate(-90)")
-                .text("Average Score");
+                .text("Average");
 
                 // Add dots for data points
                 chart.selectAll(".dot")
@@ -155,32 +191,69 @@ const ProfileGraph = () =>{
                 .attr("cx", d => xScale(d[0]) + xScale.bandwidth() / 2) // Center the dots on bars
                 .attr("cy", d => yScale(d[1]))
                 .attr("r", 4) // Adjust the radius of the dots as needed
+                .attr("fill", "#00bfa6")
 
 
-                // Drawing the line
-                const myLine = line()
+                // Add dots for errors
+                chart.selectAll(".dot")
+                .data(dateAndError)
+                .enter().append("circle")
+                .transition()
+                .duration(1000)
+                .attr("class", "dot")
+                .attr("cx", d => xScale(d[0]) + xScale.bandwidth()/2)
+                .attr("cy", d => yScale(d[1]))
+                .attr("r", 4)
+                .attr("fill", "#880808")
+
+                // Drawing the line for average score
+                const dataLine = line()
                 .x(d => xScale(d[0]) + xScale.bandwidth() / 2) // Center the line on bars
                 .y(d => yScale(d[1]));
 
-                const path = chart
+                const dataPath = chart
                 .append("path")
                 .datum(dateAndScores)
                 .attr("class", "line")
                 .attr("fill", "none")
                 .attr("stroke", "#00bfa6")
-                .attr("d", myLine); // Initial path
+                .attr("d", dataLine); // Initial path
 
                 // Calculate the total length of the path
-                const totalLength = path.node().getTotalLength();
+                let totalLength = dataPath.node().getTotalLength();
 
                 // Apply CSS to create the drawing animation
-                path
+                dataPath
                 .attr("stroke-dasharray", totalLength)
                 .attr("stroke-dashoffset", totalLength)
                 .transition()
                 .duration(1000)
                 .ease(easeLinear)
                 .attr("stroke-dashoffset", 0); // Draw the line
+
+
+                // Drawing the error for the average error
+                const errorLine = line()
+                .x(d => xScale(d[0]) + xScale.bandwidth()/2)
+                .y(d => yScale(d[1]));
+
+                const errorPath = chart
+                .append("path")
+                .datum(dateAndError)
+                .attr("class", "line")
+                .attr("fill", "none")
+                .attr("stroke", "#880808")
+                .attr("d", errorLine);
+
+                totalLength = errorPath.node().getTotalLength();
+
+                errorPath
+                .attr("stroke-dasharray", totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .transition()
+                .duration(1000)
+                .ease(easeLinear)
+                .attr("stroke-dashoffset", 0);
 
             }
             else{
@@ -189,7 +262,8 @@ const ProfileGraph = () =>{
                 .attr("text-anchor", "middle")
                 .attr("x", width / 2)
                 .attr("y", height/2)
-                .style("font-size", "150px")
+                .attr("transform", `translate(-50%, -50%)`)
+                .style("font-size", "50px")
                 .text("No Data");
             }
 
@@ -210,7 +284,7 @@ const ProfileGraph = () =>{
         <Card style={{ width: '100%', height: "100%", display:"flex", justifyContent: "center"}}>
            <Card.Body style={{display: "flex", flexDirection: "column", justifyContent:"center", alignItems: "center"}}>
                 <div style = {{display: "flex", justifyContent: "center"}}>
-                    <Card.Title>Average Score Over Time</Card.Title>
+                    <Card.Title className = "graph-title">Average Over Time (solo mode)</Card.Title>
                         <DropdownButton
                                 as={ButtonGroup}
                                 size="sm"

@@ -138,7 +138,7 @@ const ProfileStats = () =>{
         <Card.Body >
             <div className = "header" style = {{display: "flex", justifyContent:"space-between", alignItems: "center" }}>
                 <div style={{ flex: 1, textAlign: "center" }}>
-                    <Card.Title style={{marginBottom: "5px"}}>Personal High Scores <FontAwesomeIcon icon={faFire} style={{color: "#ff0000"}} /></Card.Title>
+                    <Card.Title className = "personal-hs" style={{marginBottom: "5px"}}>Personal High Scores <FontAwesomeIcon icon={faFire} style={{color: "#ff0000"}} /></Card.Title>
                 </div>
                 <span className = "selection">
                     <DropdownButton  key="secondary" 
