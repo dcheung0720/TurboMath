@@ -54,7 +54,8 @@ const GameSettingsForm = ({gameType}) =>{
             "Delay": 4 ,
             "ProblemGate": true,
             "HostID": user.uid, 
-            "RoundWinner": "noOne"
+            "RoundWinner": "noOne",
+            "Winner": "noOne"
         }
         
         //upload to firebase

@@ -33,13 +33,15 @@ function GameRoomsSelections() {
 
   let navigate = useNavigate();
 
-  const findQuickJoinRoom = (e, title) =>{
+  const findQuickJoinRoom = (e, gameType) =>{
+        setGameType(gameType);
+
         if(rooms){
             // valid rooms are rooms that matches Game type,
             // hasn't started
             // and it's multiplayer
             const valid_rooms = Object.entries(rooms).filter(room => 
-                                        room[1].GameType === title 
+                                        room[1].GameType === gameType
                                         && !room[1].Started
                                         && room[1].PlayerMode === "Multiplayer")
                                         .map(room =>
@@ -70,7 +72,7 @@ function GameRoomsSelections() {
   return (<>
     {gameRoomNames.map((title, idx) =>{
         return(
-            <Card id = {isShake? "shake": "null"} className = "gameroom-selections">
+            <Card id = {isShake && gameType === title? "shake": "null"} className = "gameroom-selections">
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "20%", height: "90%"}}/>
                  </div>
@@ -79,6 +81,12 @@ function GameRoomsSelections() {
                     <Card.Text>
                     Some quick example text to build on the card title 
                     </Card.Text>
+
+                    {quickJoinError && gameType === title && 
+                    <Card.Text className = "warning">
+                        No room is available for quick join!
+                    </Card.Text>}
+
                     <div className = "btn-group">
                         <span>
                             <Button onClick = {(e) => findQuickJoinRoom(e, title)} variant="primary"> Quick Join </Button>
