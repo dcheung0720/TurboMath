@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import GameHistory from "./GameHistory";
 import ProfileStats from "./ProfileStats";
 import ProfileGraph from "./ProfileGraph";
+import { useState } from "react";
 
 
 const Profile = () =>{

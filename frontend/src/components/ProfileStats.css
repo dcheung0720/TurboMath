@@ -5,6 +5,7 @@
     display: flex;
     align-content: center;
     justify-content: center;
+    z-index: 10;
 }
 
 
@@ -21,16 +22,18 @@
     z-index: "60" ;
 }
 
-@media (max-width: 1200px){
-    .selection{
-        left: 50%;
-        top: 26%;
-        right: 20%;
-        transform: translate(-50%,-50%);
+@media (max-width: 1000px){
+    .card-title{
+        font-size: 30px;
+        margin-top: 20px;
+    }
+
+    .card-title.personal-hs{
+        margin-top: 0px;
     }
 }
 
-@media (max-width: 480px){
+@media (max-width: 780px){
     .card-title{
         font-size: 20px;
     }
