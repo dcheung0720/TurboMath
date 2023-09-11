@@ -5,6 +5,8 @@ import { removeData, setData, useData } from '../utilities/firebase';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
 import "./GameOver.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -291,7 +293,6 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                 .map(player =>
                     player[1].name
             )
-            console.log(winners)
             return winners;
         }
     };
@@ -314,14 +315,16 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                             <tbody>
                                 {room.PlayerMode === "Multiplayer" &&
                                     <tr>
-                                        <td>Winner{findWinner().length > 1? "s": ""}: </td>
+                                        <td><FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> Winner{findWinner().length > 1? "s": ""}: </td>
                                         {findWinner().map(winner =>
-                                            <td>{winner}</td>
+                                            <td>
+                                                <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} />
+                                                {winner}
+                                            </td>
                                         )}
     
                                     </tr>
                                 }
-
                                 <tr>
                                     <td>Player Mode: </td>
                                     <td colSpan={8}>{room.PlayerMode}</td>
@@ -335,7 +338,7 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                     <td colSpan={8}> {room.GameMode}</td>
                                 </tr>
                                 <tr>
-                                    <td style = {{color: "#B66161"}}>Score :</td>
+                                    <td style = {{color: "#B66161"}}>Your Score :</td>
                                     <td colSpan={8}> {player.score}</td>
                                 </tr>
                             </tbody>

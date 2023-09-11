@@ -80,11 +80,17 @@ function GameRoomsSelections() {
                     Some quick example text to build on the card title 
                     </Card.Text>
                     <div className = "btn-group">
-                        <Button onClick = {(e) => findQuickJoinRoom(e, title)} variant="primary"> Quick Join </Button>
+                        <span>
+                            <Button onClick = {(e) => findQuickJoinRoom(e, title)} variant="primary"> Quick Join </Button>
+                        </span>
                         &nbsp;
-                        <Button onClick={(e) => handleJoinModal(e, title)} variant="danger"> Join </Button>
+                        <span>
+                            <Button onClick={(e) => handleJoinModal(e, title)} variant="danger"> Join </Button>
+                        </span>
                         &nbsp;
-                        <Button onClick = {(e) => ChangeModal(e, title)} variant="success"> Create </Button>               
+                        <span>
+                            <Button onClick = {(e) => ChangeModal(e, title)} variant="success"> Create </Button>               
+                        </span>
                     </div>
                 </Card.Body>                           
             </Card>
