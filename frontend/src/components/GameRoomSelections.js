@@ -48,7 +48,6 @@ function GameRoomsSelections() {
                                             room[0]
                                         );
             
-
             // no rooms are available
             if(valid_rooms.length === 0){
                 // show error message
@@ -79,7 +78,7 @@ function GameRoomsSelections() {
                 <Card.Body style = {{height: "100%", width: "100%"}}>
                     <Card.Title >{title}</Card.Title>
                     <Card.Text>
-                    Some quick example text to build on the card title 
+                        Some quick example text to build on the card title 
                     </Card.Text>
 
                     {quickJoinError && gameType === title && 

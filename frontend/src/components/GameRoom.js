@@ -62,6 +62,7 @@ const GameRoom = () => {
     const [delay, error3] = useData(gameRoomPath.concat("/Delay"));
     const [user] = useUserState();
     const [wrongQuestions, setWrongQuestions] = useState({});
+    const [added, setAdded] = useState(false);
 
     const [intervalId, setintervalId] = useState(null);
 
@@ -93,7 +94,6 @@ const GameRoom = () => {
                 removeData(gameRoomPath.concat(`/Players/${user.uid}`));
             }              
         }
-        console.log('User is leaving or closing the window.');
     };
     
     useEffect(() => {
@@ -108,7 +108,9 @@ const GameRoom = () => {
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, [room, started, intervalId]);
+    }, [room, user, intervalId]);
+    // started? ^
+
 
     useEffect(() =>{
         // if both room and user exists
@@ -119,12 +121,13 @@ const GameRoom = () => {
             }
 
             // add it to firebase if the user is not already in the gameroom
-            if (!Object.keys(room.Players).includes(user.uid)){
-                setData(`GameRooms/${id}/Players/${user.uid}`,playerStats)
+            if (!Object.keys(room.Players).includes(user.uid) && !added){
+                setData(`GameRooms/${id}/Players/${user.uid}`,playerStats);
+                setAdded(true);
             }
         }
 
-    }, [room])
+    }, [room, user, added])
 
       
     return (
