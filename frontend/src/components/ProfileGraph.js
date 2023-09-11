@@ -64,7 +64,8 @@ const ProfileGraph = () =>{
             // get all games with selected Difficulty and GameType 
             let data = gameData.filter(game =>
                 game.GameType === selectedGameType &&
-                game.Difficulty === selectedDifficulty
+                game.Difficulty === selectedDifficulty &&
+                game.PlayerMode === "Solo"
             )
 
             
