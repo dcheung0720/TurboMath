@@ -10,6 +10,9 @@ import GameOver from "./Gameover";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./GameRoom.css"
 
+// door bell
+// https://pixabay.com/sound-effects/search/doorbell/
+
 const RenderTime = ({ remainingTime }) => {
     const currentTime = useRef(remainingTime);
     const prevTime = useRef(null);
@@ -65,6 +68,9 @@ const GameRoom = () => {
     const [added, setAdded] = useState(false);
 
     const [intervalId, setintervalId] = useState(null);
+    const [numPlayers, setNumPlayers] = useState(0);
+
+    const doorbell = useRef();
 
     // once the game starts, update the database time by 1 second 
     useEffect(()=>{
@@ -110,6 +116,19 @@ const GameRoom = () => {
         };
     }, [room, user, intervalId]);
     // started? ^
+
+    // update num players
+    useEffect(()=>{
+        if(room && doorbell.current){
+            setNumPlayers((prev)=>{
+                const numPlayer = Object.keys(room.Players).length;
+                if(prev < numPlayer){
+                    doorbell.current.play();
+                }
+                return numPlayer;
+            })
+        }
+    }, [room])
 
 
     useEffect(() =>{
@@ -157,6 +176,10 @@ const GameRoom = () => {
                     height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
                     transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
                         <WaitingRoom id = {id}></WaitingRoom> 
+                    <audio ref = {doorbell} id = "doorbell" controls autoplay hidden>
+                        <source src = "../audio/doorbell.mp3" type = "audio/mp3"></source>
+                        Your browser does not support the audio element.
+                    </audio>
                 </div>
             </div>
             :  <div style={{height: "90vh"}}><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>

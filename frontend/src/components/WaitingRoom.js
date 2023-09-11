@@ -6,8 +6,6 @@ import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./WaitingRoom.css"
 
-
-
 const WaitingRoom = ({id}) =>{
 
     const [room, error] = useData(`GameRooms/${id}`);
