@@ -51,7 +51,11 @@ const GameSettingsForm = ({gameType}) =>{
             "Started": false,
             "TimeLeft": 60,
             "CountDownVis": false,
-            "Delay": 4 
+            "Delay": 4 ,
+            "ProblemGate": true,
+            "HostID": user.uid, 
+            "RoundWinner": "noOne",
+            "Winner": "noOne"
         }
         
         //upload to firebase
@@ -126,7 +130,6 @@ const GameSettingsForm = ({gameType}) =>{
     }
 
     const GenerateNumbers = (numDigits) =>{
-        console.log(numDigits)
         switch(numDigits){
             case "1":
                 return Math.floor(Math.random() * 9 + 1);

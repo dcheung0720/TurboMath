@@ -5,6 +5,8 @@ import { removeData, setData, useData } from '../utilities/firebase';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
 import "./GameOver.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -169,7 +171,6 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
         //get correct audio element and play the sound
         document.getElementById(id).volume = .2;
         document.getElementById(id).play();
-        console.log(document.getElementById(id))
     }
 
     const NewGame = (e) =>{
@@ -268,10 +269,8 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
         }
     }
 
-    
 
     const GenerateNumbers = (numDigits) =>{
-        console.log(numDigits)
         switch(numDigits){
             case "1":
                 return Math.floor(Math.random() * 9 + 1);
@@ -279,6 +278,22 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                 return Math.floor(Math.random() * 90 + 10);   
             case "3":        
                 return Math.floor(Math.random() * 900 + 100);       
+        }
+    };
+
+    const findWinner = () =>{
+        if(room){
+            const players = Object.entries(room.Players);
+            const max_score = Math.max(...players.map(player =>
+                player[1].score
+            ));
+
+            const winners = players.filter(player => 
+                player[1].score === max_score)
+                .map(player =>
+                    player[1].name
+            )
+            return winners;
         }
     };
 
@@ -298,21 +313,33 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                         <Card.Title style={{fontSize: "2.5rem"}}>Game Results</Card.Title>
                         <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1.5rem" }}>
                             <tbody>
+                                {room.PlayerMode === "Multiplayer" &&
+                                    <tr>
+                                        <td><FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> Winner{findWinner().length > 1? "s": ""}: </td>
+                                        {findWinner().map(winner =>
+                                            <td>
+                                                <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} />
+                                                {winner}
+                                            </td>
+                                        )}
+    
+                                    </tr>
+                                }
                                 <tr>
                                     <td>Player Mode: </td>
-                                    <td>{room.PlayerMode}</td>
+                                    <td colSpan={8}>{room.PlayerMode}</td>
                                 </tr>
                                 <tr>
-                                    <td>Difficulty :</td>
-                                    <td>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
+                                    <td>Difficulty:</td>
+                                    <td colSpan={8}>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
                                 </tr>
                                 <tr>
-                                    <td>Game Mode :</td>
-                                    <td colSpan={2}> {room.GameMode}</td>
+                                    <td>Game Mode:</td>
+                                    <td colSpan={8}> {room.GameMode}</td>
                                 </tr>
                                 <tr>
-                                    <td style = {{color: "#B66161"}}>Score :</td>
-                                    <td colSpan={3}> {player.score}</td>
+                                    <td style = {{color: "#B66161"}}>Your Score :</td>
+                                    <td colSpan={8}> {player.score}</td>
                                 </tr>
                             </tbody>
                         </Table>

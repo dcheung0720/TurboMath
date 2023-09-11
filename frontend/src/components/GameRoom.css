@@ -78,18 +78,22 @@
 
     .timer-wrapper {
       position: absolute;
-      top: 35%;
+      top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
   }
 
+  @media (max-height: 1000px) {
+    .timer-wrapper {
+      top: 39%;
+    }
+  }
+
+
   @media (max-height: 700px) {
     .timer-wrapper {
-      position: absolute;
       top: 47%;
-      left: 50%;
-      transform: translate(-50%, -50%);
     }
   }
 

@@ -65,7 +65,7 @@
 }
 
 @media(max-height: 600px){
-    .card{
+    .card.gameover-panel{
         height: 100%;
         margin-top: 100px;
     }

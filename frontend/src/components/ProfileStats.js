@@ -53,7 +53,7 @@ const ProfileStats = () =>{
 
             const y = x.map(gm => userData[gm]["Turbo"][selectedDifficulty].HS);
 
-            const data = x.map((gm, i) => [gm, y[i]]);
+            const data = x.map((gm, i) => [gm, y[i]]).filter(d => d[1] !==0);
 
             //get the SVG reference
             const svg = d3.select(svgRef.current);
@@ -75,7 +75,8 @@ const ProfileStats = () =>{
 
             const xScale = d3.scaleBand().domain(x).range([0, width]).padding(.5);
 
-            const yScale = d3.scaleLinear().domain([0, d3.max(y)]).nice().range([height, 0]);
+            
+            const yScale = d3.scaleLinear().domain([0, d3.max(y) === 0? 10 : d3.max(y)]).nice().range([height, 0]);
 
             const customColors = ['#FF5733', '#33FF57', '#337FFF', '#FF33E1'];
             const colorScale = d3.scaleOrdinal().range(customColors);

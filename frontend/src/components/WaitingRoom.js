@@ -1,12 +1,10 @@
 import Button from 'react-bootstrap/Button';
-import { useData, setData } from '../utilities/firebase';
+import { useData, setData, useUserState } from '../utilities/firebase';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./WaitingRoom.css"
-
-
 
 const WaitingRoom = ({id}) =>{
 
@@ -20,7 +18,7 @@ const WaitingRoom = ({id}) =>{
     let localDelay = 4;
 
     const intervalId = useRef();
-
+    const [user] = useUserState();
     // get screen size resize
     function getCurrentDimension(){
         return {
@@ -92,7 +90,7 @@ const WaitingRoom = ({id}) =>{
     }
 
     return(
-        room?
+        room && user?
         countDownVis?
         <CountdownCircleTimer style = {{fontSize: "100px", marginTop: "100px"}}
             isPlaying
@@ -146,24 +144,38 @@ const WaitingRoom = ({id}) =>{
                             </tr>
                         </tbody>
                     </Table>
-                    <p>Player List: {Object.entries(room.Players).length}/8 </p>
-                    <div className = "player-list">
-                        <Table striped bordered hover>
-                            <tbody>
-                            {Object.entries(room.Players).map((player, idx) =>
-                                <tr>
-                                    <td>Player {idx+ 1}:</td>
-                                    <td> {player[1].name}</td>
-                                </tr>
-                            )}                  
-                            </tbody>
-                        </Table>
-                    </div>
-                    <Card.Text>
-                        Start whenever you are ready to TURBO!        
-                    </Card.Text>
-                    {playerCountError? <Card.Text className='warning'>You need at least 2 players to start</Card.Text> : <></>}
-                    <Button variant="primary" onClick={()=> handleStart()}>Start</Button>
+                    {room.PlayerMode === "Multiplayer" &&
+                    <>
+                        <p>Player List: {Object.entries(room.Players).length}/8 </p>
+                        <div className = "player-list">
+                            <Table striped bordered hover>
+                                <tbody>
+                                {Object.entries(room.Players).map((player, idx) =>
+                                    <tr>
+                                        <td>Player {idx+ 1}:</td>
+                                        <td> {player[1].name}</td>
+                                    </tr>
+                                )}                  
+                                </tbody>
+                            </Table>
+                        </div>
+                    </>}
+                    {/* show waiting on host to start if not host */}
+                    {room.HostID === user.uid?
+                        <Card.Text>
+                            Start whenever you are ready to TURBO!        
+                        </Card.Text>
+                        :
+                        <Card.Text>
+                            Waiting for the host to start...       
+                        </Card.Text>
+                    }   
+                    {room.HostID === user.uid &&
+                        <>
+                            {playerCountError && <Card.Text className='warning'>You need at least 2 players to start</Card.Text>}
+                            <Button variant="primary" onClick={()=> handleStart()}>Start</Button>
+                        </>
+                    }
                 </Card.Body>
             </Card>
       </div> : <></>

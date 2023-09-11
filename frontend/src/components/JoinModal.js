@@ -22,12 +22,13 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
     const [isNumbers, setIsNumbers] = useState(true);
 
     const [isShake, setIsShake] = useState(false);
-    const [roomExistError, setRoomExistError] = useState(true);
-    const [roomMultiplayerError, setRoomMultiplayerError] = useState(true);
+    const [roomExistError, setRoomExistError] = useState(false);
+    const [roomMultiplayerError, setRoomMultiplayerError] = useState(false);
+    const [gameTypeError, setGameTypeError] = useState(false);
+    const [startedError, setStartedError] = useState(false);
 
     const handleInputChange = (e) =>{
-        setRoomMultiplayerError(true);
-        setRoomMultiplayerError(true);
+        setRoomMultiplayerError(false);
 
         setRoomInput((prev) =>{
             //regex for numbers only
@@ -53,6 +54,7 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
         // and the game hasn't started
         if(isNumbers 
             && ids.length !== 0 
+            && rooms[ids[0]].GameType === gameType
             && rooms[ids[0]].PlayerMode === "Multiplayer"
             && !rooms[ids[0]].started){
                navigate(`/MathProblems/${ids[0]}`)
@@ -60,12 +62,28 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
         else{
             // the room exist and room multiplayer errors are mutally exclusive.
             if(ids.length === 0){
-                setRoomExistError(false);
-                setRoomMultiplayerError(true);
-            }
-            else{
                 setRoomExistError(true);
                 setRoomMultiplayerError(false);
+                setGameTypeError(false);
+                setStartedError(false);
+            }
+            else if(rooms[ids[0]].started){
+                setStartedError(true);
+                setGameTypeError(false);
+                setRoomMultiplayerError(false);
+                setRoomExistError(false);
+            }
+            else if(rooms[ids[0]].GameType !== gameType){
+                setGameTypeError(true);
+                setRoomMultiplayerError(false);
+                setRoomExistError(false);
+                setStartedError(false);
+            }
+            else{
+                setRoomMultiplayerError(true);
+                setRoomExistError(false);
+                setGameTypeError(false);
+                setStartedError(false);
             }
 
             // error shake
@@ -94,8 +112,10 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
                                 <Form.Control style={{textAlign: "center", color: "black"}} id="disabledTextInput" placeholder="Enter Room ID Here" onChange={handleInputChange}/>
                             </Form.Group>
                             {!isNumbers?<p className = "warning"> Please enter a number!</p> : <></>}
-                            {!roomExistError? <p className = "warning">Room does not exist!</p> : <></>}
-                            {!roomMultiplayerError? <p className = "warning">The room exists, but it's not multiplayer!</p> : <></>}
+                            {startedError? <p className = "warning">Game already started!</p> : <></>}
+                            {roomExistError? <p className = "warning">Room does not exist!</p> : <></>}
+                            {gameTypeError? <p className = "warning">Room exists, but the game type does not match!</p> : <></>}
+                            {roomMultiplayerError? <p className = "warning">The room exists, but it's not multiplayer!</p> : <></>}
                         </fieldset>
                     </Form>
                     <Button variant = "danger" onClick={handleSubmit}>Join</Button>

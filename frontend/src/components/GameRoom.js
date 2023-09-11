@@ -10,6 +10,9 @@ import GameOver from "./Gameover";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./GameRoom.css"
 
+// door bell
+// https://pixabay.com/sound-effects/search/doorbell/
+
 const RenderTime = ({ remainingTime }) => {
     const currentTime = useRef(remainingTime);
     const prevTime = useRef(null);
@@ -62,8 +65,12 @@ const GameRoom = () => {
     const [delay, error3] = useData(gameRoomPath.concat("/Delay"));
     const [user] = useUserState();
     const [wrongQuestions, setWrongQuestions] = useState({});
+    const [added, setAdded] = useState(false);
 
     const [intervalId, setintervalId] = useState(null);
+    const [numPlayers, setNumPlayers] = useState(0);
+
+    const doorbell = useRef();
 
     // once the game starts, update the database time by 1 second 
     useEffect(()=>{
@@ -93,7 +100,6 @@ const GameRoom = () => {
                 removeData(gameRoomPath.concat(`/Players/${user.uid}`));
             }              
         }
-        console.log('User is leaving or closing the window.');
     };
     
     useEffect(() => {
@@ -108,23 +114,39 @@ const GameRoom = () => {
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, [room, started, intervalId]);
+    }, [room, user, intervalId]);
+    // started? ^
+
+    // update num players
+    useEffect(()=>{
+        if(room && doorbell.current){
+            setNumPlayers((prev)=>{
+                const numPlayer = Object.keys(room.Players).length;
+                if(prev < numPlayer){
+                    doorbell.current.play();
+                }
+                return numPlayer;
+            })
+        }
+    }, [room])
+
 
     useEffect(() =>{
         // if both room and user exists
         if (room && user){
             const playerStats = {
                 name: user.displayName,
-                score: 0
+                score: 0,
             }
 
             // add it to firebase if the user is not already in the gameroom
-            if (!Object.keys(room.Players).includes(user.uid)){
-                setData(`GameRooms/${id}/Players/${user.uid}`,playerStats)
+            if (!Object.keys(room.Players).includes(user.uid) && !added){
+                setData(`GameRooms/${id}/Players/${user.uid}`,playerStats);
+                setAdded(true);
             }
         }
 
-    }, [room])
+    }, [room, user, added])
 
       
     return (
@@ -154,6 +176,10 @@ const GameRoom = () => {
                     height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
                     transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
                         <WaitingRoom id = {id}></WaitingRoom> 
+                    <audio ref = {doorbell} id = "doorbell" controls autoplay hidden>
+                        <source src = "../audio/doorbell.mp3" type = "audio/mp3"></source>
+                        Your browser does not support the audio element.
+                    </audio>
                 </div>
             </div>
             :  <div style={{height: "90vh"}}><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>
