@@ -24,16 +24,19 @@ function GameRoomsSelections() {
   const ChangeModal = (e, gameType) =>{
     setGameType(gameType);
     setOpenModal(!openModal);
+    setQuickJoinError(false);
   }  
 
   const handleJoinModal = (e, gameType) =>{
     setGameType(gameType);
     setJoinModal((prev) => !prev);
+    setQuickJoinError(false);
   };
 
   let navigate = useNavigate();
 
   const findQuickJoinRoom = (e, gameType) =>{
+
         setGameType(gameType);
 
         if(rooms){
