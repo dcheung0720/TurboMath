@@ -18,6 +18,8 @@ button.btn.btn-primary{
 }
 
 
+
+
 @media (max-width: 640px) {
     .card.waiting-panel{
         width: 100%;

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import "./ProfileEdit.css"
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { faImage, faImages, faPenToSquare, faFloppyDisk, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -95,10 +95,10 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     return(<div className = "profileEditModal" onClick={()=> handleModalVisibility()}>
         <Card id = {shake ? "shake" : null} className = "profileEdit" onClick={(e)=>{e.stopPropagation()}}>
             <Card.Body>
-                <Card.Title style = {{fontSize: "40px"}}>Profile Edit</Card.Title>
+                <Card.Title style = {{fontSize: "40px"}}>Profile Edit &nbsp; <FontAwesomeIcon icon={faPen} /></Card.Title>
                 <div className = "Pfp" style={{display: "flex", justifyContent: "space-evenly", width: "100%"}}>
                     <div className = "currentSelection" style={{height: "100%"}}>
-                        <Card.Title>Profile Picture </Card.Title>
+                        <Card.Title>Profile Picture &nbsp; <FontAwesomeIcon icon={faImage} style={{color: "#24c655",}} /> </Card.Title>
                         <Card style={{ width: '18rem', height: "50%", borderRadius: "50%", overflow: "hidden"}} >
                                 <Image className = "pfpSrc" src= {`${pfpSelected}`} 
                                     style={{width: "100%", height:"100%"}}
@@ -106,7 +106,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                             </Card>
                     </div>
                     <div className="imageSelections" style={{height: "100%"}}>
-                        <Card.Title>Image Selection <FontAwesomeIcon icon={faImage} /></Card.Title>
+                        <Card.Title>Image Selection &nbsp; <FontAwesomeIcon icon={faImages} style={{color: "#e74008",}} /> </Card.Title>
                         <Card style={{ width: '100%', height: "100%"}}>
                             <div style = {{display: "flex", flexWrap: "wrap", overflow: "scroll", width: "100%", height: "100%"}}>
                                 {pfpList.length >= 4? pfpList.sort((a,b) => a - b).map(pfpSrc => 
@@ -135,7 +135,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                             {textAreaDisabled?
                             <Button variant="primary"  onClick = {handleCaptionEdit} 
                                 style={{width: "15%", height: "50%", marginLeft: "1vw"}}
-                            > Edit</Button>
+                            > Edit &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></Button>
                             : <Button  variant="secondary" onClick = {handleCancelCaptionEdit}
                             style={{width: "15%", height: "50%", marginLeft: "1vw"}}
                             > Cancel</Button>
@@ -144,8 +144,8 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                     </Form.Group>
                 </Form>
                 <div className= "buttonControlGroup" style = {{display: "flex", justifyContent: "space-evenly"}}>
-                    <Button variant="secondary" style = {{padding: 0, margin: "10px"}} onClick={handleModalVisibility}> Cancel </Button>
-                    <Button variant="primary" style = {{whiteSpace: "nowrap", textAlign: "center", paddingLeft: 0, paddingRight: 0 }} onClick = {handleSubmit}> Save Changes</Button>
+                    <Button variant="secondary" style = {{padding: 0, width: "100px"}} onClick={handleModalVisibility}> Cancel </Button>
+                    <Button variant="primary" style = {{width: "120px", whiteSpace: "nowrap", textAlign: "center", paddingLeft: 0, paddingRight: 0 }} onClick = {handleSubmit}> Save Changes &nbsp; <FontAwesomeIcon icon={faFloppyDisk} /></Button>
                 </div>
             </Card.Body>
         </Card>

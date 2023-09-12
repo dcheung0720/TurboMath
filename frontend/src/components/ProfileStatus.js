@@ -6,7 +6,7 @@ import {useData, useUserState } from '../utilities/firebase';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import ProfileEdit from './ProfileEdit';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -31,7 +31,7 @@ const ProfileStatus = () =>{
                     <Card.Text>
                         {userData.Profile.Caption}
                     </Card.Text>
-                    <Button variant="primary" onClick={() => handleModalVisibility()}>Edit Profile</Button>
+                    <Button variant="primary" style = {{width: "120px"}}onClick={() => handleModalVisibility()}>Edit Profile &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></Button>
                 </Card.Body>
             </Card>
             {editModalVis? <ProfileEdit handleModalVisibility = {handleModalVisibility}></ProfileEdit> : <></>}
