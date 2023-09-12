@@ -1,20 +1,26 @@
-import MathProblems from "./GameRoom";
 import { useUserState } from "../utilities/firebase";
-import GameRoomsSelections from "./GameRoomSelections";
 import "./HomePage.css"
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 const HomePage = () =>{
     const [user] = useUserState();
 
     return(
-        user?
-        <div style={{height: "100%"}}>
-            {/* <h1 style = {{marginBottom: 0, marginTop: "1vh"}}>Game Selections</h1> */}
-            <div className = "selectionContainer">
-                <GameRoomsSelections/>
-            </div>
-        </div>:
-        <></>
+        <Container>
+            <Row>
+                <Col>1 of 3</Col>
+                <Col xs={6}>2 of 3 (wider)</Col>
+                <Col>3 of 3</Col>
+            </Row>
+            <Row>
+                <Col>1 of 3</Col>
+                <Col xs={5}>2 of 3 (wider)</Col>
+                <Col>3 of 3</Col>
+            </Row>
+        </Container>
     )
 }
 
