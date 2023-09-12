@@ -6,8 +6,9 @@ import Image from 'react-bootstrap/Image';
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
-import { text } from "@fortawesome/fontawesome-svg-core";
 import "./ProfileEdit.css"
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const ProfileEdit = ({handleModalVisibility}) =>{
@@ -54,7 +55,6 @@ const ProfileEdit = ({handleModalVisibility}) =>{
     const handleCaptionChange = (e)=>{   
         setCaption(e.target.value);
         setNumChars(e.target.value.length);
-        console.log(numChars)
     };
 
     const handleCaptionEdit = ()=>{
@@ -98,7 +98,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                 <Card.Title style = {{fontSize: "40px"}}>Profile Edit</Card.Title>
                 <div className = "Pfp" style={{display: "flex", justifyContent: "space-evenly", width: "100%"}}>
                     <div className = "currentSelection" style={{height: "100%"}}>
-                        <Card.Title>Profile Picture</Card.Title>
+                        <Card.Title>Profile Picture </Card.Title>
                         <Card style={{ width: '18rem', height: "50%", borderRadius: "50%", overflow: "hidden"}} >
                                 <Image className = "pfpSrc" src= {`${pfpSelected}`} 
                                     style={{width: "100%", height:"100%"}}
@@ -106,7 +106,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                             </Card>
                     </div>
                     <div className="imageSelections" style={{height: "100%"}}>
-                        <Card.Title>Image Selection</Card.Title>
+                        <Card.Title>Image Selection <FontAwesomeIcon icon={faImage} /></Card.Title>
                         <Card style={{ width: '100%', height: "100%"}}>
                             <div style = {{display: "flex", flexWrap: "wrap", overflow: "scroll", width: "100%", height: "100%"}}>
                                 {pfpList.length >= 4? pfpList.sort((a,b) => a - b).map(pfpSrc => 

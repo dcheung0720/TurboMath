@@ -21,6 +21,8 @@ import { useData } from '../utilities/firebase';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowTrendUp } from '@fortawesome/free-solid-svg-icons';
 
 const ProfileGraph = () =>{
 
@@ -93,7 +95,6 @@ const ProfileGraph = () =>{
             })
 
 
-
             const svg = select(svgRef.current);
             const margin = { top: 20, right: 20, bottom: 30, left: 40 };
             const svgRect = svg["_groups"][0][0].getBoundingClientRect();
@@ -144,7 +145,7 @@ const ProfileGraph = () =>{
                 .padding(0.1); // Adjust padding between bars if needed
 
                 const yScale = scaleLinear()
-                .domain([0, max(dateAndScores, d => d[1])])
+                .domain([0, Math.max(max(dateAndScores, d => d[1]), max(dateAndError, d => d[1]))])
                 .nice()
                 .range([height, 0]);
 
@@ -284,7 +285,7 @@ const ProfileGraph = () =>{
         <Card style={{ width: '100%', height: "100%", display:"flex", justifyContent: "center"}}>
            <Card.Body style={{display: "flex", flexDirection: "column", justifyContent:"center", alignItems: "center"}}>
                 <div style = {{display: "flex", justifyContent: "center"}}>
-                    <Card.Title className = "graph-title">Average Over Time (solo mode)</Card.Title>
+                    <Card.Title className = "graph-title">Average Over Time (solo mode) <FontAwesomeIcon icon={faArrowTrendUp} style={{color: "#2ac048",}} /> </Card.Title>
                         <DropdownButton
                                 as={ButtonGroup}
                                 size="sm"

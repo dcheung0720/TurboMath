@@ -6,7 +6,8 @@ import {useData, useUserState } from '../utilities/firebase';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import ProfileEdit from './ProfileEdit';
-
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const ProfileStatus = () =>{
@@ -25,7 +26,7 @@ const ProfileStatus = () =>{
         <div>
             <Card className = "profileStatus" style={{ width: '100%', height: "50%", }}>
                 <Card.Body>
-                    <Card.Title style = {{fontSize: "3rem"}}>Profile</Card.Title>
+                    <Card.Title style = {{fontSize: "3rem"}}>Profile <FontAwesomeIcon icon={faUser} /></Card.Title>
                         <Image src= {userData.Profile.Image} roundedCircle />
                     <Card.Text>
                         {userData.Profile.Caption}

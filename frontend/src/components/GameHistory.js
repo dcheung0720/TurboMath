@@ -3,7 +3,8 @@ import { useData } from "../utilities/firebase";
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
 import { Tooltip as MuiTooltip } from '@mui/material';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 
 const GameHistory = () =>{
 
@@ -71,7 +72,7 @@ const GameHistory = () =>{
     // https://grubersjoe.github.io/react-activity-calendar/?path=/story/react-activity-calendar--with-customized-look&args=blockSize:16
     return (
         <div className = "activityTracker" style = {{color: "black"}}>
-                <h3 style = {{textAlign:"left"}}>Your Game Activity:</h3>
+                <h3 style = {{textAlign:"left"}}>Your Game Activity <FontAwesomeIcon icon={faWaveSquare} style={{color: "#f99201",}} /></h3>
                 <ActivityCalendar
                     data = {activityData}
                     showWeekdayLabels = {true}
