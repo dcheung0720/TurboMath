@@ -1,4 +1,9 @@
+.home-page{
+    margin-top: 120px;
+}
 
 
-
+.home-page .card-body{
+    color: black;
+}
 
