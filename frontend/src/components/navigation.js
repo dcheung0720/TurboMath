@@ -447,12 +447,12 @@ const Navigation = () =>{
     );
   
     return (
-      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "100px",position: "fixed", width: "100vw", top: "0"}}>
+      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "80px",position: "fixed", width: "100vw", top: "0"}}>
       <Container style={{marginLeft: "10px"}}>
-        <Navbar.Brand href="/" style={{color: 'white', fontSize: "4em" }}>Turbo Math</Navbar.Brand>
+        <Navbar.Brand href="/" style={{color: 'white', fontSize: "3em" }}>Turbo Math</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" style = {{fontSize: "40px"}}>
+          <Nav className="me-auto" style = {{fontSize: "30px"}}>
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/Games">Math Games</Nav.Link>
           </Nav>

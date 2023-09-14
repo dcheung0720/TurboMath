@@ -5,7 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullseye } from "@fortawesome/free-solid-svg-icons";
+import { faBullseye, faPlay } from "@fortawesome/free-solid-svg-icons";
+import Button from 'react-bootstrap/Button';
 
 const HomePage = () =>{
     const [user] = useUserState();
@@ -14,18 +15,33 @@ const HomePage = () =>{
         <Container className = "home-page">
             <Row>
                 <Col>
-                    <h1>
+                    <h1 style = {{marginBottom: "10px"}}>
                         {user? `Welcome to Turbo Math , ${user.displayName}!` :
                         "Please sign in with Google to use Turbo Math"}
                     </h1>
                  </Col>
             </Row>
             <Row>
+                <Col xs = {12} lg = {4}>
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Body>
+                            <Card.Title> Welcome </Card.Title>
+                            <Card.Text>
+                                Welcome to Turbo Math! Ready to enhance your mental math skills?
+                            </Card.Text>
+                            <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
+                        </Card.Body>
+                        </Card>
+                </Col>
+                <Col xs={12} lg = {4}>2 of 3 (wider)</Col>
+                <Col xs={12} lg = {4}>3 of 3</Col>
+            </Row>
+            <Row>
                 <Col xs={12} lg = {12}> 
                     <Card>
                         <Card.Body>
                             <Card.Title style = {{ fontSize: "30px"}}>The Goal of Turbo Math <FontAwesomeIcon icon={faBullseye} style={{color: "#fa0000",}} /></Card.Title>
-                            <Card.Text style = {{ fontSize: "25px", textAlign: "left"}}>
+                            <Card.Text style = {{ fontSize: "20px", textAlign: "left"}}>
                                 <span style = {{ marginLeft: "50px"}}></span>Mental math skills play a pivotal role in the foundations of mathematics education,
                                 both in primary and secondary levels. These skills empower students to swiftly
                                 validate their solutions and detect glaringly erroneous answers. This, in turn, 
@@ -36,7 +52,7 @@ const HomePage = () =>{
                                 in cognitive development.
                             </Card.Text>
 
-                            <Card.Text style = {{ fontSize: "25px", textAlign: "left"}}>
+                            <Card.Text style = {{ fontSize: "20px", textAlign: "left"}}>
                                 <span style = {{ marginLeft: "50px"}}></span>Turbo Math serves as a valuable tool for reinforcing students' mental math proficiency by creating an
                                 engaging environment where they can aim for personal high scores and engage in friendly 
                                 competition with their peers. Moreover, it incorporates a personal tracking system that
@@ -46,11 +62,6 @@ const HomePage = () =>{
                         </Card.Body>
                     </Card> 
                 </Col>
-            </Row>
-            <Row>
-                <Col>1 of 3</Col>
-                <Col xs={5}>2 of 3 (wider)</Col>
-                <Col>3 of 3</Col>
             </Row>
         </Container>
     )
