@@ -17,7 +17,7 @@ const Navigation = () =>{
     const [user] = useUserState();
 
     // get users data
-    const [data, error] = useData('/Users');
+    const [data, error] = useData('Users/');
 
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
@@ -25,8 +25,10 @@ const Navigation = () =>{
 
     // when user logs in
     useEffect(() =>{
+      console.log(user);
+      console.log(data)
       // if user does not exist, add it to the database
-      if(data != null && user!= null && Object.keys(data).filter(x => x == user.uid).length == 0){
+      if(data !== undefined && user !== null && Object.keys(data).filter(x => x === user.uid).length === 0){
         const userData = {
           "Profile":{
              "Name": user.displayName,
@@ -405,7 +407,7 @@ const Navigation = () =>{
     const SignOutButton = () => (
       <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "10vh"}}>
         {/* dropdown button */}
-        {user && data? 
+        {user !== null && data!== undefined && data[user.uid] !== undefined? 
         (!navToggled && screenSize.width > 680) || (navToggled && screenSize.width) > 1000?
           <Image src = {`${data[user.uid].Profile.Image}`} style = {{height: "70%"}}  roundedCircle /> 
           : <></>
@@ -445,14 +447,19 @@ const Navigation = () =>{
     );
   
     return (
-      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "100px", display: "flex", justifyContent: "center", position: "fixed", width: "100vw", top: "0"}}>
-        <Container style = {{ justifyContent: "center"}}>
-            <Navbar.Brand href="/" style={{color: 'white', fontSize: "4em" }}>
-              Turbo Math
-            </Navbar.Brand>
-        </Container>
-        {user ? <SignOutButton /> : <SignInButton />}
-      </Navbar>
+      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "100px",position: "fixed", width: "100vw", top: "0"}}>
+      <Container style={{marginLeft: "10px"}}>
+        <Navbar.Brand href="/" style={{color: 'white', fontSize: "4em" }}>Turbo Math</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto" style = {{fontSize: "40px"}}>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/Games">Math Games</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+      {user ? <SignOutButton /> : <SignInButton />}
+    </Navbar>
     );
 
 }

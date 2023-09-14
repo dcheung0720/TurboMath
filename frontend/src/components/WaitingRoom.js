@@ -13,8 +13,10 @@ const WaitingRoom = ({id}) =>{
     const [countDownVis, error2] =  useData(`GameRooms/${id}/CountDownVis`);
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
+    //errors
     const [playerCountError, setPlayerCountError] = useState(false);
     const [isShake, setIsShake] = useState(false);
+    const errorSoundRef = useRef();
     let localDelay = 4;
 
     const intervalId = useRef();
@@ -41,7 +43,11 @@ const WaitingRoom = ({id}) =>{
 
     const handleStart = () =>{
         if(room.PlayerMode === "Multiplayer" && Object.keys(room.Players).length < 2){
+            // show count error/ not enough players
             setPlayerCountError(true);
+            // play error sound
+            errorSoundRef.current.play();
+            
             setIsShake(true);
 
             setTimeout(()=>{
@@ -114,6 +120,10 @@ const WaitingRoom = ({id}) =>{
         :
 
         <div className = "waiting-panel-container">
+            <audio ref = {errorSoundRef}  id = "id" controls hidden autoPlay>
+                <source src = "../audio/error.mp3" type = "audio/mp3"></source>
+                Your browser does not support the audio element.
+            </audio>
             <Card id = {isShake? "shake": "null"} className = "waiting-panel">
                 <Card.Body>
                     <Card.Title style={{ fontSize: "35px" }}>Welcome to the {room.GameType} room !</Card.Title>

@@ -2,7 +2,7 @@ import "./JoinModal.css";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useData } from "../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -21,11 +21,13 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
     const [roomInput, setRoomInput] = useState("");
     const [isNumbers, setIsNumbers] = useState(true);
 
+    //errors
     const [isShake, setIsShake] = useState(false);
     const [roomExistError, setRoomExistError] = useState(false);
     const [roomMultiplayerError, setRoomMultiplayerError] = useState(false);
     const [gameTypeError, setGameTypeError] = useState(false);
     const [startedError, setStartedError] = useState(false);
+    const errorSoundRef = useRef()
 
     const handleInputChange = (e) =>{
         setRoomMultiplayerError(false);
@@ -61,6 +63,7 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
         }
         else{
             // the room exist and room multiplayer errors are mutally exclusive.
+            errorSoundRef.current.play();
             if(ids.length === 0){
                 setRoomExistError(true);
                 setRoomMultiplayerError(false);
@@ -98,6 +101,10 @@ const JoinModal = ({gameType, handleJoinModal}) =>{
 
     return(
         <div className = "join-modal" onClick = {handleJoinModal}>
+            <audio ref = {errorSoundRef}  id = "id" controls hidden >
+                <source src = "../audio/error.mp3" type = "audio/mp3"></source>
+                Your browser does not support the audio element.
+            </audio>
             <Card id = {isShake? "shake" : "null"} className = "join-content" onClick={(e)=>{ContentClick(e)}}>
                 <Card.Body>
                     <Card.Title>Join Room</Card.Title>
