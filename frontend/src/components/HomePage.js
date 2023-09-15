@@ -14,7 +14,7 @@ const HomePage = () =>{
 
     return(
         <Container className = "home-page">
-            <Row>
+            <Row >
                 <Col>
                     <h1 style = {{marginBottom: "10px"}}>
                         {user? `Welcome to Turbo Math , ${user.displayName}!` :
@@ -23,7 +23,7 @@ const HomePage = () =>{
                  </Col>
             </Row>
             <Row>
-                <Col xs = {12} lg = {4}>
+                <Col xs = {12} lg = {4} style = {{marginBottom: "10px"}}>
                     <Card>
                         <Card.Body>
                             <h1> Welcome </h1>
@@ -34,8 +34,8 @@ const HomePage = () =>{
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col xs={12} lg = {4}><WorldHS AHS = {false}></WorldHS></Col>
-                <Col xs={12} lg = {4}><WorldHS AHS = {true} ></WorldHS></Col>
+                <Col xs={12} lg = {4} style = {{marginBottom: "10px"}}><WorldHS AHS = {false} ></WorldHS></Col>
+                <Col xs={12} lg = {4} style = {{marginBottom: "10px"}}><WorldHS AHS = {true} ></WorldHS></Col>
             </Row>
             <Row>
                 <Col xs={12} lg = {12}> 

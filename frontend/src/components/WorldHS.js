@@ -65,7 +65,7 @@ const WorldHS = ({AHS}) =>{
                 <Carousel.Item  interval={4000}>
                     <Card style={{ width: '100%' }}>
                     <Card.Body>
-                        <Card.Title style = {{fontSize: "17px"}}>Global {gameType} {difficulties[index]} {AHS? "Average High Score": "High Score"}</Card.Title>
+                        <Card.Title style = {{fontSize: "25px"}}>Global {gameType} {difficulties[index]} {AHS? "Average High Score": "High Score"}</Card.Title>
                         <DropdownButton id="dropdown-basic-button" onSelect={(ekey)=> handleSelect(ekey)} title= {`${gameType}`} style = {{marginBottom: "10px"}}>
                             <Dropdown.Item eventKey={"Addition"}>Addition</Dropdown.Item>
                             <Dropdown.Item eventKey={"Subtraction"}>Subtraction</Dropdown.Item>
