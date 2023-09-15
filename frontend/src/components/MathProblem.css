@@ -1,13 +1,13 @@
 div.problem{
     font-family: 'Bangers', cursive;
     font-family: 'Roboto', sans-serif;
-    font-size: 150px;
+    font-size: 120px;
 }
 
 
 @media(max-width: 900px){
     div.problem{
-        font-size: 100px;
+        font-size: 50px;
     }
 }
 
@@ -16,4 +16,5 @@ div.problem{
     div.problem{
         font-size: 50px;
     }
+    
 }

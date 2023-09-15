@@ -345,8 +345,8 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                         </Table>
                     </Card.Body>
                     <div className = "btn-group">
-                        <Button onClick = {()=> GoHome()}  variant="primary">Return Home</Button>
-                        <Button onClick = {(e)=> NewGame(e)} variant="primary">Play Again</Button>
+                        <Button onClick = {()=> GoHome()} style = {{margin: "10px"}}  variant="primary">Return Home</Button>
+                        <Button onClick = {(e)=> NewGame(e)}  style = {{margin: "10px"}} variant="primary">Play Again</Button>
                     </div>
                 </Card>
             </div> : <></>}

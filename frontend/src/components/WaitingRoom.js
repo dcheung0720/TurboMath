@@ -98,12 +98,12 @@ const WaitingRoom = ({id}) =>{
     return(
         room && user?
         countDownVis?
-        <CountdownCircleTimer style = {{fontSize: "100px", marginTop: "100px"}}
+        <CountdownCircleTimer class = "time" style = {{fontSize: "100px", marginTop: "100px"}}
             isPlaying
             duration={3}
             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
             colorsTime={[7, 5, 2, 0]}
-            size = {500}
+            size = {300}
         >
             {({ remainingTime }) => 
             (
