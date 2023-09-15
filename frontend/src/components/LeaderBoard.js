@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import "./LeaderBoard.css"
 
+
 const LeaderBoard = ({ room }) => {
   return (
     <div className="LeaderBoard"style = {{display: "flex", justifyContent: "center" }}  >

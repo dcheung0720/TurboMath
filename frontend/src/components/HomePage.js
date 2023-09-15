@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullseye, faPlay } from "@fortawesome/free-solid-svg-icons";
 import Button from 'react-bootstrap/Button';
+import WorldHS from "./WorldHS";
 
 const HomePage = () =>{
     const [user] = useUserState();
@@ -23,18 +24,18 @@ const HomePage = () =>{
             </Row>
             <Row>
                 <Col xs = {12} lg = {4}>
-                    <Card style={{ width: '18rem' }}>
+                    <Card>
                         <Card.Body>
-                            <Card.Title> Welcome </Card.Title>
+                            <h1> Welcome </h1>
                             <Card.Text>
                                 Welcome to Turbo Math! Ready to enhance your mental math skills?
                             </Card.Text>
                             <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
                         </Card.Body>
-                        </Card>
+                    </Card>
                 </Col>
                 <Col xs={12} lg = {4}>2 of 3 (wider)</Col>
-                <Col xs={12} lg = {4}>3 of 3</Col>
+                <Col xs={12} lg = {4}><WorldHS></WorldHS></Col>
             </Row>
             <Row>
                 <Col xs={12} lg = {12}> 

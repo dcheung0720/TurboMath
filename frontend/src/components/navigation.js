@@ -74,44 +74,6 @@ const Navigation = () =>{
                     "AverageScore":0
                   }
               },
-              "Frenzy":{
-                "1x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x3": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                }
-              }
           },
           "Subtraction":{
             "Turbo": {
@@ -151,44 +113,6 @@ const Navigation = () =>{
                   "TotalScore": 0,
                   "AverageScore":0
                 }
-            },
-            "Frenzy":{
-              "1x1": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "2x1": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "3x1": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "2x2": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "3x2": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "3x3": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              }
             }
           },
             "Multiplication":{
@@ -229,44 +153,6 @@ const Navigation = () =>{
                     "TotalScore": 0,
                     "AverageScore":0
                   }
-              },
-              "Frenzy":{
-                "1x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x3": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                }
               }
           },
             "Division":{
@@ -307,44 +193,6 @@ const Navigation = () =>{
                     "TotalScore": 0,
                     "AverageScore":0
                   }
-              },
-              "Frenzy":{
-                "1x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x3": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                }
               }
           },
           "AYFTAFG":{
