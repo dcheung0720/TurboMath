@@ -74,44 +74,6 @@ const Navigation = () =>{
                     "AverageScore":0
                   }
               },
-              "Frenzy":{
-                "1x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x3": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                }
-              }
           },
           "Subtraction":{
             "Turbo": {
@@ -151,44 +113,6 @@ const Navigation = () =>{
                   "TotalScore": 0,
                   "AverageScore":0
                 }
-            },
-            "Frenzy":{
-              "1x1": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "2x1": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "3x1": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "2x2": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "3x2": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              },
-              "3x3": {
-                "BT": 0,
-                "GamesPlayed": 0,
-                "TotalScore": 0,
-                "AverageTime":0
-              }
             }
           },
             "Multiplication":{
@@ -229,44 +153,6 @@ const Navigation = () =>{
                     "TotalScore": 0,
                     "AverageScore":0
                   }
-              },
-              "Frenzy":{
-                "1x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x3": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                }
               }
           },
             "Division":{
@@ -307,44 +193,6 @@ const Navigation = () =>{
                     "TotalScore": 0,
                     "AverageScore":0
                   }
-              },
-              "Frenzy":{
-                "1x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x1": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "2x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x2": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                },
-                "3x3": {
-                  "BT": 0,
-                  "GamesPlayed": 0,
-                  "TotalScore": 0,
-                  "AverageTime":0
-                }
               }
           },
           "AYFTAFG":{
@@ -447,12 +295,12 @@ const Navigation = () =>{
     );
   
     return (
-      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "100px",position: "fixed", width: "100vw", top: "0"}}>
+      <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "80px",position: "fixed", width: "100vw", top: "0"}}>
       <Container style={{marginLeft: "10px"}}>
-        <Navbar.Brand href="/" style={{color: 'white', fontSize: "4em" }}>Turbo Math</Navbar.Brand>
+        <Navbar.Brand href="/" style={{color: 'white', fontSize: "3em" }}>Turbo Math</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" style = {{fontSize: "40px"}}>
+          <Nav className="me-auto" style = {{fontSize: "30px"}}>
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/Games">Math Games</Nav.Link>
           </Nav>
