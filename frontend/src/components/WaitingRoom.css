@@ -17,8 +17,15 @@ button.btn.btn-primary{
     width: 100px;
 }
 
+.time{
+    font-size: 50px;
+}
 
-
+@media(max-width: 800px){
+    .time{
+        font-size: 50px;
+    }
+}
 
 @media (max-width: 640px) {
     .card.waiting-panel{

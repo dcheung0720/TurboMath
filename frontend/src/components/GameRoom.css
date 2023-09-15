@@ -55,7 +55,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin-bottom: 100px;
   }
 
   .game-content{
@@ -74,6 +74,8 @@
     .PageContainer{
       display:flex;
       justify-content: center;
+      margin-top: 100px;
+      margin-bottom: 0;
     }
 
     .timer-wrapper {
@@ -82,18 +84,20 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-  }
 
-  @media (max-height: 1000px) {
-    .timer-wrapper {
-      top: 39%;
+    @media (max-height: 1000px) {
+      .timer-wrapper {
+        top: 45%;
+      }
+      
+    }
+  
+  
+    @media (max-height: 700px) {
+      .timer-wrapper {
+        top: 47%;
+      }
     }
   }
 
-
-  @media (max-height: 700px) {
-    .timer-wrapper {
-      top: 47%;
-    }
-  }
 
