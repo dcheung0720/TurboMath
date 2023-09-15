@@ -34,8 +34,8 @@ const HomePage = () =>{
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col xs={12} lg = {4}>2 of 3 (wider)</Col>
-                <Col xs={12} lg = {4}><WorldHS></WorldHS></Col>
+                <Col xs={12} lg = {4}><WorldHS AHS = {false}></WorldHS></Col>
+                <Col xs={12} lg = {4}><WorldHS AHS = {true} ></WorldHS></Col>
             </Row>
             <Row>
                 <Col xs={12} lg = {12}> 

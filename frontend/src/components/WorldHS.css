@@ -12,3 +12,19 @@ div.carousel-inner{
 div.active.carousel-item{
     height: 100%;
 }
+
+a.carousel-control-prev{
+    opacity: 0;
+}
+
+a.carousel-control-next{
+    opacity: 0;
+}
+
+a.carousel-control-next:hover{
+    opacity: 1;
+}
+
+a.carousel-control-prev:hover{
+    opacity: 1;
+}

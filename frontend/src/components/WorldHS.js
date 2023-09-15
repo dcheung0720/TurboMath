@@ -3,6 +3,8 @@ import Table from 'react-bootstrap/Table';
 import "./WorldHS.css";
 import { useData } from '../utilities/firebase';
 import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 const WorldHS = ({AHS}) =>{
 
@@ -38,7 +40,7 @@ const WorldHS = ({AHS}) =>{
                 <Table className = "world-leaderboard" striped bordered hover variant="dark">
                     <thead>
                         <tr>
-                            <th colSpan={3}>Multiplication 1x1</th>
+                            <th colSpan={3}> Global Multiplication 1x1 {AHS? "Average High Score": "High Score"}</th>
                         </tr>
                     </thead>
                     <thead>
@@ -52,8 +54,10 @@ const WorldHS = ({AHS}) =>{
                         {highscores.map((playerScore,idx) => {
                             return(
                                 <tr>
-                                    <td>{idx + 1}</td>
-                                    <td>{playerScore[0]}</td>
+                                    <td>{idx + 1} {idx == 0 ?<FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> :
+                                        idx == 1? <FontAwesomeIcon icon={faTrophy} style={{color: "#C0C0C0",}} /> :
+                                        idx == 2? <FontAwesomeIcon icon={faTrophy} style={{color: "#CD7F32",}}/>: <></>}</td>
+                                    <td>{allUsers[playerScore[0]].Profile.Name}</td>
                                     <td>{playerScore[1]}</td>
                                 </tr>)
                             } )
