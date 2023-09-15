@@ -5,6 +5,9 @@ import { useData } from '../utilities/firebase';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import Card from 'react-bootstrap/Card';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const WorldHS = ({AHS}) =>{
 
@@ -50,46 +53,57 @@ const WorldHS = ({AHS}) =>{
         }
     }, [allUsers, gameType])
 
+    const handleSelect = (ekey) =>{
+        setGameType(ekey);
+    }
 
     return(
         <Carousel fade style={{height: "100%"}}>
-            {highscores.map((highscore) => {
-                return(<Carousel.Item  interval={4000}>
-                    <Table className = "world-leaderboard" striped bordered hover variant="dark">
-                        <thead>
-                            <tr>
-                                <th colSpan={3}> Global Multiplication 1x1 {AHS? "Average High Score": "High Score"}</th>
-                            </tr>
-                        </thead>
-                        <thead>
-                            <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>High Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                highscore.map((player, idx) => {
-                                    return(
-                                        <tr>
-                                            <td>{idx + 1} {idx == 0 ?<FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> :
-                                                idx == 1? <FontAwesomeIcon icon={faTrophy} style={{color: "#C0C0C0",}} /> :
-                                                idx == 2? <FontAwesomeIcon icon={faTrophy} style={{color: "#CD7F32",}}/>: <></>}</td>
-                                            {player[0] !== null?
-                                                <>
-                                                    <td>{allUsers[player[0]].Profile.Name}</td>
-                                                    <td>{player[1]}</td>
-                                                </>
-                                                :
-                                                <td colSpan={2}>No Data</td>
-                                            }
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </Table>
+            {/* for every hs in every difficulty, find list the winners */}
+            {highscores.map((highscore, index) => {
+                return(
+                <Carousel.Item  interval={4000}>
+                    <Card style={{ width: '100%' }}>
+                    <Card.Body>
+                        <Card.Title style = {{fontSize: "17px"}}>Global {gameType} {difficulties[index]} {AHS? "Average High Score": "High Score"}</Card.Title>
+                        <DropdownButton id="dropdown-basic-button" onSelect={(ekey)=> handleSelect(ekey)} title= {`${gameType}`} style = {{marginBottom: "10px"}}>
+                            <Dropdown.Item eventKey={"Addition"}>Addition</Dropdown.Item>
+                            <Dropdown.Item eventKey={"Subtraction"}>Subtraction</Dropdown.Item>
+                            <Dropdown.Item eventKey={"Multiplication"}>Multiplication</Dropdown.Item>
+                            <Dropdown.Item eventKey={"Division"}>Division</Dropdown.Item>
+                        </DropdownButton>
+                        <Table className = "world-leaderboard" striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>High Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    highscore.map((player, idx) => {
+                                        return(
+                                            <tr>
+                                                <td>{idx + 1} {idx == 0 ?<FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> :
+                                                    idx == 1? <FontAwesomeIcon icon={faTrophy} style={{color: "#C0C0C0",}} /> :
+                                                    idx == 2? <FontAwesomeIcon icon={faTrophy} style={{color: "#CD7F32",}}/>: <></>}</td>
+                                                {player[0] !== null?
+                                                    <>
+                                                        <td>{allUsers[player[0]].Profile.Name}</td>
+                                                        <td>{player[1]}</td>
+                                                    </>
+                                                    :
+                                                    <td colSpan={2}>No Data</td>
+                                                }
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </Table>
+                    </Card.Body>
+                </Card>
                 </Carousel.Item>)
             })}
             

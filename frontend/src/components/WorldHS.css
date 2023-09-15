@@ -15,16 +15,23 @@ div.active.carousel-item{
 
 a.carousel-control-prev{
     opacity: 0;
+    color: black;
 }
 
 a.carousel-control-next{
     opacity: 0;
+    color: black;
 }
 
 a.carousel-control-next:hover{
     opacity: 1;
+    color: black;
 }
 
 a.carousel-control-prev:hover{
     opacity: 1;
+    color: black;
+}
+button#dropdown-basic-button{
+    width: 120px;
 }
