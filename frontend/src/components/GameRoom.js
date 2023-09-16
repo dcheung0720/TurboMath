@@ -174,7 +174,7 @@ const GameRoom = () => {
                 </div> 
                 <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
                     height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
-                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
+                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center" }}>
                         <WaitingRoom id = {id}></WaitingRoom> 
                     <audio ref = {doorbell} id = "doorbell" controls autoplay hidden>
                         <source src = "../audio/doorbell.mp3" type = "audio/mp3"></source>

@@ -43,13 +43,6 @@
     opacity: 0;
     transform: translateY(100%);
   }
-  
-
-  @media (max-height: 300px) {
-    .waitingContainer{
-        margin-top: 100px;
-    }
-  }
 
   .PageContainer{
     display: flex;
