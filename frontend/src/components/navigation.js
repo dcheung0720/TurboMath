@@ -296,7 +296,7 @@ const Navigation = () =>{
   
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "80px",position: "fixed", width: "100vw", top: "0"}}>
-      <Container style={{marginLeft: "10px"}}>
+      <Container style={{ display: "flex", justifyContent: "center"}}>
         <Navbar.Brand href="/" style={{color: 'white', fontSize: "3em" }}>Turbo Math</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

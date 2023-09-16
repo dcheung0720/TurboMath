@@ -4,6 +4,13 @@
     text-align: left;
 }
 
+.navbar-collapse.collapse.show{
+    background-color: #343a40;
+}
+.navbar-toggler{
+    background-color: #343a40;
+}
+
 
 @media (max-width: 860px){
     .nav-item.show.dropdown{
