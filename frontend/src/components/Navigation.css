@@ -9,7 +9,11 @@
 }
 .navbar-toggler{
     background-color: #343a40;
+
 }
+/* .navbar-toggler.collapsed{
+    width: 100%;
+} */
 
 
 @media (max-width: 860px){

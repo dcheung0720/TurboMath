@@ -7,3 +7,9 @@
     color: black;
 }
 
+@media(max-width: 1000px){
+    .home-page{
+        margin-top: 150px;
+    }
+}
+
