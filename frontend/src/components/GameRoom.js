@@ -63,6 +63,7 @@ const GameRoom = () => {
     const [ room, error ] = useData(gameRoomPath);
     const [started, error2] = useData(gameRoomPath.concat("/Started"));
     const [delay, error3] = useData(gameRoomPath.concat("/Delay"));
+    const [countDownVis, error4] =  useData(gameRoomPath.concat("/CountDownVis"));
     const [user] = useUserState();
     const [wrongQuestions, setWrongQuestions] = useState({});
     const [added, setAdded] = useState(false);
@@ -172,9 +173,9 @@ const GameRoom = () => {
                         </CountdownCircleTimer>
                     </div>: <></>}
                 </div> 
-                <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
-                    height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
-                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center" }}>
+                <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0",
+                    width: "100vw", fontSize: "70px",
+                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", marginTop: countDownVis? "50%":"150px"}}>
                         <WaitingRoom id = {id}></WaitingRoom> 
                     <audio ref = {doorbell} id = "doorbell" controls autoplay hidden>
                         <source src = "../audio/doorbell.mp3" type = "audio/mp3"></source>
@@ -182,7 +183,7 @@ const GameRoom = () => {
                     </audio>
                 </div>
             </div>
-            :  <div style={{height: "90vh"}}><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>
+            :  <div><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>
         : <></>
     )
 
