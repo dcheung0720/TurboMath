@@ -157,7 +157,7 @@ const GameRoom = () => {
             <div className = "game-content" style={{height: "100%"}}>   
                 <div className = "PageContainer" style={{ opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
                     <div className = "MathProblem" style={{fontSize: "100px"}}>
-                        <div style={{position:"fixed", width: "100vw", top: "100px"}}>Score: {room.Players[user.uid].score}</div>
+                        <div className = "score">Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
                         {room.PlayerMode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                     </div>
@@ -175,7 +175,7 @@ const GameRoom = () => {
                 </div> 
                 <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0",
                     width: "100vw", fontSize: "70px",
-                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", marginTop: countDownVis? "50%":"150px"}}>
+                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", marginTop: countDownVis? "225px":"150px"}}>
                         <WaitingRoom id = {id}></WaitingRoom> 
                     <audio ref = {doorbell} id = "doorbell" controls autoplay hidden>
                         <source src = "../audio/doorbell.mp3" type = "audio/mp3"></source>

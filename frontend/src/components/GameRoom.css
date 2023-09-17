@@ -56,6 +56,12 @@
     align-items: center;
   }
 
+  .score{
+    position: fixed;
+    width: 100vw;
+    top: 100px;
+  }
+
   @media (max-height: 1000px) {
     .game-content{
       margin-top: 100px;
@@ -71,6 +77,11 @@
       margin-bottom: 0;
     }
 
+    .score{
+      position:relative;
+      top: -250px;
+    }
+
     .timer-wrapper {
       position: absolute;
       top: 30%;
@@ -84,7 +95,6 @@
       }
       
     }
-  
   
     @media (max-height: 700px) {
       .timer-wrapper {
