@@ -139,6 +139,8 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
             }
 
+            console.log(wrongQuestions)
+
             const date = new Date();
             // game object data
             const gameObject = {
@@ -338,8 +340,43 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                     <td colSpan={8}> {room.GameMode}</td>
                                 </tr>
                                 <tr>
-                                    <td style = {{color: "#B66161"}}>Your Score :</td>
+                                    <td style = {{color: "#04AF70"}}>Your Score :</td>
                                     <td colSpan={8}> {player.score}</td>
+                                </tr>
+                                <tr>
+                                    <td style = {{color: "#B66161"}}>Wrong Answers Feedback :</td>
+                                    <td colSpan={8}> 
+                                        <div style={{ maxHeight: "100px", overflowY: "scroll" }}>
+                                            <ol>
+                                                {Object.entries(wrongQuestions).map(q =>
+                                                        <li>
+                                                            {q[1].number1}
+
+                                                            &nbsp;
+                                                            {room.GameType === "Addition"? "x"
+                                                            :room.GameType === "Subtraction"? "-"
+                                                            :room.GameType === "Multiplication"? "x"
+                                                            :"÷"  
+                                                            }
+
+                                                            &nbsp;
+                                                            {q[1].number2}
+
+                                                            &nbsp;
+                                                            =
+
+                                                            &nbsp;
+                                                            {room.GameType === "Addition"? q[1].number1 + q[1].number2
+                                                            :room.GameType === "Subtraction"? q[1].number1 - q[1].number2
+                                                            :room.GameType === "Multiplication"? q[1].number1 * q[1].number2
+                                                            :q[1].number1 / q[1].number2  
+                                                            }
+                                                        </li>
+                                                    
+                                                )}
+                                            </ol>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
