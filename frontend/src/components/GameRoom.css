@@ -56,12 +56,6 @@
     align-items: center;
   }
 
-  .score{
-    position: fixed;
-    width: 100vw;
-    top: 100px;
-  }
-
   @media (max-height: 1000px) {
     .game-content{
       margin-top: 100px;
@@ -77,30 +71,14 @@
       margin-bottom: 0;
     }
 
-    .score{
-      position:relative;
-      top: -250px;
-    }
-
     .timer-wrapper {
       position: absolute;
-      top: 30%;
+      top: 32%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
 
-    @media (max-height: 1000px) {
-      .timer-wrapper {
-        top: 45%;
-      }
-      
-    }
-  
-    @media (max-height: 700px) {
-      .timer-wrapper {
-        top: 47%;
-      }
-    }
+
   }
 
 

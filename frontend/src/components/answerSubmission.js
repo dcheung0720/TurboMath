@@ -82,7 +82,7 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
       setData(canSubmitPath, false);
 
       // set round winner
-      setData(`GameRooms/${id}/RoundWinner`, room.Players[user.uid].name);
+      setData(`GameRooms/${id}/RoundWinner`, user.uid);
 
       setTimeout(()=>{
         setData(`GameRooms/${id}/Problems/number1`, nums[0]);
@@ -224,8 +224,13 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
             <button type="submit" className="btn btn-primary answer-submit">Submit</button>
           </div>
         </form>
-        { room&& room.PlayerMode === "Multiplayer" && !room.ProblemGate? <p className = "feedback"> {room.RoundWinner} Got it correct! </p> : <></>}
-        {feedbackVis? (correct ? <div className = "feedback"> Good Job! You got it correct!</div> : <div className = "feedback"> Not Quite... You got it wrong!</div>) : <></> }
+        { room&& room.PlayerMode === "Multiplayer" && !room.ProblemGate && room.Players[room.RoundWinner]? 
+        <p className = "feedback"> 
+          {room.RoundWinner === user.uid? 
+                <span style = {{color : "green"}}>You </span> 
+                : <span  style = {{color : "red"}}>{room.Players[room.RoundWinner].name} </span>}
+                got it correct! </p> : <></>}
+        {feedbackVis? (!correct && <div className = "feedback"> Not Quite... You got it wrong!</div>) : <></> }
       </div>
     </div>
   );
