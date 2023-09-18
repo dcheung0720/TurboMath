@@ -200,7 +200,13 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
             }, 
             "GameType": room.GameType,
             "Started": false,
-            "TimeLeft": 3
+            "TimeLeft": 60,
+            "CountDownVis": false,
+            "Delay": 4 ,
+            "ProblemGate": true,
+            "HostID": room.HostID, 
+            "RoundWinner": "noOne",
+            "Winner": "noOne"
         }
         
         //upload playerData to firebase
@@ -344,11 +350,13 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                     <td colSpan={8}> {player.score}</td>
                                 </tr>
                                 <tr>
-                                    <td style = {{color: "#B66161"}}>Wrong Answers Feedback :</td>
+                                    <td style = {{color: "#B66161"}}>Wrong Answers Feedback:</td>
                                     <td colSpan={8}> 
                                         <div style={{ maxHeight: "100px", overflowY: "scroll" }}>
-                                            <ol>
-                                                {Object.entries(wrongQuestions).map(q =>
+                                            {Object.entries(wrongQuestions).length === 0? 
+                                             <p style = {{color: "#04AF70"}}>None!</p>:
+                                                <ol>
+                                                    {Object.entries(wrongQuestions).map(q =>
                                                         <li>
                                                             {q[1].number1}
 
@@ -371,10 +379,10 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                                             :room.GameType === "Multiplication"? q[1].number1 * q[1].number2
                                                             :q[1].number1 / q[1].number2  
                                                             }
-                                                        </li>
-                                                    
-                                                )}
-                                            </ol>
+                                                        </li>    
+                                                    )}
+                                                </ol>
+                                            }   
                                         </div>
                                     </td>
                                 </tr>
