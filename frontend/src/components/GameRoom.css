@@ -43,13 +43,6 @@
     opacity: 0;
     transform: translateY(100%);
   }
-  
-
-  @media (max-height: 300px) {
-    .waitingContainer{
-        margin-top: 100px;
-    }
-  }
 
   .PageContainer{
     display: flex;
@@ -80,24 +73,12 @@
 
     .timer-wrapper {
       position: absolute;
-      top: 30%;
+      top: 32%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
 
-    @media (max-height: 1000px) {
-      .timer-wrapper {
-        top: 45%;
-      }
-      
-    }
-  
-  
-    @media (max-height: 700px) {
-      .timer-wrapper {
-        top: 47%;
-      }
-    }
+
   }
 
 

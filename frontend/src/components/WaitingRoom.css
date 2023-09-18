@@ -8,6 +8,7 @@
     justify-content: center;
 }
 
+
 .table.primary{
     color: black
 }
@@ -33,11 +34,4 @@ button.btn.btn-primary{
         margin: 0;
     }
 }
-
-@media (max-height: 600px){
-    .waiting-panel-container{
-        margin-top: 100px;
-    }
-}
-
 

@@ -25,8 +25,6 @@ const Navigation = () =>{
 
     // when user logs in
     useEffect(() =>{
-      console.log(user);
-      console.log(data)
       // if user does not exist, add it to the database
       if(data !== undefined && user !== null && Object.keys(data).filter(x => x === user.uid).length === 0){
         const userData = {
@@ -260,9 +258,9 @@ const Navigation = () =>{
           <Image src = {`${data[user.uid].Profile.Image}`} style = {{height: "70%"}}  roundedCircle /> 
           : <></>
         : <></>}
-        <Navbar.Toggle onClick = {(e) => setNavToggled(!e.target.value)}aria-controls="navbar-dark-example" style={{backgroundColor: !navToggled || screenSize.width > 860? "none": "black"}} />
+        <Navbar.Toggle onClick = {(e) => setNavToggled(!e.target.value)}aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
-          <Nav style = {{backgroundColor: navToggled && screenSize.width < 860? "black": "none"}}>
+          <Nav>
             <NavDropdown
               align="right"
               id="nav-dropdown-dark-example"
@@ -296,7 +294,7 @@ const Navigation = () =>{
   
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "80px",position: "fixed", width: "100vw", top: "0"}}>
-      <Container style={{marginLeft: "10px"}}>
+      <Container style={{ display: "flex", justifyContent: "center"}}>
         <Navbar.Brand href="/" style={{color: 'white', fontSize: "3em" }}>Turbo Math</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

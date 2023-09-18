@@ -63,6 +63,7 @@ const GameRoom = () => {
     const [ room, error ] = useData(gameRoomPath);
     const [started, error2] = useData(gameRoomPath.concat("/Started"));
     const [delay, error3] = useData(gameRoomPath.concat("/Delay"));
+    const [countDownVis, error4] =  useData(gameRoomPath.concat("/CountDownVis"));
     const [user] = useUserState();
     const [wrongQuestions, setWrongQuestions] = useState({});
     const [added, setAdded] = useState(false);
@@ -153,10 +154,10 @@ const GameRoom = () => {
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
             room.TimeLeft > 0?
-            <div className = "game-content" style={{height: "100%"}}>   
+            <div className = "game-content" style={{height: "80%"}}>   
                 <div className = "PageContainer" style={{ opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
-                    <div className = "MathProblem" style={{fontSize: "100px"}}>
-                        <div style={{position:"fixed", width: "100vw", top: "100px"}}>Score: {room.Players[user.uid].score}</div>
+                    <div className = "MathProblem" style={{fontSize: "80px", marginTop: room.PlayerMode === "Solo"? "70px" : "175px"}}>
+                        <div className = "score">Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
                         {room.PlayerMode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
                     </div>
@@ -172,9 +173,9 @@ const GameRoom = () => {
                         </CountdownCircleTimer>
                     </div>: <></>}
                 </div> 
-                <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0", 
-                    height: "85vh", top: "12vh", width: "100vw", fontSize: "70px",
-                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center" }}>
+                <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0",
+                    width: "100vw", fontSize: "70px", transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center",
+                     alignItems: "center", marginTop: countDownVis? "225px": room.PlayerMode === "Solo"? "150px": "125px"}}>
                         <WaitingRoom id = {id}></WaitingRoom> 
                     <audio ref = {doorbell} id = "doorbell" controls autoplay hidden>
                         <source src = "../audio/doorbell.mp3" type = "audio/mp3"></source>
@@ -182,7 +183,7 @@ const GameRoom = () => {
                     </audio>
                 </div>
             </div>
-            :  <div style={{height: "90vh"}}><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>
+            :  <div><GameOver id = {id} user = {user} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></GameOver></div>
         : <></>
     )
 

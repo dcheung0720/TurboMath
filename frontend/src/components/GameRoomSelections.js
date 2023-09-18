@@ -76,7 +76,7 @@ function GameRoomsSelections() {
             }
             else{
                 const rand_id = valid_rooms[Math.floor(Math.random() * valid_rooms.length)];
-                navigate(`MathProblems/${rand_id}`);
+                navigate(`/MathProblems/${rand_id}`);
             }
         }
   };
