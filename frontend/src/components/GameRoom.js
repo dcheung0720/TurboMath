@@ -156,7 +156,7 @@ const GameRoom = () => {
             room.TimeLeft > 0?
             <div className = "game-content" style={{height: "80%"}}>   
                 <div className = "PageContainer" style={{ opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
-                    <div className = "MathProblem" style={{fontSize: "80px", marginTop: "70px"}}>
+                    <div className = "MathProblem" style={{fontSize: "80px", marginTop: room.PlayerMode === "Solo"? "70px" : "175px"}}>
                         <div className = "score">Score: {room.Players[user.uid].score}</div>
                         <MathProblem room = {room} wrongQuestions = {wrongQuestions} setWrongQuestions = {setWrongQuestions}></MathProblem>
                         {room.PlayerMode === "Multiplayer"? <LeaderBoard room = {room}></LeaderBoard> : <></>}
@@ -174,8 +174,8 @@ const GameRoom = () => {
                     </div>: <></>}
                 </div> 
                 <div className = "waitingContainer" style = {{top: 0,position : "absolute", opacity: !room.Started ? "1" : "0",
-                    width: "100vw", fontSize: "70px",
-                    transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center", alignItems: "center", marginTop: countDownVis? "225px":"140px"}}>
+                    width: "100vw", fontSize: "70px", transition: "all .8s", display: room.Started? "none": "flex", justifyContent:"center",
+                     alignItems: "center", marginTop: countDownVis? "225px": room.PlayerMode === "Solo"? "150px": "125px"}}>
                         <WaitingRoom id = {id}></WaitingRoom> 
                     <audio ref = {doorbell} id = "doorbell" controls autoplay hidden>
                         <source src = "../audio/doorbell.mp3" type = "audio/mp3"></source>

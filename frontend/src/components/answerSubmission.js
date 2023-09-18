@@ -230,7 +230,13 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
                 <span style = {{color : "green"}}>You </span> 
                 : <span  style = {{color : "red"}}>{room.Players[room.RoundWinner].name} </span>}
                 got it correct! </p> : <></>}
-        {feedbackVis? (!correct && <div className = "feedback"> Not Quite... You got it wrong!</div>) : <></> }
+        {feedbackVis? 
+            correct? 
+              room.PlayerMode === "Solo"? 
+                <div className = "feedback"> Good Job! You got it correct!</div>
+                : <></> 
+            : <div className = "feedback"> Not Quite... You got it wrong!</div>
+          :<></>}
       </div>
     </div>
   );
