@@ -11,7 +11,8 @@ button{
 .card.gameroom-selections {
     /* Your styles here */
     border: 5px solid black;
-    background-color: #32386D;
+    background-color: white;
+    color: black;
     font-size: 100%;
     width: 25%;
     flex-shrink: 0;

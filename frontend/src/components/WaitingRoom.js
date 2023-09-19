@@ -6,7 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./WaitingRoom.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faCircleXmark, faTrophy, faUserGroup, faUser, faRocket, faGamepad,
+    faSignal, faCheck, faXmark, faDice, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
+
 
 const WaitingRoom = ({id}) =>{
 
@@ -160,18 +162,26 @@ const WaitingRoom = ({id}) =>{
                             </tr>
 
                             <tr>
-                            <td>Player Mode:</td>
-                            <td>{room.PlayerMode}</td>
+                            <td>Player Mode &nbsp; <FontAwesomeIcon icon={faUser}/>:</td>
+                            <td>{room.PlayerMode} 
+                                &nbsp;
+                                {room.PlayerMode === "Multiplayer"? 
+                                <FontAwesomeIcon icon={faUserGroup} style={{color: "#ff9500",}} /> :
+                                <FontAwesomeIcon icon={faUser} style={{color: "#ff9500",}} />}</td>
                             </tr>
 
                             <tr>
-                            <td>Difficulty:</td>
-                            <td>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
+                            <td>Difficulty  &nbsp; <FontAwesomeIcon icon={faSignal} style={{color: "#ff0000",}} />:</td>
+                            <td>
+                                {room.Difficulty1} digit by {room.Difficulty2} digit 
+                                &nbsp;
+                                <FontAwesomeIcon icon={faDice} style={{color: "#5ebd1f",}} />
+                            </td>
 
                             </tr>
                             <tr>
-                            <td>Game Mode: </td>
-                            <td colSpan={2}> {room.GameMode}</td>
+                            <td>Game Mode &nbsp; <FontAwesomeIcon icon={faGamepad} style={{color: "#3c77dd",}} />: </td>
+                            <td colSpan={2}> {room.GameMode} &nbsp; <FontAwesomeIcon icon={faRocket} style={{color: "#ff3300",}} /></td>
 
                             </tr>
                         </tbody>
