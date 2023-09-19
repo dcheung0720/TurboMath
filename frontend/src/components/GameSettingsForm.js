@@ -49,13 +49,13 @@ const GameSettingsForm = ({gameType}) =>{
             }, 
             "GameType": gameType,
             "Started": false,
-            "TimeLeft": 60,
+            "TimeLeft": 3,
             "CountDownVis": false,
             "Delay": 4 ,
             "ProblemGate": true,
             "HostID": user.uid, 
             "RoundWinner": "noOne",
-            "Winner": "noOne"
+            "Winner": "noOne",
         }
         
         //upload to firebase

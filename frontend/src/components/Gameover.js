@@ -136,10 +136,9 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
                  // update AverageScore
                  setData(statPath.concat("/" + path).concat("/AverageScore"), Math.round(totalScore/numGames * 100)/ 100);
-
             }
 
-            console.log(wrongQuestions)
+            
 
             const date = new Date();
             // game object data
@@ -154,9 +153,12 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                 "WrongQuestions": wrongQuestions
             }
 
+            // player not ready anymore, not ready until paly again is pressed
+            setData(`GameRooms/${id}/Players/${user.uid}/ready`, false);
+
             //upload gameData to Firebase
-            const id = Object.entries(users[user.uid].Games).length;
-            setData(`Users/${user.uid}/Games/${id}`, gameObject);
+            const gameId = Object.entries(users[user.uid].Games).length;
+            setData(`Users/${user.uid}/Games/${gameId}`, gameObject);
 
         }
     }, [stats])
@@ -180,10 +182,16 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
         // resets the scores for all players
         const tempPlayer = {}
-        for(const playerID in room.Players){
-            tempPlayer[playerID] = {name: room.Players[user.uid].name, score:0}
-        }
+        console.log(Object.keys(room.Players))
 
+        Object.keys(room.Players).forEach(playerID =>
+            tempPlayer[playerID] = {name: room.Players[playerID].name, score:0, ready: room.Players[playerID].ready}
+        )
+        
+        //set yourself to true
+        tempPlayer[user.uid].ready = true;
+        
+        
         //generate new numbers
         const nums = handleProblemGeneration(room.Difficulty1, room.Difficulty2);
 
