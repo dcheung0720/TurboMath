@@ -15,6 +15,7 @@ const WaitingRoom = ({id}) =>{
 
     //errors
     const [playerCountError, setPlayerCountError] = useState(false);
+    const [playerReadyError, setPlayerReadyError] = useState(false);
     const [isShake, setIsShake] = useState(false);
     const errorSoundRef = useRef();
     let localDelay = 4;
@@ -42,17 +43,36 @@ const WaitingRoom = ({id}) =>{
     
 
     const handleStart = () =>{
-        if(room.PlayerMode === "Multiplayer" && Object.keys(room.Players).length < 2){
-            // show count error/ not enough players
-            setPlayerCountError(true);
-            // play error sound
-            errorSoundRef.current.play();
-            
-            setIsShake(true);
+        console.log(Object.values(room.Players).filter(player => player.ready === false));
+        if(room.PlayerMode === "Multiplayer" 
+        && (Object.keys(room.Players).length < 2 
+        || Object.values(room.Players).filter(player => player.ready === false).length > 0)){
+            if(Object.keys(room.Players).length < 2){
+                // show count error/ not enough players
+                setPlayerCountError(true);
 
-            setTimeout(()=>{
-                setIsShake(false);
-            }, 500);
+                // play error <sound></sound>
+                errorSoundRef.current.play();
+                
+                setIsShake(true);
+
+                setTimeout(()=>{
+                    setIsShake(false);
+                }, 500);
+            }
+            else if(Object.values(room.Players).filter(player => player.ready === false).length > 0){
+                // not everyone is ready!
+                setPlayerReadyError(true);
+
+                // play error sound
+                errorSoundRef.current.play();
+
+                setIsShake(true);
+
+                setTimeout(()=>{
+                    setIsShake(false);
+                }, 500);
+            }
         }
         else{
             // Make Countdown visible for everyone
@@ -183,6 +203,7 @@ const WaitingRoom = ({id}) =>{
                     {room.HostID === user.uid &&
                         <>
                             {playerCountError && <Card.Text className='warning'>You need at least 2 players to start</Card.Text>}
+                            {playerReadyError && <Card.Text className='warning'>Not everyone is back in the room!</Card.Text>}
                             <Button variant="primary" onClick={()=> handleStart()}>Start</Button>
                         </>
                     }

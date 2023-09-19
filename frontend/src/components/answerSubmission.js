@@ -234,9 +234,9 @@ const AnswerSubmit = ({number1, number2, difficulty1, difficulty2, wrongQuestion
             correct? 
               room.PlayerMode === "Solo"? 
                 <div className = "feedback"> Good Job! You got it correct!</div>
-                : <></> 
+              : <></> 
             : <div className = "feedback"> Not Quite... You got it wrong!</div>
-          :<></>}
+          : <></>}
       </div>
     </div>
   );

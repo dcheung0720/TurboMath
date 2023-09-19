@@ -136,8 +136,26 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
                  // update AverageScore
                  setData(statPath.concat("/" + path).concat("/AverageScore"), Math.round(totalScore/numGames * 100)/ 100);
-
             }
+
+            // identify the winners
+            const players = Object.entries(room.Players);
+            const max_score = Math.max(...players.map(player =>
+                player[1].score
+            ));
+
+            const winners = players.filter(player => 
+                player[1].score === max_score)
+                .map(player =>
+                    player[1].name
+            );
+
+            // set the winners
+            setData(`GameRooms/${id}/Winner`, winners);
+                    
+
+            // set player to not ready, not ready until play again is pressed
+            setData(`GameRooms/${id}/Players/${user.uid}/ready`, false);
 
             const date = new Date();
             // game object data
@@ -153,8 +171,8 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
             }
 
             //upload gameData to Firebase
-            const id = Object.entries(users[user.uid].Games).length;
-            setData(`Users/${user.uid}/Games/${id}`, gameObject);
+            const gameId = Object.entries(users[user.uid].Games).length;
+            setData(`Users/${user.uid}/Games/${gameId}`, gameObject);
 
         }
     }, [stats])
@@ -178,10 +196,16 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
         // resets the scores for all players
         const tempPlayer = {}
-        for(const playerID in room.Players){
-            tempPlayer[playerID] = {name: room.Players[user.uid].name, score:0}
-        }
+        console.log(Object.keys(room.Players))
 
+        Object.keys(room.Players).forEach(playerID =>
+            tempPlayer[playerID] = {name: room.Players[playerID].name, score:0, ready: room.Players[playerID].ready}
+        )
+        
+        //set yourself to true
+        tempPlayer[user.uid].ready = true;
+        
+        
         //generate new numbers
         const nums = handleProblemGeneration(room.Difficulty1, room.Difficulty2);
 
@@ -198,7 +222,13 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
             }, 
             "GameType": room.GameType,
             "Started": false,
-            "TimeLeft": 3
+            "TimeLeft": 60,
+            "CountDownVis": false,
+            "Delay": 4 ,
+            "ProblemGate": true,
+            "HostID": room.HostID, 
+            "RoundWinner": "noOne",
+            "Winner": "noOne"
         }
         
         //upload playerData to firebase
@@ -281,22 +311,6 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
         }
     };
 
-    const findWinner = () =>{
-        if(room){
-            const players = Object.entries(room.Players);
-            const max_score = Math.max(...players.map(player =>
-                player[1].score
-            ));
-
-            const winners = players.filter(player => 
-                player[1].score === max_score)
-                .map(player =>
-                    player[1].name
-            )
-            return winners;
-        }
-    };
-
     return(
         <div className = "gameOver" style = {{height: "100%"}}>
             <audio id = "gameOver" controls autoplay hidden>
@@ -315,11 +329,11 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                             <tbody>
                                 {room.PlayerMode === "Multiplayer" &&
                                     <tr>
-                                        <td><FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> Winner{findWinner().length > 1? "s": ""}: </td>
-                                        {findWinner().map(winner =>
+                                        <td><FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> Winner{Object.entries(room.Winner).length > 1? "s": ""}: </td>
+                                        {Object.entries(room.Winner).map(winner =>
                                             <td>
                                                 <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} />
-                                                {winner}
+                                                {winner[1]}
                                             </td>
                                         )}
     
@@ -338,8 +352,45 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                     <td colSpan={8}> {room.GameMode}</td>
                                 </tr>
                                 <tr>
-                                    <td style = {{color: "#B66161"}}>Your Score :</td>
+                                    <td style = {{color: "#04AF70"}}>Your Score :</td>
                                     <td colSpan={8}> {player.score}</td>
+                                </tr>
+                                <tr>
+                                    <td style = {{color: "#B66161"}}>Wrong Answers Feedback:</td>
+                                    <td colSpan={8}> 
+                                        <div style={{ maxHeight: "100px", overflowY: "scroll" }}>
+                                            {Object.entries(wrongQuestions).length === 0? 
+                                             <p style = {{color: "#04AF70"}}>None!</p>:
+                                                <ol>
+                                                    {Object.entries(wrongQuestions).map(q =>
+                                                        <li>
+                                                            {q[1].number1}
+
+                                                            &nbsp;
+                                                            {room.GameType === "Addition"? "x"
+                                                            :room.GameType === "Subtraction"? "-"
+                                                            :room.GameType === "Multiplication"? "x"
+                                                            :"÷"  
+                                                            }
+
+                                                            &nbsp;
+                                                            {q[1].number2}
+
+                                                            &nbsp;
+                                                            =
+
+                                                            &nbsp;
+                                                            {room.GameType === "Addition"? q[1].number1 + q[1].number2
+                                                            :room.GameType === "Subtraction"? q[1].number1 - q[1].number2
+                                                            :room.GameType === "Multiplication"? q[1].number1 * q[1].number2
+                                                            :q[1].number1 / q[1].number2  
+                                                            }
+                                                        </li>    
+                                                    )}
+                                                </ol>
+                                            }   
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>

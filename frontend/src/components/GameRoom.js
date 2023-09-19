@@ -138,6 +138,7 @@ const GameRoom = () => {
             const playerStats = {
                 name: user.displayName,
                 score: 0,
+                ready: true
             }
 
             // add it to firebase if the user is not already in the gameroom
@@ -153,7 +154,7 @@ const GameRoom = () => {
     return (
         // if room exists, user is logged in, and user exists in the room, put stuff on the screen.
         room && user && room.Players[user.uid]?
-            room.TimeLeft > 0?
+            room.TimeLeft > 0 && room.Players[user.uid].ready?
             <div className = "game-content" style={{height: "80%"}}>   
                 <div className = "PageContainer" style={{ opacity: !room.Started ? "0" : "1", transition: "all .2s"}}>           
                     <div className = "MathProblem" style={{fontSize: "80px", marginTop: room.PlayerMode === "Solo"? "70px" : "175px"}}>
