@@ -5,6 +5,8 @@ import Table from 'react-bootstrap/Table';
 import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./WaitingRoom.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 const WaitingRoom = ({id}) =>{
 
@@ -183,7 +185,14 @@ const WaitingRoom = ({id}) =>{
                                 {Object.entries(room.Players).map((player, idx) =>
                                     <tr>
                                         <td>Player {idx+ 1}:</td>
-                                        <td> {player[1].name}</td>
+                                        <td> {player[1].name} 
+                                            &nbsp;
+                                            {
+                                                player[1].ready?
+                                                <FontAwesomeIcon icon={faCircleCheck} style={{color: "#16df37"}} />
+                                                :<FontAwesomeIcon icon={faCircleXmark} style={{color: "#df1616"}} />
+                                            }
+                                        </td>
                                     </tr>
                                 )}                  
                                 </tbody>
