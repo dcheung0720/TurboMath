@@ -61,6 +61,16 @@
       margin-top: 100px;
     }
   }
+
+
+  @media(max-height: 1500px){
+    @media(min-width: 950px){
+      .waitingContainer{
+        margin-top: 30vh !important;
+      }
+    }
+  }
+
   
 
   @media (max-width: 860px){
