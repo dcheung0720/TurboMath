@@ -138,7 +138,24 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                  setData(statPath.concat("/" + path).concat("/AverageScore"), Math.round(totalScore/numGames * 100)/ 100);
             }
 
-            
+            // identify the winners
+            const players = Object.entries(room.Players);
+            const max_score = Math.max(...players.map(player =>
+                player[1].score
+            ));
+
+            const winners = players.filter(player => 
+                player[1].score === max_score)
+                .map(player =>
+                    player[1].name
+            );
+
+            // set the winners
+            setData(`GameRooms/${id}/Winner`, winners);
+                    
+
+            // set player to not ready, not ready until play again is pressed
+            setData(`GameRooms/${id}/Players/${user.uid}/ready`, false);
 
             const date = new Date();
             // game object data
@@ -152,9 +169,6 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                 "Time" : room.GameMode === "Frenzy"? player.score: "N/A",
                 "WrongQuestions": wrongQuestions
             }
-
-            // player not ready anymore, not ready until paly again is pressed
-            setData(`GameRooms/${id}/Players/${user.uid}/ready`, false);
 
             //upload gameData to Firebase
             const gameId = Object.entries(users[user.uid].Games).length;
@@ -297,22 +311,6 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
         }
     };
 
-    const findWinner = () =>{
-        if(room){
-            const players = Object.entries(room.Players);
-            const max_score = Math.max(...players.map(player =>
-                player[1].score
-            ));
-
-            const winners = players.filter(player => 
-                player[1].score === max_score)
-                .map(player =>
-                    player[1].name
-            )
-            return winners;
-        }
-    };
-
     return(
         <div className = "gameOver" style = {{height: "100%"}}>
             <audio id = "gameOver" controls autoplay hidden>
@@ -331,11 +329,11 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                             <tbody>
                                 {room.PlayerMode === "Multiplayer" &&
                                     <tr>
-                                        <td><FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> Winner{findWinner().length > 1? "s": ""}: </td>
-                                        {findWinner().map(winner =>
+                                        <td><FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} /> Winner{Object.entries(room.Winner).length > 1? "s": ""}: </td>
+                                        {Object.entries(room.Winner).map(winner =>
                                             <td>
                                                 <FontAwesomeIcon icon={faTrophy} style={{color: "#fdec08",}} />
-                                                {winner}
+                                                {winner[1]}
                                             </td>
                                         )}
     
