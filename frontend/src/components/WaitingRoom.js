@@ -180,7 +180,7 @@ const WaitingRoom = ({id}) =>{
 
                             </tr>
                             <tr>
-                            <td>Game Mode &nbsp; <FontAwesomeIcon icon={faGamepad} style={{color: "#3c77dd",}} />: </td>
+                            <td>Game Mode &nbsp;  <FontAwesomeIcon icon={faGamepad} style={{color: "#ffae00",}} />: </td>
                             <td colSpan={2}> {room.GameMode} &nbsp; <FontAwesomeIcon icon={faRocket} style={{color: "#ff3300",}} /></td>
 
                             </tr>
