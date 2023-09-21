@@ -14,8 +14,8 @@ import { useUserState } from "../utilities/firebase";
 
 function GameRoomsSelections() {
 
-  const gameRoomNames = ["Addition", "Subtraction", "Multiplication", "Division", "Are You Faster Than A Fifth Grader"];
-  const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png", "./images/all.png"];
+  const gameRoomNames = ["Addition", "Subtraction", "Multiplication", "Division"];
+  const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png"];
 
   const [user] = useUserState();
 
@@ -93,31 +93,33 @@ function GameRoomsSelections() {
                     return(
                         <Card id = {isShake && gameType === title? "shake": "null"} className = "gameroom-selections">
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "3%", width: "20%", height: "90%"}}/>
+                                <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "30px", width: "150px", height: "150px"}}/>
                             </div>
-                            <Card.Body style = {{height: "100%", width: "100%"}}>
-                                <Card.Title >{title}</Card.Title>
-                                <Card.Text>
-                                    Some quick example text to build on the card title 
-                                </Card.Text>
+                            <Card.Body style = {{height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                <div>
+                                    <Card.Title >{title}</Card.Title>
+                                    <Card.Text>
+                                        Some quick example text to build on the card title 
+                                    </Card.Text>
 
-                                {quickJoinError && gameType === title && 
-                                <Card.Text className = "warning">
-                                    No room is available for quick join!
-                                </Card.Text>}
+                                    {quickJoinError && gameType === title && 
+                                    <Card.Text className = "warning">
+                                        No room is available for quick join!
+                                    </Card.Text>}
 
-                                <div className = "btn-group">
-                                    <span>
-                                        <Button onClick = {(e) => findQuickJoinRoom(e, title)} variant="primary"> Quick Join </Button>
-                                    </span>
-                                    &nbsp;
-                                    <span>
-                                        <Button onClick={(e) => handleJoinModal(e, title)} variant="danger"> Join </Button>
-                                    </span>
-                                    &nbsp;
-                                    <span>
-                                        <Button onClick = {(e) => ChangeModal(e, title)} variant="success"> Create </Button>               
-                                    </span>
+                                    <div className = "btn-group">
+                                        <span>
+                                            <Button onClick = {(e) => findQuickJoinRoom(e, title)} variant="primary"> Quick Join </Button>
+                                        </span>
+                                        &nbsp;
+                                        <span>
+                                            <Button onClick={(e) => handleJoinModal(e, title)} variant="danger"> Join </Button>
+                                        </span>
+                                        &nbsp;
+                                        <span>
+                                            <Button onClick = {(e) => ChangeModal(e, title)} variant="success"> Create </Button>               
+                                        </span>
+                                    </div>
                                 </div>
                             </Card.Body>                           
                         </Card>

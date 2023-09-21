@@ -15,6 +15,7 @@ const WaitingRoom = ({id}) =>{
     const [room, error] = useData(`GameRooms/${id}`);
     const [delay, error3] = useData(`GameRooms/${id}/Delay`);
     const [countDownVis, error2] =  useData(`GameRooms/${id}/CountDownVis`);
+    const [users, error4] = useData(`Users`);
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     //errors
@@ -195,7 +196,10 @@ const WaitingRoom = ({id}) =>{
                                 {Object.entries(room.Players).map((player, idx) =>
                                     <tr>
                                         <td>Player {idx+ 1}:</td>
-                                        <td> {player[1].name} 
+                                        <td>
+                                            <img style = {{width: "50px", height: "50px", borderRadius: "50%"}} src = {users[player[0]].Profile.Image}></img> 
+                                            &nbsp;
+                                            {player[1].name} 
                                             &nbsp;
                                             {
                                                 player[1].ready?

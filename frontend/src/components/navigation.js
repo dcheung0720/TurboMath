@@ -251,7 +251,7 @@ const Navigation = () =>{
   
   
     const SignOutButton = () => (
-      <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "10vh"}}>
+      <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "100px"}}>
         {/* dropdown button */}
         {user !== null && data!== undefined && data[user.uid] !== undefined? 
         (!navToggled && screenSize.width > 680) || (navToggled && screenSize.width) > 1000?
@@ -278,7 +278,7 @@ const Navigation = () =>{
             >
                 {/* Dropdown items */}
                 <NavDropdown.Item href= {`/Profile/${user.uid}`} className="text-success">
-                    <Link  to= {`/Profile/${user.uid}`} style = {{color: "#007bff"}}><FontAwesomeIcon icon={faUser} /> Your Profile</Link>
+                    <Nav.Link  href= {`/Profile/${user.uid}`} style = {{color: "#007bff"}}><FontAwesomeIcon icon={faUser} /> Your Profile</Nav.Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.2">
