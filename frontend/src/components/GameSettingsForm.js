@@ -49,7 +49,7 @@ const GameSettingsForm = ({gameType}) =>{
             }, 
             "GameType": gameType,
             "Started": false,
-            "TimeLeft": 3,
+            "TimeLeft": 60,
             "CountDownVis": false,
             "Delay": 4 ,
             "ProblemGate": true,
