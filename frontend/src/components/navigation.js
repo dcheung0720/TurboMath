@@ -251,7 +251,7 @@ const Navigation = () =>{
   
   
     const SignOutButton = () => (
-      <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "10vh"}}>
+      <div style={{position: "fixed", right: "2vw", display: "flex", alignItems: "center", height: "100px"}}>
         {/* dropdown button */}
         {user !== null && data!== undefined && data[user.uid] !== undefined? 
         (!navToggled && screenSize.width > 680) || (navToggled && screenSize.width) > 1000?
@@ -277,8 +277,8 @@ const Navigation = () =>{
               }}
             >
                 {/* Dropdown items */}
-                <NavDropdown.Item  href={`/Profile/${user.uid}`} className="text-success">
-                    <Link to = {`/Profile/${user.uid}`}><FontAwesomeIcon icon={faUser} /> Your Profile</Link>
+                <NavDropdown.Item href= {`/Profile/${user.uid}`} className="text-success">
+                    <Nav.Link  href= {`/Profile/${user.uid}`} style = {{color: "#007bff"}}><FontAwesomeIcon icon={faUser} /> Your Profile</Nav.Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.2">
@@ -295,7 +295,11 @@ const Navigation = () =>{
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "80px",position: "fixed", width: "100vw", top: "0"}}>
       <Container style={{ display: "flex", justifyContent: "center"}}>
-        <Navbar.Brand href="/" style={{color: 'white', fontSize: "3em" }}>Turbo Math</Navbar.Brand>
+        <Navbar.Brand href="/" style={{color: 'white', fontSize: "3em" }}>
+            <img src = {"./images/Turbo.png" } 
+            style = {{width: "50px", height: "50px", borderRadius: "50%" }}/>
+            Turbo Math 
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" style = {{fontSize: "30px"}}>

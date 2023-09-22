@@ -11,9 +11,11 @@ button{
 .card.gameroom-selections {
     /* Your styles here */
     border: 5px solid black;
-    background-color: #32386D;
+    background-color: white;
+    color: white;
     font-size: 100%;
-    width: 25%;
+    width: 350px;
+    height: 400px;
     flex-shrink: 0;
     display: flex;
     align-content: center;
@@ -32,8 +34,7 @@ button{
 
 @media (max-width: 960px) {
     .selectionContainer {
-        display:block;
-        margin-top: 120px;
+        margin-top: 130px;
         margin-left: 10px;
         margin-right: 10px;
     }
@@ -41,13 +42,13 @@ button{
 
 @media (max-height: 1000px){
     .selectionContainer{
-        margin-top: 120px;
+        margin-top: 130px;
         height: auto;
     }
 }
   
 
-@media (max-width: 960px) {
+@media (max-width: 500px) {
     /* CSS styles for screens smaller than 768px wide */
     .card.gameroom-selections{
         /* Your styles here */

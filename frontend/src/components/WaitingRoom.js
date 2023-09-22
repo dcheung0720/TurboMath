@@ -5,12 +5,17 @@ import Table from 'react-bootstrap/Table';
 import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import "./WaitingRoom.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck, faCircleXmark, faTrophy, faUserGroup, faUser, faRocket, faGamepad,
+    faSignal, faCheck, faXmark, faDice, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
+
 
 const WaitingRoom = ({id}) =>{
 
     const [room, error] = useData(`GameRooms/${id}`);
     const [delay, error3] = useData(`GameRooms/${id}/Delay`);
     const [countDownVis, error2] =  useData(`GameRooms/${id}/CountDownVis`);
+    const [users, error4] = useData(`Users`);
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     //errors
@@ -158,18 +163,26 @@ const WaitingRoom = ({id}) =>{
                             </tr>
 
                             <tr>
-                            <td>Player Mode:</td>
-                            <td>{room.PlayerMode}</td>
+                            <td>Player Mode &nbsp; <FontAwesomeIcon icon={faUser}/>:</td>
+                            <td>{room.PlayerMode} 
+                                &nbsp;
+                                {room.PlayerMode === "Multiplayer"? 
+                                <FontAwesomeIcon icon={faUserGroup} style={{color: "#ff9500",}} /> :
+                                <FontAwesomeIcon icon={faUser} style={{color: "#ff9500",}} />}</td>
                             </tr>
 
                             <tr>
-                            <td>Difficulty:</td>
-                            <td>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
+                            <td>Difficulty  &nbsp; <FontAwesomeIcon icon={faSignal} style={{color: "#ff0000",}} />:</td>
+                            <td>
+                                {room.Difficulty1} digit by {room.Difficulty2} digit 
+                                &nbsp;
+                                <FontAwesomeIcon icon={faDice} style={{color: "#5ebd1f",}} />
+                            </td>
 
                             </tr>
                             <tr>
-                            <td>Game Mode: </td>
-                            <td colSpan={2}> {room.GameMode}</td>
+                            <td>Game Mode &nbsp;  <FontAwesomeIcon icon={faGamepad} style={{color: "#ffae00",}} />: </td>
+                            <td colSpan={2}> {room.GameMode} &nbsp; <FontAwesomeIcon icon={faRocket} style={{color: "#ff3300",}} /></td>
 
                             </tr>
                         </tbody>
@@ -183,7 +196,17 @@ const WaitingRoom = ({id}) =>{
                                 {Object.entries(room.Players).map((player, idx) =>
                                     <tr>
                                         <td>Player {idx+ 1}:</td>
-                                        <td> {player[1].name}</td>
+                                        <td>
+                                            <img style = {{width: "50px", height: "50px", borderRadius: "50%"}} src = {users[player[0]].Profile.Image}></img> 
+                                            &nbsp;
+                                            {player[1].name} 
+                                            &nbsp;
+                                            {
+                                                player[1].ready?
+                                                <FontAwesomeIcon icon={faCircleCheck} style={{color: "#16df37"}} />
+                                                :<FontAwesomeIcon icon={faCircleXmark} style={{color: "#df1616"}} />
+                                            }
+                                        </td>
                                     </tr>
                                 )}                  
                                 </tbody>

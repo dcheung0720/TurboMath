@@ -108,7 +108,7 @@ const ProfileEdit = ({handleModalVisibility}) =>{
                     <div className="imageSelections" style={{height: "100%"}}>
                         <Card.Title>Image Selection &nbsp; <FontAwesomeIcon icon={faImages} style={{color: "#e74008",}} /> </Card.Title>
                         <Card style={{ width: '100%', height: "100%"}}>
-                            <div style = {{display: "flex", flexWrap: "wrap", overflow: "scroll", width: "100%", height: "100%"}}>
+                            <div style = {{display: "flex",justifyContent: "center", flexWrap: "wrap", overflow: "scroll", width: "100%", height: "100%", maxHeight: "300px"}}>
                                 {pfpList.length >= 4? pfpList.sort((a,b) => a - b).map(pfpSrc => 
                                     <Image className = "pfpSrc" src= {`${pfpSrc}`} 
                                     style={{width: "70px", height:"70px", border: pfpSelected === pfpSrc? "2px solid blue": "None"}}

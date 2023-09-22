@@ -11,7 +11,7 @@
     align-items: center;    
     top: 0;
     width: 100vw;
-    height: 85vh; 
+    height: 100%;
 }
 
 .gameOver-block{
@@ -28,9 +28,10 @@
 /* card styles */
 .card.gameover-panel{
     width: 30%;
-    background-color: #32386D;
-    border-color: white;
+    background-color: white;
+    border-color: black;
     border-width: 10px;
+    color: black;
 }
 
 /* buttonstyles */
@@ -68,6 +69,12 @@
     .card.gameover-panel{
         height: 100%;
         margin-top: 100px;
+    }
+}
+
+@media(max-height: 900px){
+    .gameOver-content{
+        margin-top: 50px;
     }
 }
 

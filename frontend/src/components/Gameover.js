@@ -6,7 +6,9 @@ import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
 import "./GameOver.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUserGroup, faUser, faRocket, faGamepad,
+     faSignal, faCheck, faXmark, faDice, faSquarePollVertical
+     } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -324,8 +326,8 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
             <div className='gameOver-content' style = {{opacity: gameOverTimer > 0? "0": "1", transition: "all 1s"}}>
                 <Card className = "gameover-panel">
                     <Card.Body>
-                        <Card.Title style={{fontSize: "2.5rem"}}>Game Results</Card.Title>
-                        <Table striped bordered style={{ textAlign: 'center', color:"white", fontSize: "1.5rem" }}>
+                        <Card.Title style={{fontSize: "2.5rem"}}>Game Results &nbsp; <FontAwesomeIcon icon={faSquarePollVertical} style={{color: "#ff7b00",}} /></Card.Title>
+                        <Table striped bordered style={{ textAlign: 'center', color:"black", fontSize: "1.5rem" }}>
                             <tbody>
                                 {room.PlayerMode === "Multiplayer" &&
                                     <tr>
@@ -340,23 +342,29 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                     </tr>
                                 }
                                 <tr>
-                                    <td>Player Mode: </td>
-                                    <td colSpan={8}>{room.PlayerMode}</td>
+                                    <td>Player Mode &nbsp; <FontAwesomeIcon icon={faUser}/>: </td>
+                                    <td colSpan={8}>{room.PlayerMode} 
+                                    &nbsp;
+                                    {room.PlayerMode === "Multiplayer"? 
+                                    <FontAwesomeIcon icon={faUserGroup} style={{color: "#ff9500",}} /> :
+                                    <FontAwesomeIcon icon={faUser} style={{color: "#ff9500",}} />}</td>
                                 </tr>
                                 <tr>
-                                    <td>Difficulty:</td>
-                                    <td colSpan={8}>{room.Difficulty1} digit by {room.Difficulty2} digit</td>
+                                    <td>Difficulty &nbsp; <FontAwesomeIcon icon={faSignal} style={{color: "#ff0000",}} />:</td>
+                                    <td colSpan={8}>{room.Difficulty1} digit by {room.Difficulty2} digit
+                                    &nbsp;
+                                    <FontAwesomeIcon icon={faDice} style={{color: "#5ebd1f",}} /></td>
                                 </tr>
                                 <tr>
-                                    <td>Game Mode:</td>
-                                    <td colSpan={8}> {room.GameMode}</td>
+                                    <td>Game Mode &nbsp; <FontAwesomeIcon icon={faGamepad} style={{color: "#ffae00",}} />:</td>
+                                    <td colSpan={8}> {room.GameMode} &nbsp; <FontAwesomeIcon icon={faRocket} style={{color: "#ff3300",}} /></td>
                                 </tr>
                                 <tr>
-                                    <td style = {{color: "#04AF70"}}>Your Score :</td>
-                                    <td colSpan={8}> {player.score}</td>
+                                    <td>Your Score &nbsp; <FontAwesomeIcon icon={faCheck} style={{color: "#44ff00",}} /> :</td>
+                                    <td colSpan={8} style = {{color: "#04AF70"}}> {player.score}</td>
                                 </tr>
                                 <tr>
-                                    <td style = {{color: "#B66161"}}>Wrong Answers Feedback:</td>
+                                    <td>Wrong Answers Feedback &nbsp; <FontAwesomeIcon icon={faXmark} style={{color: "#ff0000",}} />:</td>
                                     <td colSpan={8}> 
                                         <div style={{ maxHeight: "100px", overflowY: "scroll" }}>
                                             {Object.entries(wrongQuestions).length === 0? 
