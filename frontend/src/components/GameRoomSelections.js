@@ -91,15 +91,17 @@ function GameRoomsSelections() {
                 </audio>
                 {gameRoomNames.map((title, idx) =>{
                     return(
-                        <Card id = {isShake && gameType === title? "shake": "null"} className = "gameroom-selections">
+                        <Card id = {isShake && gameType === title? "shake": "null"} className = "gameroom-selections"
+                        style={{ backgroundImage: `url("./images/Nightsky.png")`, borderRadius: "10%" }}
+                          >
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <Card.Img variant="top" src={`${gameRoomImages[idx]}`} style = {{marginTop: "30px", width: "150px", height: "150px"}}/>
                             </div>
                             <Card.Body style = {{height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                                 <div>
-                                    <Card.Title >{title}</Card.Title>
+                                    <Card.Title style = {{fontSize: "50px"}}>{title}</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title 
+                                        {/* Some quick example text to build on the card title  */}
                                     </Card.Text>
 
                                     {quickJoinError && gameType === title && 
@@ -109,7 +111,7 @@ function GameRoomsSelections() {
 
                                     <div className = "btn-group">
                                         <span>
-                                            <Button onClick = {(e) => findQuickJoinRoom(e, title)} variant="primary"> Quick Join </Button>
+                                            <Button onClick = {(e) => ChangeModal(e, title)} variant="success"> Create </Button>               
                                         </span>
                                         &nbsp;
                                         <span>
@@ -117,7 +119,7 @@ function GameRoomsSelections() {
                                         </span>
                                         &nbsp;
                                         <span>
-                                            <Button onClick = {(e) => ChangeModal(e, title)} variant="success"> Create </Button>               
+                                            <Button onClick = {(e) => findQuickJoinRoom(e, title)} variant="primary"> Quick Join </Button>
                                         </span>
                                     </div>
                                 </div>

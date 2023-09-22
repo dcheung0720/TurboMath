@@ -28,7 +28,8 @@ const HomePage = () =>{
                         <Card.Body>
                             <h1> Welcome </h1>
                             <Card.Text>
-                                Welcome to Turbo Math! Ready to enhance your mental math skills?
+                                Welcome to <img src = {"./images/Turbo.png" } style = {{width: "30px", height: "30px", borderRadius: "50%" }}/>
+                                Turbo Math! Ready to enhance your mental math skills?
                             </Card.Text>
                             <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
                         </Card.Body>
@@ -41,7 +42,8 @@ const HomePage = () =>{
                 <Col xs={12} lg = {12}> 
                     <Card>
                         <Card.Body>
-                            <Card.Title style = {{ fontSize: "30px"}}>The Goal of Turbo Math <FontAwesomeIcon icon={faBullseye} style={{color: "#fa0000",}} /></Card.Title>
+                            <Card.Title style = {{ fontSize: "30px"}}>The Goal of <img src = {"./images/Turbo.png" } style = {{width: "30px", height: "30px", borderRadius: "50%" }}/> 
+                            Turbo Math <FontAwesomeIcon icon={faBullseye} style={{color: "#fa0000",}} /></Card.Title>
                             <Card.Text style = {{ fontSize: "20px", textAlign: "left"}}>
                                 <span style = {{ marginLeft: "50px"}}></span>Mental math skills play a pivotal role in the foundations of mathematics education,
                                 both in primary and secondary levels. These skills empower students to swiftly
