@@ -174,7 +174,6 @@ const GameSettingsForm = ({gameType}) =>{
                 <Form.Label className="mr-2 label-centered"> GameMode: </Form.Label>
                 <Form.Control className="label" as="select" value = {gameMode} onChange = {(e) => handleStateChange(e, setGameMode)}>
                     <option> Turbo </option>
-                    <option> Timer </option>
                 </Form.Control>
                 <div>
                         {gameMode === "Turbo"? "Turbo mode is when you try to answer as many questions as possible in one minute!":
