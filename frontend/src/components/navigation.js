@@ -296,7 +296,7 @@ const Navigation = () =>{
       <Navbar bg="dark" variant="dark" expand="lg" style = {{zIndex: 1000, padding: "0", height: "80px",position: "fixed", width: "100vw", top: "0"}}>
       <Container style={{ display: "flex", justifyContent: "center"}}>
         <Navbar.Brand href="/" style={{color: 'white', fontSize: "3em" }}>
-            <img src = {"./images/Turbo.png" } 
+            <img src = {"/images/Turbo.png" } 
             style = {{width: "50px", height: "50px", borderRadius: "50%" }}/>
             Turbo Math 
         </Navbar.Brand>

@@ -375,7 +375,7 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                                             {q[1].number1}
 
                                                             &nbsp;
-                                                            {room.GameType === "Addition"? "x"
+                                                            {room.GameType === "Addition"? "+"
                                                             :room.GameType === "Subtraction"? "-"
                                                             :room.GameType === "Multiplication"? "x"
                                                             :"÷"  
