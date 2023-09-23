@@ -145,7 +145,7 @@ const WaitingRoom = ({id}) =>{
         :
 
         <div className = "waiting-panel-container">
-            <audio ref = {errorSoundRef}  id = "id" controls hidden autoPlay>
+            <audio ref = {errorSoundRef}  id = "id" controls hidden>
                 <source src = "../audio/error.mp3" type = "audio/mp3"></source>
                 Your browser does not support the audio element.
             </audio>
