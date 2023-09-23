@@ -30,7 +30,7 @@ const Navigation = () =>{
         const userData = {
           "Profile":{
              "Name": user.displayName,
-             "Image": "https://firebasestorage.googleapis.com/v0/b/turbomath-a0c94.appspot.com/o/Pfp%2Felephant.jpg?alt=media&token=1d0d7124-657b-44cf-bf02-be4ff72a6b22",
+             "Image": "https://firebasestorage.googleapis.com/v0/b/turbomath-a0c94.appspot.com/o/Pfp%2FCute%20Cat.png?alt=media&token=ef5d8f3a-268f-44df-a028-b402e352ca53",
              "Caption": "I would love to learn about math today!"
           },
           "Addition":{
