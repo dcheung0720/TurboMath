@@ -300,13 +300,18 @@ const Navigation = () =>{
             style = {{width: "50px", height: "50px", borderRadius: "50%" }}/>
             Turbo Math 
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" style = {{fontSize: "30px"}}>
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/Games">Math Games</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
+        {/* only show if the user is logged in */}
+        {user && 
+          <>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto" style = {{fontSize: "30px"}}>
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/Games">Math Games</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </>
+        }
       </Container>
       {user ? <SignOutButton /> : <SignInButton />}
     </Navbar>

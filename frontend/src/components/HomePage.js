@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullseye, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faBullseye, faPlay, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import Button from 'react-bootstrap/Button';
 import WorldHS from "./WorldHS";
 
@@ -17,8 +17,11 @@ const HomePage = () =>{
             <Row >
                 <Col>
                     <h1 style = {{marginBottom: "10px"}}>
-                        {user? `Welcome to Turbo Math , ${user.displayName}!` :
-                        "Please sign in with Google to use Turbo Math"}
+                        {user? <>Welcome to 
+                        { <img src = {"/images/Turbo.png" } 
+                            style = {{width: "50px", height: "50px", borderRadius: "50%" }}/>}
+                            Turbo Math , {user.displayName}! </> :
+                            "Please sign in with Google to use Turbo Math"}
                     </h1>
                  </Col>
             </Row>
@@ -31,8 +34,14 @@ const HomePage = () =>{
                                 Welcome to <img src = {"./images/Turbo.png" } style = {{width: "30px", height: "30px", borderRadius: "50%" }}/>
                                 Turbo Math! Ready to enhance your mental math skills?
                             </Card.Text>
-                            <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
-                        </Card.Body>
+                            <>
+                                {/* only show play button if the user is logged in */}
+                                {user && 
+                                    <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
+                                }   
+                                <Card.Link target="_blank" href="https://docs.google.com/document/d/1iQx7iBlEqP2ae-TEORn7WbAaXvV3EMMDeQADbV9TvS8/edit#heading=h.34ginny5roai"><Button variant="primary"> <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> &nbsp; Guide </Button></Card.Link>
+                            </>
+                            </Card.Body>
                     </Card>
                 </Col>
                 <Col xs={12} lg = {4} style = {{marginBottom: "10px"}}><WorldHS AHS = {false} ></WorldHS></Col>

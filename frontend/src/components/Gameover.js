@@ -361,7 +361,7 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                 </tr>
                                 <tr>
                                     <td>Your Score &nbsp; <FontAwesomeIcon icon={faCheck} style={{color: "#44ff00",}} /> :</td>
-                                    <td colSpan={8} style = {{color: "#04AF70"}}> {player.score}</td>
+                                    <td colSpan={8} style = {{color: "#04AF70", fontFamily: "'Roboto', sans-serif"}}> {player.score}</td>
                                 </tr>
                                 <tr>
                                     <td>Wrong Answers Feedback &nbsp; <FontAwesomeIcon icon={faXmark} style={{color: "#ff0000",}} />:</td>
@@ -371,7 +371,7 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
                                              <p style = {{color: "#04AF70"}}>None!</p>:
                                                 <ol>
                                                     {Object.entries(wrongQuestions).map(q =>
-                                                        <li>
+                                                        <li style = {{fontFamily: "'Roboto', sans-serif"}}>
                                                             {q[1].number1}
 
                                                             &nbsp;
