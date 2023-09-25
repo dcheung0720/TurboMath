@@ -34,8 +34,11 @@ const HomePage = () =>{
                                 Welcome to <img src = {"./images/Turbo.png" } style = {{width: "30px", height: "30px", borderRadius: "50%" }}/>
                                 Turbo Math! Ready to enhance your mental math skills?
                             </Card.Text>
-                            <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
-                        </Card.Body>
+                            {/* only show play button if the user is logged in */}
+                            {user && 
+                                <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
+                            }   
+                            </Card.Body>
                     </Card>
                 </Col>
                 <Col xs={12} lg = {4} style = {{marginBottom: "10px"}}><WorldHS AHS = {false} ></WorldHS></Col>
