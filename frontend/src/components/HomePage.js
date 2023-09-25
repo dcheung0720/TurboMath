@@ -17,8 +17,11 @@ const HomePage = () =>{
             <Row >
                 <Col>
                     <h1 style = {{marginBottom: "10px"}}>
-                        {user? `Welcome to Turbo Math , ${user.displayName}!` :
-                        "Please sign in with Google to use Turbo Math"}
+                        {user? `Welcome to 
+                        ${ <img src = {"/images/Turbo.png" } 
+                            style = {{width: "50px", height: "50px", borderRadius: "50%" }}/>}
+                            Turbo Math , ${user.displayName}!` :
+                            "Please sign in with Google to use Turbo Math"}
                     </h1>
                  </Col>
             </Row>
