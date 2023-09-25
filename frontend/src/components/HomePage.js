@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullseye, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faBullseye, faPlay, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import Button from 'react-bootstrap/Button';
 import WorldHS from "./WorldHS";
 
@@ -34,10 +34,13 @@ const HomePage = () =>{
                                 Welcome to <img src = {"./images/Turbo.png" } style = {{width: "30px", height: "30px", borderRadius: "50%" }}/>
                                 Turbo Math! Ready to enhance your mental math skills?
                             </Card.Text>
-                            {/* only show play button if the user is logged in */}
-                            {user && 
-                                <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
-                            }   
+                            <>
+                                {/* only show play button if the user is logged in */}
+                                {user && 
+                                    <Card.Link href="/Games"><Button variant="primary"> <FontAwesomeIcon icon={faPlay} /> &nbsp; Play! </Button></Card.Link>
+                                }   
+                                <Card.Link target="_blank" href="https://docs.google.com/document/d/1iQx7iBlEqP2ae-TEORn7WbAaXvV3EMMDeQADbV9TvS8/edit#heading=h.34ginny5roai"><Button variant="primary"> <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> &nbsp; Guide </Button></Card.Link>
+                            </>
                             </Card.Body>
                     </Card>
                 </Col>
