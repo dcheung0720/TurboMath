@@ -92,6 +92,7 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
     useEffect(()=>{
         let path;
+
         if(player && room && stats && users && wrongQuestions && !statsUpdated){
             //  update the player's stats
              // determining difficulty
@@ -195,6 +196,9 @@ const GameOver = ({id, user, wrongQuestions, setWrongQuestions}) =>{
 
     const NewGame = (e) =>{
         e.preventDefault();
+
+        // clear wrong answers
+        setWrongQuestions({});
 
         // resets the scores for all players
         const tempPlayer = {}

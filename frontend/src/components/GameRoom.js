@@ -129,7 +129,7 @@ const GameRoom = () => {
                 return numPlayer;
             })
         }
-    }, [room])
+    }, [room, doorbell.current])
 
 
     useEffect(() =>{

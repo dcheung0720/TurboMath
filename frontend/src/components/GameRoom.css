@@ -63,13 +63,13 @@
   }
 
 
-  @media(max-height: 2000px){
-    @media(min-width: 950px){
+  /* @media(max-height: 2000px){
+
       .waitingContainer{
         margin-top: 30vh !important;
-      }
+
     }
-  }
+  } */
 
   
 
