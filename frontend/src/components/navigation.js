@@ -308,6 +308,7 @@ const Navigation = () =>{
               <Nav className="me-auto" style = {{fontSize: "30px"}}>
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/Games">Math Games</Nav.Link>
+                <Nav.Link href={`/Profile/${user.uid}`}>Profile</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </>
