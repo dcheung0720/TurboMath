@@ -39,7 +39,7 @@ const GameHistory = () =>{
 
             let activityDataHolder = [];
             //loop through all dates in 2023
-            for(let d = new Date(2023,0, 1); d <= new Date(2023, 11, 31); d.setDate(d.getDate() + 1)){
+            for(let d = new Date(2024,0, 1); d <= new Date(2024, 11, 31); d.setDate(d.getDate() + 1)){
                 const tempDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
                 
                 //see if there is any data for the user at this date
