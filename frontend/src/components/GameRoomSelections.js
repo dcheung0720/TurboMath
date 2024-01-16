@@ -15,7 +15,7 @@ import { useUserState } from "../utilities/firebase";
 function GameRoomsSelections() {
 
   const gameRoomNames = ["Addition", "Subtraction", "Multiplication", "Division"];
-  const gameRoomImages = ["./images/addition.png", "./images/subtraction.png", "./images/multiplication.png", "./images/all.png"];
+  const gameRoomImages = ["./images/addition.png", "./images/minus.png", "./images/multiplication.png", "./images/all.png"];
 
   const [user] = useUserState();
 
